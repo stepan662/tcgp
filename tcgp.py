@@ -1,4 +1,4 @@
-"""Parsing Based on Tree-Controled Grammars."""
+"""Tree-Controled Grammer parser."""
 
 import parser
 
