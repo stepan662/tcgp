@@ -1,27 +1,83 @@
-"""Parse finite state automat from file."""
+"""Parse grammar and finite state automat from file."""
 import automat
+import grammar
 
 
 def parse(input):
-    """Parse input and return automat."""
-    return Parser(input).getAutomat()
+    """Parse input and return grammar and automat."""
+    parser = Parser(input)
+    return [parser.getGrammar(), parser.getAutomat()]
 
 
 class Token:
     """Object token."""
+
     def __init__(self, type, string):
-        """Inicializace."""
+        """Initialization."""
         self.type = type
         self.string = string
 
 
 class Parser:
     """Finite state machine parser."""
+
     def __init__(self, input):
+        """Start parsing."""
+        try:
+            self._parse(input)
+        except ValueError as e:
+            raise ValueError(e.args[0] +
+                             " (line: " + self._line.__str__() + ")",
+                             e.args[1])
+
+    def _parse(self, input):
         """Read and parse automat."""
         self.index = 0
         self.str = input
-        self.line = 1
+        self._line = 1
+
+        # new empty grammar
+        self.grammar = grammar.Grammar()
+
+        # wait for opening brackets
+        token = self._getToken()
+        self._tShould(token, ['('])
+        token = self._getToken()
+        self._tShould(token, ['{'])
+
+        # load symbols
+        self._loadCharArr(self.grammar.addSymbol)
+
+        # comma and opening bracket
+        token = self._getToken()
+        self._tShould(token, [','])
+        token = self._getToken()
+        self._tShould(token, ['{'])
+
+        # load terminating symbols
+        self._loadCharArr(self.grammar.setTerminal)
+
+        # comma and opening bracket
+        token = self._getToken()
+        self._tShould(token, [','])
+        token = self._getToken()
+        self._tShould(token, ['{'])
+
+        # load rules
+        self._loadGrammarRules()
+
+        # comma and one character
+        token = self._getToken()
+        self._tShould(token, [','])
+        token = self._getToken()
+        self._tShould(token, ['char'])
+        self.grammar.setStartSymbol(token.string)
+
+        # closing bracket and comma - end of grammar
+        token = self._getToken()
+        self._tShould(token, [')'])
+        token = self._getToken()
+        self._tShould(token, [','])
 
         # new empty automat
         self.aut = automat.Automat()
@@ -33,7 +89,7 @@ class Parser:
         self._tShould(token, ['{'])
 
         # load states
-        self._states()
+        self._loadIdsArr(self.aut.addState)
 
         # comma and opening bracket
         token = self._getToken()
@@ -51,7 +107,7 @@ class Parser:
         self._tShould(token, ['{'])
 
         # load rules
-        self._rules()
+        self._loadAutomatRules()
 
         # comma and start state
         token = self._getToken()
@@ -76,17 +132,38 @@ class Parser:
         token = self._getToken()
         self._tShould(token, [''])
 
+    def getGrammar(self):
+        """Return created grammar."""
+        return self.grammar
+
     def getAutomat(self):
         """Return created automat."""
         return self.aut
 
-    def _states(self):
+    def _loadCharArr(self, callback):
         token = self._getToken()
         if token.type == '}':
             return  # states are empty
         while token.type != '':
             self._tShould(token, ['id'])
-            self.aut.addState(token.string)
+            if(len(token.string) > 1):
+                raise ValueError("Expecting single character instead of '" +
+                                 token.string + "'", 40)
+            callback(token.string)
+            token = self._getToken()
+            self._tShould(token, [',', '}'])
+            if token.type == ',':
+                token = self._getToken()
+            else:
+                return
+
+    def _loadIdsArr(self, callback):
+        token = self._getToken()
+        if token.type == '}':
+            return  # states are empty
+        while token.type != '':
+            self._tShould(token, ['id'])
+            callback(token.string)
             token = self._getToken()
             self._tShould(token, [',', '}'])
             if token.type == ',':
@@ -109,8 +186,36 @@ class Parser:
             else:
                 return
 
-    def _rules(self):
-        """Load all rules into automat."""
+    def _loadGrammarRules(self):
+        token = self._getToken()
+        if token.type == '}':
+            return  # rules are empty
+
+        while token.type != '':
+            # expecting id of target state
+            self._tShould(token, ['char'])
+            nonterminal = token.string
+
+            # expecting arrow
+            token = self._getToken()
+            self._tShould(token, ['->'])
+
+            # expecting id of target state
+            token = self._getToken()
+            self._tShould(token, ['str'])
+            target = token.string
+
+            self.grammar.addRule(nonterminal, target)
+
+            # expecting comma or closing bracket
+            token = self._getToken()
+            self._tShould(token, [',', '}'])
+            if token.type == ',':
+                token = self._getToken()
+            else:
+                return
+
+    def _loadAutomatRules(self):
         token = self._getToken()
         if token.type == '}':
             return  # rules are empty
@@ -168,10 +273,12 @@ class Parser:
         for ch in types:
             if ch == token.type:
                 return
+            if ch == 'char' and token.type == 'id' and len(token.string) == 1:
+                return
+
         raise ValueError("Syntax error: unexpected token type: '" +
                          token.type +
-                         "', expecting " + types.__str__() +
-                         " on line " + self.line.__str__(), 40)
+                         "', expecting " + types.__str__(), 40)
 
     def _getToken(self):
         """Load next token."""
@@ -180,12 +287,14 @@ class Parser:
         str = ''
         while ch is not False:
 
+            if ch == '\n':
+                # line counter
+                self._line += 1
+
             # skip white chars
             if state == 'begin':
                 if ch.isspace():
-                    if ch == '\n':
-                        # line counter
-                        self.line += 1
+                    state = 'begin'
                 elif ch == '#':
                     state = 'comment'
                 elif ch == '-':
@@ -206,18 +315,14 @@ class Parser:
                     str += ch
                     state = 'id'
                 else:
-                    raise ValueError("Unexpected character '" + ch +
-                                     "' (line " + self.line.__str__() + ")",
-                                     40)
+                    raise ValueError("Unexpected character '" + ch, 40)
 
             # expecting second char of arrow (>)
             elif state == 'arrow':
                 if ch == '>':
                     return Token('->', '')
                 else:
-                    raise ValueError("Unexpected character '" + ch +
-                                     "' (line " + self.line.__str__() + ")",
-                                     40)
+                    raise ValueError("Unexpected character '" + ch, 40)
 
             # expecting string chars, breaked by apostrof
             elif state == 'string':
