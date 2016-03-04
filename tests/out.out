@@ -1,0 +1,1920 @@
+['def_part', 'compound_stat', 'dot', '']
+kw_var
+['def_variables', 'def_functions', 'compound_stat', 'dot', '']
+kw_var
+['kw_var', 'params', 'def_functions', 'compound_stat', 'dot', '']
+kw_var
+['params', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+doubdot
+['type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['params', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+doubdot
+['type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['params', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+doubdot
+['type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['params', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+doubdot
+['type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['params', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+doubdot
+['type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['params', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+doubdot
+['type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['params', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+doubdot
+['type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['params', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+doubdot
+['type', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['semicolon', 'params_n', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['params_n', 'def_functions', 'compound_stat', 'dot', '']
+kw_function
+['def_functions', 'compound_stat', 'dot', '']
+kw_function
+['kw_function', 'identifier', 'lf_brct', 'func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_function
+['identifier', 'lf_brct', 'func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+identifier
+['lf_brct', 'func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+lf_brct
+['func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'doubdot', 'type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+doubdot
+['type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+rg_brct
+['rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+rg_brct
+['doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+doubdot
+['type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+semicolon
+['def_func_more', 'compound_stat', 'dot', '']
+kw_forward
+['kw_forward', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_forward
+['semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['def_functions', 'compound_stat', 'dot', '']
+kw_function
+['kw_function', 'identifier', 'lf_brct', 'func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_function
+['identifier', 'lf_brct', 'func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+identifier
+['lf_brct', 'func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+lf_brct
+['func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'doubdot', 'type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+doubdot
+['type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+semicolon
+['semicolon', 'identifier', 'doubdot', 'type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+semicolon
+['identifier', 'doubdot', 'type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+doubdot
+['type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+rg_brct
+['rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+rg_brct
+['doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+doubdot
+['type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+semicolon
+['def_func_more', 'compound_stat', 'dot', '']
+kw_var
+['def_variables', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_var
+['kw_var', 'params', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_var
+['params', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'doubdot', 'type', 'semicolon', 'params_n', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'semicolon', 'params_n', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+doubdot
+['type', 'semicolon', 'params_n', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'semicolon', 'params_n', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['semicolon', 'params_n', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['params_n', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['params', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'doubdot', 'type', 'semicolon', 'params_n', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'semicolon', 'params_n', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+doubdot
+['type', 'semicolon', 'params_n', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'semicolon', 'params_n', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_integer
+['semicolon', 'params_n', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['params_n', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_if
+['stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_if
+['kw_if', 'expr', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_if
+['expr', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+multipl
+['operator', 'sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+multipl
+['multipl', 'sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+multipl
+['sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+less
+['operator', 'sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+less
+['less', 'sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+less
+['sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['operand', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['num', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_then
+['kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_then
+['compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['num', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+minus
+['operator', 'sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+minus
+['minus', 'sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+minus
+['sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['num', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_else
+['kw_else', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_else
+['compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['num', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+lf_brct
+['lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+lf_brct
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+rg_brct
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+rg_brct
+['rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+rg_brct
+['stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+lf_brct
+['lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+lf_brct
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+rg_brct
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+rg_brct
+['rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+rg_brct
+['stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['num', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_while
+['kw_while', 'expr', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_while
+['expr', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+ls_eq
+['operator', 'sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+ls_eq
+['ls_eq', 'sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+ls_eq
+['sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_do
+['kw_do', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_do
+['compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+plus
+['operator', 'sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+plus
+['plus', 'sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+plus
+['sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+plus
+['operator', 'sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+plus
+['plus', 'sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+plus
+['sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['num', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+multipl
+['operator', 'sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+multipl
+['multipl', 'sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+multipl
+['sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['def_functions', 'compound_stat', 'dot', '']
+kw_function
+['kw_function', 'identifier', 'lf_brct', 'func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_function
+['identifier', 'lf_brct', 'func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+identifier
+['lf_brct', 'func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+lf_brct
+['func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'doubdot', 'type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+doubdot
+['type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+semicolon
+['semicolon', 'identifier', 'doubdot', 'type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+semicolon
+['identifier', 'doubdot', 'type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+doubdot
+['type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+rg_brct
+['rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+rg_brct
+['doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+doubdot
+['type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+semicolon
+['def_func_more', 'compound_stat', 'dot', '']
+kw_begin
+['def_variables', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+minus
+['operator', 'sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+minus
+['minus', 'sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+minus
+['sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+multipl
+['operator', 'sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+multipl
+['multipl', 'sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+multipl
+['sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+lf_brct
+['lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+lf_brct
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+rg_brct
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+rg_brct
+['rg_brct', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+rg_brct
+['stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['def_functions', 'compound_stat', 'dot', '']
+kw_function
+['kw_function', 'identifier', 'lf_brct', 'func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_function
+['identifier', 'lf_brct', 'func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+identifier
+['lf_brct', 'func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+lf_brct
+['func_params', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'doubdot', 'type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+identifier
+['doubdot', 'type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+doubdot
+['type', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['func_params_n', 'rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+rg_brct
+['rg_brct', 'doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+rg_brct
+['doubdot', 'type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+doubdot
+['type', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['kw_integer', 'semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+kw_integer
+['semicolon', 'def_func_more', 'compound_stat', 'dot', '']
+semicolon
+['def_func_more', 'compound_stat', 'dot', '']
+kw_begin
+['def_variables', 'compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['compound_stat', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_if
+['stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_if
+['kw_if', 'expr', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_if
+['expr', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+less
+['operator', 'sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+less
+['less', 'sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+less
+['sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['operand', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['num', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_then
+['kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_then
+['compound_stat', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+multipl
+['operator', 'sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+multipl
+['multipl', 'sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+multipl
+['sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+lf_brct
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+lf_brct
+['lf_brct', 'sem_up', 'rg_brct', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+lf_brct
+['sem_up', 'rg_brct', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['operand', 'sem_up_n', 'rg_brct', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['num', 'sem_up_n', 'rg_brct', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['sem_up_n', 'rg_brct', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+minus
+['operator', 'sem_up', 'rg_brct', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+minus
+['minus', 'sem_up', 'rg_brct', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+minus
+['sem_up', 'rg_brct', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['operand', 'sem_up_n', 'rg_brct', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['num', 'sem_up_n', 'rg_brct', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+num
+['sem_up_n', 'rg_brct', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+rg_brct
+['rg_brct', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+rg_brct
+['sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['kw_end', 'if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['if_more', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_else
+['kw_else', 'compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_else
+['compound_stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['kw_end', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['kw_end', 'semicolon', 'def_functions', 'compound_stat', 'dot', '']
+kw_end
+['semicolon', 'def_functions', 'compound_stat', 'dot', '']
+semicolon
+['def_functions', 'compound_stat', 'dot', '']
+kw_begin
+['compound_stat', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'dot', '']
+kw_write
+['stat', 'stat_n', 'kw_end', 'dot', '']
+kw_write
+['kw_write', 'lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+kw_write
+['lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['string', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['rg_brct', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'dot', '']
+kw_readln
+['kw_readln', 'lf_brct', 'identifier', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+kw_readln
+['lf_brct', 'identifier', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['identifier', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['rg_brct', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'dot', '']
+kw_while
+['kw_while', 'expr', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'dot', '']
+kw_while
+['expr', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'dot', '']
+ls_eq
+['operator', 'sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'dot', '']
+ls_eq
+['ls_eq', 'sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'dot', '']
+ls_eq
+['sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'dot', '']
+kw_do
+['kw_do', 'compound_stat', 'stat_n', 'kw_end', 'dot', '']
+kw_do
+['compound_stat', 'stat_n', 'kw_end', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_write
+['stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_write
+['kw_write', 'lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_write
+['lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+string
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+string
+['string', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+string
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+string
+['string', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_readln
+['kw_readln', 'lf_brct', 'identifier', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_readln
+['lf_brct', 'identifier', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['identifier', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_if
+['kw_if', 'expr', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_if
+['expr', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+greater
+['operator', 'sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+greater
+['greater', 'sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+greater
+['sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_then
+['kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_then
+['compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['operator', 'sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['plus', 'sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_while
+['kw_while', 'expr', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_while
+['expr', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+various
+['operator', 'sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+various
+['various', 'sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+various
+['sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_do
+['kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_do
+['compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['operator', 'sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['plus', 'sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_else
+['kw_else', 'compound_stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_else
+['compound_stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['kw_end', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_if
+['kw_if', 'expr', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_if
+['expr', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+less
+['operator', 'sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+less
+['less', 'sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+less
+['sem_up', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_then
+['kw_then', 'compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_then
+['compound_stat', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['operator', 'sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['plus', 'sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['sem_up', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_while
+['kw_while', 'expr', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_while
+['expr', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+various
+['operator', 'sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+various
+['various', 'sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+various
+['sem_up', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_do
+['kw_do', 'compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_do
+['compound_stat', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['operator', 'sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['plus', 'sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['lf_brct', 'expr', 'expr_n', 'rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['expr', 'expr_n', 'rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up', 'expr_n', 'rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'expr_n', 'rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'expr_n', 'rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['expr_n', 'rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['rg_brct', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['rg_brct', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['stat_n', 'kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['kw_end', 'stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['kw_end', 'if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['if_more', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_else
+['kw_else', 'compound_stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_else
+['compound_stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_begin
+['kw_begin', 'st_list', 'kw_end', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_begin
+['st_list', 'kw_end', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['kw_end', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['operator', 'sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['plus', 'sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+plus
+['sem_up', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['num', 'sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+num
+['sem_up_n', 'stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['kw_end', 'stat_n', 'kw_end', 'dot', '']
+kw_end
+['stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'assigment', 'expr', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['assigment', 'expr', 'stat_n', 'kw_end', 'dot', '']
+assigment
+['expr', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+plus
+['operator', 'sem_up', 'stat_n', 'kw_end', 'dot', '']
+plus
+['plus', 'sem_up', 'stat_n', 'kw_end', 'dot', '']
+plus
+['sem_up', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'dot', '']
+kw_write
+['kw_write', 'lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+kw_write
+['lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['string', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['string', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['string', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['rg_brct', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'dot', '']
+kw_write
+['kw_write', 'lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+kw_write
+['lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['string', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['string', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['string', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['rg_brct', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['stat_n', 'kw_end', 'dot', '']
+semicolon
+['semicolon', 'stat', 'stat_n', 'kw_end', 'dot', '']
+semicolon
+['stat', 'stat_n', 'kw_end', 'dot', '']
+kw_write
+['kw_write', 'lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+kw_write
+['lf_brct', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+lf_brct
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['string', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['identifier', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+identifier
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['comma', 'expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+comma
+['expr', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['operand', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['string', 'sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+string
+['sem_up_n', 'expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['expr_n', 'rg_brct', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['rg_brct', 'stat_n', 'kw_end', 'dot', '']
+rg_brct
+['stat_n', 'kw_end', 'dot', '']
+kw_end
+['kw_end', 'dot', '']
+kw_end
+['dot', '']
+dot
+['']
+

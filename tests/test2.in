@@ -1,25 +1,25 @@
 (
-  # grammar G
   {
-    # symbols
-    S, A, B, C, a, b, c
+    # non-terminals
+    'FUNC', 'TYPE', 'PARAMS', 'PARAMS_N', 'BODY'
   },
   {
-    # terminal symbols
-    a, b, c
+    # terminals
+    'id', 'int', 'float', '(', ')', '{', '}', ',', ';'
   },
   {
     # rules
-    S -> 'ABC',
-    A -> 'aA',
-    A -> 'a',
-    B -> 'bB',
-    B -> 'b',
-    C -> 'cC',
-    C -> 'C'
+    'FUNC'    -> {'TYPE', 'id', '(', 'PARAMS', ')', '{', 'BODY', '}'},
+    'TYPE'    -> {'int'},
+    'TYPE'    -> {'float'},
+    'PARAMS'  -> {'TYPE', 'id', 'PARAMS_N'},
+    'PARAMS'  -> {},
+    'PARAMS_N'-> {',', 'TYPE', 'id', 'PARAMS_N'},
+    'PARAMS_N'-> {},
+    'BODY'    -> {';'}
   },
   # start symbol
-  S
+  'FUNC'
 ),
 (
   # finite state machine R

@@ -1,0 +1,56 @@
+(
+  {
+    # non-terminals
+    'PROG', 'ST-LIST', 'STAT', 'IT-LIST', 'ITEM'
+  },
+  {
+    # terminals
+    'begin', 'end', ';', 'read', 'write', 'add', ':=', 'int', 'id'
+  },
+  {
+    # rules
+    'PROG'    -> {'begin', 'ST-LIST', 'end'},
+    'ST-LIST' -> {'STAT', ';', 'ST-LIST'},
+    'ST-LIST' -> {},
+    'STAT'    -> {'read', 'id'},
+    'STAT'    -> {'write', 'ITEM'},
+    'STAT'    -> {'id', ':=', 'add', 'ITEM', 'IT-LIST'},
+    'STAT'    -> {},
+    'IT-LIST' -> {'ITEM', 'IT-LIST'},
+    'IT-LIST' -> {},
+    'ITEM'    -> {'int'},
+    'ITEM'    -> {'id'}
+  },
+  # start symbol
+  'PROG'
+),
+(
+  # finite state machine R
+  {
+    # states
+    S, p1, p2, q1, q2, q3, q4, q5, f
+  },
+  {
+    # alphabet
+    'S', 'A', 'B', 'C', 'a', 'b', 'c'
+  },
+  {
+    # rules
+    S   'S' -> f,
+    S   'A' -> p1,
+    p1  'B' -> p2,
+    p2  'C' -> f,
+    S   'a' -> q1,
+    q1  'A' -> q2,
+    q2  'b' -> q3,
+    q3  'B' -> q4,
+    q4  'c' -> q5,
+    q5  'C' -> f
+  },
+  # start state
+  S,
+  {
+    # finite states
+    f
+  }
+)

@@ -1,6 +1,10 @@
 """Parse grammar and finite state automat from file."""
+
 import automat
 import grammar
+
+# -- coding: utf-8 --
+__author__ = 'stepan'
 
 
 def parse(input):
@@ -26,6 +30,7 @@ class Parser:
         try:
             self._parse(input)
         except ValueError as e:
+            # print exception with line number
             raise ValueError(e.args[0] +
                              " (line: " + self._line.__str__() + ")",
                              e.args[1])
@@ -35,6 +40,7 @@ class Parser:
         self.index = 0
         self.str = input
         self._line = 1
+        self._charLine = 1
 
         # new empty grammar
         self.grammar = grammar.Grammar()
@@ -45,8 +51,8 @@ class Parser:
         token = self._getToken()
         self._tShould(token, ['{'])
 
-        # load symbols
-        self._loadCharArr(self.grammar.addSymbol)
+        # load non-terminals
+        self._symbols(self.grammar.addNonTerminal)
 
         # comma and opening bracket
         token = self._getToken()
@@ -54,8 +60,8 @@ class Parser:
         token = self._getToken()
         self._tShould(token, ['{'])
 
-        # load terminating symbols
-        self._loadCharArr(self.grammar.setTerminal)
+        # load terminals
+        self._symbols(self.grammar.addTerminal)
 
         # comma and opening bracket
         token = self._getToken()
@@ -70,7 +76,7 @@ class Parser:
         token = self._getToken()
         self._tShould(token, [','])
         token = self._getToken()
-        self._tShould(token, ['char'])
+        self._tShould(token, ['str'])
         self.grammar.setStartSymbol(token.string)
 
         # closing bracket and comma - end of grammar
@@ -171,8 +177,39 @@ class Parser:
             else:
                 return
 
+    def _symbols(self, callback):
+        """Load alphabet into grammar."""
+        token = self._getToken()
+        if token.type == '}':
+            return  # states are empty
+        while token.type != '':
+            self._tShould(token, ['str'])
+            callback(token.string)
+            token = self._getToken()
+            self._tShould(token, [',', '}'])
+            if token.type == ',':
+                token = self._getToken()
+            else:
+                return
+
+    def _symbols2(self):
+        """Load symbols in rule."""
+        token = self._getToken()
+        symbols = []
+        if token.type == '}':
+            return []   # states are empty
+        while token.type != '':
+            self._tShould(token, ['str'])
+            symbols.append(token.string)
+            token = self._getToken()
+            self._tShould(token, [',', '}'])
+            if token.type == ',':
+                token = self._getToken()
+            else:
+                return symbols
+
     def _alphabet(self):
-        """Load alphebet into automat."""
+        """Load alphabet into automat."""
         token = self._getToken()
         if token.type == '}':
             return  # alphabet is empty
@@ -193,19 +230,22 @@ class Parser:
 
         while token.type != '':
             # expecting id of target state
-            self._tShould(token, ['char'])
+            self._tShould(token, ['str'])
             nonterminal = token.string
 
             # expecting arrow
             token = self._getToken()
             self._tShould(token, ['->'])
 
-            # expecting id of target state
+            # expecting {
             token = self._getToken()
-            self._tShould(token, ['str'])
-            target = token.string
+            self._tShould(token, ['{'])
 
-            self.grammar.addRule(nonterminal, target)
+            # load symbols in rule
+            rightSide = self._symbols2()
+            leftSide = nonterminal
+
+            self.grammar.addRule(leftSide, rightSide)
 
             # expecting comma or closing bracket
             token = self._getToken()
@@ -283,14 +323,10 @@ class Parser:
     def _getToken(self):
         """Load next token."""
         ch = self._getChar()
+        self._line = self._charLine
         state = 'begin'
         str = ''
         while ch is not False:
-
-            if ch == '\n':
-                # line counter
-                self._line += 1
-
             # skip white chars
             if state == 'begin':
                 if ch.isspace():
@@ -362,6 +398,9 @@ class Parser:
         """Unget one character."""
         if self.index > 0:
             self.index -= 1
+            if self.str[self.index] == '\n':
+                # line counter
+                self._charLine -= 1
         else:
             raise ValueError("Nothing to unget", 40)
 
@@ -369,6 +408,9 @@ class Parser:
         """Load one character from input."""
         if self.index < len(self.str):
             ch = self.str[self.index]
+            if ch == '\n':
+                # line counter
+                self._charLine += 1
             self.index += 1
             return ch
         else:
