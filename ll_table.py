@@ -1,5 +1,7 @@
 """LL Table."""
 
+from virtual_tree import VirtualTree
+
 # -- coding: utf-8 --
 __author__ = 'stepan'
 
@@ -20,35 +22,6 @@ class PredictRow:
         s += str(self.first) + " "
         s += str(self.follow)
         return s
-
-
-class Symbol(str):
-    """Symbol with tree level number."""
-    def __new__(cls, str, level):
-        """Initialization."""
-        obj = str.__new__(cls, str)
-        obj.level = level
-        return obj
-
-    def toString(self):
-        """Print string and level."""
-        return "'" + self + "'(" + str(self.level) + ")"
-
-
-def symbolArr(strArr, level):
-    """Turn string array to symbol array."""
-    symbols = []
-    for str in strArr:
-        symbols.append(Symbol(str, level))
-    return symbols
-
-
-def symbolArrPrint(symbols):
-    """Print Symbol array with level."""
-    s = ""
-    for symbol in symbols:
-        s += symbol.toString() + ", "
-    print(s)
 
 
 class LLTable:
@@ -90,8 +63,8 @@ class LLTable:
         while True:
             change = False      # remember if anything changed
             for rule in grammar.rules:
-                ruleRow = ptable[rule.leftSide]
-                for i, symbol in enumerate(rule.rightSide):
+                ruleRow = ptable[rule.r.leftSide]
+                for i, symbol in enumerate(rule.r.rightSide):
                     firstLength = len(ruleRow.first)
                     # add first of symbol to rule's first
                     ruleRow.first.update(ptable[symbol].first)
@@ -101,13 +74,13 @@ class LLTable:
                     if not ptable[symbol].empty:
                         # this symbol can't be erased -> stop
                         break
-                    elif i == (len(rule.rightSide) - 1):
+                    elif i == (len(rule.r.rightSide) - 1):
                         # all symbols can be erased
                         if not ruleRow.empty:
                             ruleRow.empty = True
                             change = True
 
-                if len(rule.rightSide) == 0:
+                if len(rule.r.rightSide) == 0:
                     # epsilon rule
                     if ruleRow.empty is not True:
                         ruleRow.empty = True
@@ -124,7 +97,7 @@ class LLTable:
         while True:
             change = False
             for rule in grammar.rules:
-                ruleSymbols = rule.rightSide
+                ruleSymbols = rule.r.rightSide
                 for i, symbol in enumerate(ruleSymbols):
                     if grammar.isTerm(symbol):
                         continue
@@ -137,7 +110,7 @@ class LLTable:
                     if self.empty(rightSymbols):
                         # following symbols can be removed
                         symbolSet.update(
-                            ptable[rule.leftSide].follow)
+                            ptable[rule.r.leftSide].follow)
 
                     if length != len(symbolSet):
                         change = True
@@ -148,9 +121,9 @@ class LLTable:
 
         for rule in grammar.rules:
             pset = set()
-            pset.update(self.first(rule.rightSide))
-            if self.empty(rule.rightSide):
-                pset.update(self.follow(rule.leftSide))
+            pset.update(self.first(rule.r.rightSide))
+            if self.empty(rule.r.rightSide):
+                pset.update(self.follow(rule.r.leftSide))
             rulesPredict.append(pset)
 
         # create dictionaries for fast searching of symbols
@@ -172,7 +145,7 @@ class LLTable:
         # fill ll table
         for i, predict in enumerate(rulesPredict):
             rule = grammar.rules[i]
-            nonterminalId = self._dictNonTerms[rule.leftSide]
+            nonterminalId = self._dictNonTerms[rule.r.leftSide]
             for symbol in predict:
                 terminalId = self._dictTerms[symbol]
                 field = self._table[nonterminalId][terminalId]
@@ -219,15 +192,16 @@ class LLTable:
         terminalId = self._dictTerms[terminal]
         return self._table[nonterminalId][terminalId]
 
-    def analyzeSymbols(self, getToken):
+    def analyzeSymbols(self, getToken, automat):
         """Analyze array of symbols by ll_table."""
         grammar = self._grammar
 
         # put end symbol on stack
         stack = ['']
 
-        # first symbol
+        # first symbol set as symbol and give it to virtual tree
         symbol = grammar.start
+        virtTree = VirtualTree(symbol, automat)
         # first input token
         input = getToken()
         # check input
@@ -244,7 +218,9 @@ class LLTable:
                                      input + "'")
 
                 # put rule on stack and take first symbol
-                stack = rule.rightSide + stack
+                stack = rule.r.rightSide + stack
+                # apply orignal rules to virtual tree
+                virtTree.apply(rule.orig)
                 symbol = stack.pop(0)
 
             else:
@@ -267,8 +243,37 @@ class LLTable:
                     # symbol and terminal are not same - error
                     raise ValueError("Expecting '" + symbol + "', got '" +
                                      input + "'")
-            print([symbol] + stack)
-            print(input)
+            # print([symbol] + stack)
+            # print(input)
+
+        levels = virtTree.getFinalStr()
+        bug = False
+        index = -1
+        for level in levels[:-1]:
+            s = ""
+            state = automat.getStart()
+            for symbol in level:
+                s += symbol + " "
+                if not bug:
+                    try:
+                        state = automat.applyCharToState(symbol, state)
+                    except ValueError as e:
+                        index = len(s) - len(symbol)
+                        bug = str(e)
+
+            print(s)
+            if not bug:
+                if not automat.isTerm(state):
+                    index = len(s)
+                    bug = "Automat is not in final state"
+
+            if index != -1:
+                print("^".rjust(index))
+                index = -1
+
+        print(" ".join([char for char in levels[-1]]))
+        if bug:
+            print(bug)
 
     def _isTerm(self, symbol):
         return symbol in self._dictTerms

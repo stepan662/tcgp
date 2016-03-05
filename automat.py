@@ -67,6 +67,10 @@ class Automat:
         else:
             raise ValueError("Double setting start state", 41)
 
+    def getStart(self):
+        """"Get start state."""
+        return self._start
+
     def setTerminating(self, name):
         """Set state as terminating, check if state exists."""
         try:
@@ -185,10 +189,28 @@ class Automat:
                     raise ValueError("Character '" + char +
                                      "' is not acceptable", 1)
 
+        return self.isTerm()
+
+    def isTerm(self, state):
+        """Indicate if state is terminating."""
         if self._states[state].isTerm():
             return True
         else:
             return False
+
+    def applyCharToState(self, char, state):
+        """Make one step with given char and state."""
+        rules = self._states[state].getRules(char)
+        if len(rules) == 1:
+            return rules[0]
+        else:
+            if char in self._alphabet:
+                raise ValueError("Character '" + char +
+                                 "' can't be accepted in state '" +
+                                 state + "'")
+            else:
+                raise ValueError("Character '" + char +
+                                 "' is not acceptable", 1)
 
     def getAlphabet(self):
         """Get alphabet."""

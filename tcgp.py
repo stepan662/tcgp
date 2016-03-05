@@ -7,17 +7,18 @@ import input_parser
 # -- coding: utf-8 --
 __author__ = 'stepan'
 
-input = open('input4.in', 'r')
-gramInput = open('test4.in', 'r')
+input = open('tests/input5.in', 'r')
+gramInput = open('tests/test5.in', 'r')
 
 grammar, automat = parser.parse(gramInput.read())
-print(grammar, "\n\n")
-# grammar.removeDeepLeftRecursion()
-# print(grammar, "\n\n")
+print(grammar, "\n")
+grammar.removeDeepLeftRecursion()
+print(grammar, "\n")
 grammar.leftFactorization()
-print(grammar, "\n\n")
+print(grammar, "\n")
 
 table = ll_table.LLTable(grammar)
 parser = input_parser.InputParser(input.read())
-table.analyzeSymbols(parser.getToken)
+automat.dropERules().determinate()
+table.analyzeSymbols(parser.getToken, automat)
 exit(0)

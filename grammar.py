@@ -1,6 +1,8 @@
 """Grammar."""
 
-from rule import Rule
+from rule import NewRule
+from rule import OrigRules
+from rule import Command
 
 # -- coding: utf-8 --
 __author__ = 'stepan'
@@ -53,7 +55,7 @@ class Grammar:
             # checks if symbol is in grammar
             self.isTerm(symbol)
         # include rule to grammar
-        r = Rule(leftSide, rightSide)
+        r = NewRule(leftSide, rightSide)
         self.rules.append(r)
 
     def setStartSymbol(self, name):
@@ -99,27 +101,29 @@ class Grammar:
                 rulesRemove = set()
                 change = False
                 for rule in self.rules:
-                    if (nonterm != rule.leftSide or
-                            len(rule.rightSide) == 0 or
-                            self.isTerm(rule.rightSide[0]) or
+                    if (nonterm != rule.r.leftSide or
+                            len(rule.r.rightSide) == 0 or
+                            self.isTerm(rule.r.rightSide[0]) or
                             nonTermIndex <=
-                            self.nonterminals.index(rule.rightSide[0])):
+                            self.nonterminals.index(rule.r.rightSide[0])):
                         # skip no related rules epsilon rules
                         # and rules with terminal first
                         # and nonterminal after this one
                         continue
                     # recursive nonterminal
-                    rercursiveNonTerm = rule.rightSide[0]
+                    rercursiveNonTerm = rule.r.rightSide[0]
                     # get rest of the rule, without recursion
-                    nonRecursionPart = rule.rightSide[1:]
+                    nonRecursionPart = rule.r.rightSide[1:]
                     change = True
                     rulesRemove.add(rule)
-                    for r in self.rules:
-                        if r.leftSide == rercursiveNonTerm:
+                    for rul in self.rules:
+                        if rul.r.leftSide == rercursiveNonTerm:
                             # go through all rules with recursive nonterm
                             # on left side
-                            self.rules.append(Rule(nonterm, r.rightSide +
-                                              nonRecursionPart))
+                            newR = NewRule(nonterm, rul.r.rightSide +
+                                           nonRecursionPart)
+                            newR.orig = rul.orig + rule.orig
+                            self.rules.append(newR)
                 for rule in rulesRemove:
                     self.rules.remove(rule)
 
@@ -139,13 +143,13 @@ class Grammar:
         nonrecursive = set()
         remove = set()
         for rule in self.rules:
-            if (rule.leftSide != nonterminal or
-                    len(rule.rightSide) == 0):
+            if (rule.r.leftSide != nonterminal or
+                    len(rule.r.rightSide) == 0):
                 continue
             # all rules with selected nonterminal on left side
-            if rule.rightSide[0] == rule.leftSide:
+            if rule.r.rightSide[0] == rule.r.leftSide:
                 # direct recursive rule
-                if len(rule.rightSide) == 1:
+                if len(rule.r.rightSide) == 1:
                     # remove R -> R rules
                     removeRules.add(rule)
                 else:
@@ -158,15 +162,21 @@ class Grammar:
             newName = self._getNewNontermName(nonterminal + "*")
             self.nonterminals.append(newName)
             removeRules.update(remove)
-            emptyRule = Rule(newName, [])
+            emptyRule = NewRule(newName, [])
+            emptyRule.orig = [OrigRules(Command.pop, [])]
             self.rules.append(emptyRule)
 
             for rule in nonrecursive:
-                newR = Rule(nonterminal, rule.rightSide + [newName])
+                newR = NewRule(nonterminal, rule.r.rightSide + [newName])
+                newR.orig = rule.orig
+                for orig in newR.orig:
+                    orig.cmd = Command.push
+                # newR.orig.cmd = Command.push
                 self.rules.append(newR)
 
             for rule in recursive:
-                newR = Rule(newName, rule.rightSide[1:] + [newName])
+                newR = NewRule(newName, rule.r.rightSide[1:] + [newName])
+                newR.orig = rule.orig
                 self.rules.append(newR)
 
         for rule in removeRules:
@@ -185,14 +195,14 @@ class Grammar:
             for nonterminal in self.nonterminals:
                 rulesTable = {}
                 for rule in self.rules:
-                    if (rule.leftSide != nonterminal or
-                            len(rule.rightSide) == 0):
+                    if (rule.r.leftSide != nonterminal or
+                            len(rule.r.rightSide) == 0):
                         continue
                     # all rules with selected nonterminal on left side
-                    if rule.rightSide[0] not in rulesTable:
-                        rulesTable[rule.rightSide[0]] = [rule]
+                    if rule.r.rightSide[0] not in rulesTable:
+                        rulesTable[rule.r.rightSide[0]] = [rule]
                     else:
-                        rulesTable[rule.rightSide[0]].append(rule)
+                        rulesTable[rule.r.rightSide[0]].append(rule)
 
                 for firstTerm in rulesTable:
                     rules = rulesTable[firstTerm]
@@ -203,16 +213,16 @@ class Grammar:
                         newName = self._getNewNontermName(nonterminal + "*")
                         newNonTerms.add(newName)
                         # add old rule with new non-terminal (A -> aA*)
-                        newR = Rule(nonterminal, [firstTerm, newName])
-                        newR.origRule = False
+                        newR = NewRule(nonterminal, [firstTerm, newName])
+                        newR.orig = [OrigRules(Command.apply, [])]
                         newRules.add(newR)
                         for rule in rules:
                             # remove old rule
                             removeRules.add(rule)
 
                             # add new rule with new non-terminal and shorter
-                            newR = Rule(newName, rule.rightSide[1:])
-                            newR.origRule = rule.origRule
+                            newR = NewRule(newName, rule.r.rightSide[1:])
+                            newR.orig = rule.orig
                             newRules.add(newR)
 
             for rule in removeRules:
