@@ -153,7 +153,7 @@ class LLTable:
                     self._table[nonterminalId][terminalId] = rule
                 else:
                     raise ValueError("This is not ll grammar, " +
-                                     "confict rules:\n (" + str(i) + ") " +
+                                     "confict rules:\n(" + str(i) + ") " +
                                      str(rule) + "\n" + "(" +
                                      str(grammar.rules.index(field)) + ") " +
                                      str(field), 40)
@@ -201,7 +201,7 @@ class LLTable:
 
         # first symbol set as symbol and give it to virtual tree
         symbol = grammar.start
-        virtTree = VirtualTree(symbol, automat)
+        virtTree = VirtualTree(symbol)
         # first input token
         input = getToken()
         # check input
@@ -238,42 +238,44 @@ class LLTable:
                         if not self._isTerm(input):
                             # input symbol is not in terminals
                             raise ValueError("Symbol '" + input +
-                                             "' is not valid.")
+                                             "' is not valid.", 40)
                 else:
                     # symbol and terminal are not same - error
                     raise ValueError("Expecting '" + symbol + "', got '" +
-                                     input + "'")
+                                     input + "'", 40)
             # print([symbol] + stack)
             # print(input)
 
-        levels = virtTree.getFinalStr()
-        bug = False
-        index = -1
-        for level in levels[:-1]:
-            s = ""
-            state = automat.getStart()
-            for symbol in level:
-                s += symbol + " "
+        # check levels of virtual tree
+        if automat is not False:
+            levels = virtTree.getFinalStr()
+            bug = False
+            index = -1
+            for level in levels[:-1]:
+                s = ""
+                state = automat.getStart()
+                for symbol in level:
+                    s += symbol + " "
+                    if not bug:
+                        try:
+                            state = automat.applyCharToState(symbol, state)
+                        except ValueError as e:
+                            index = len(s) - len(symbol)
+                            bug = str(e)
+
+                print(s)
                 if not bug:
-                    try:
-                        state = automat.applyCharToState(symbol, state)
-                    except ValueError as e:
-                        index = len(s) - len(symbol)
-                        bug = str(e)
+                    if not automat.isTerm(state):
+                        index = len(s)
+                        bug = "Automat is not in final state"
 
-            print(s)
-            if not bug:
-                if not automat.isTerm(state):
-                    index = len(s)
-                    bug = "Automat is not in final state"
+                if index != -1:
+                    print("^".rjust(index))
+                    index = -1
 
-            if index != -1:
-                print("^".rjust(index))
-                index = -1
-
-        print(" ".join([char for char in levels[-1]]))
-        if bug:
-            print(bug)
+            print(" ".join([char for char in levels[-1]]))
+            if bug:
+                print(bug)
 
     def _isTerm(self, symbol):
         return symbol in self._dictTerms

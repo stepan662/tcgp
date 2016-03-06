@@ -9,16 +9,23 @@ __author__ = 'stepan'
 
 input = open('tests/input5.in', 'r')
 gramInput = open('tests/test5.in', 'r')
-
-grammar, automat = parser.parse(gramInput.read())
+try:
+    grammar, automat = parser.parse(gramInput.read())
+except ValueError as e:
+    print(e.args[0])
+    exit(e.args[1])
 print(grammar, "\n")
 grammar.removeDeepLeftRecursion()
-print(grammar, "\n")
 grammar.leftFactorization()
 print(grammar, "\n")
 
-table = ll_table.LLTable(grammar)
-parser = input_parser.InputParser(input.read())
-automat.dropERules().determinate()
-table.analyzeSymbols(parser.getToken, automat)
+try:
+    table = ll_table.LLTable(grammar)
+    parser = input_parser.InputParser(input.read())
+    if automat is not False:
+        automat.dropERules().determinate()
+    table.analyzeSymbols(parser.getToken, automat)
+except ValueError as e:
+    print(e.args[0])
+    exit(e.args[1])
 exit(0)

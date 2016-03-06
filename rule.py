@@ -40,7 +40,8 @@ class NewRule:
         """To string."""
         s = self.r.leftSide + " -> "
         s += " ".join([symbol for symbol in self.r.rightSide])
-        s += "   \t("
+        s = s.ljust(25)
+        s += "("
         s += ", ".join([str(orig) for orig in self.orig])
         s += ")"
         return s

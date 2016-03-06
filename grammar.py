@@ -122,7 +122,7 @@ class Grammar:
                             # on left side
                             newR = NewRule(nonterm, rul.r.rightSide +
                                            nonRecursionPart)
-                            newR.orig = rul.orig + rule.orig
+                            newR.orig = rule.orig + rul.orig
                             self.rules.append(newR)
                 for rule in rulesRemove:
                     self.rules.remove(rule)

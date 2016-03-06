@@ -1,40 +1,13 @@
 (
-{'S', 'A'},
+{S, A, A_, A_A_},
 {'a'},
 {
-  'S' -> {'A', 'A'},
-  'A' -> {'A', 'A'},
-  'A' -> {'a'}
+  S     -> {A, A},
+  A_    -> {},
+  A     -> {'a', A_},
+  A_    -> {'a', A_A_},
+  A_A_  -> {'a', A_},
+  A_A_  -> {}
 },
-'S'
-),
-(
-  # finite state machine R
-  {
-    # states
-    S, p1, p2, q1, q2, q3, q4, q5, f
-  },
-  {
-    # alphabet
-    'S', 'A', 'B', 'C', 'a', 'b', 'c'
-  },
-  {
-    # rules
-    S   'S' -> f,
-    S   'A' -> p1,
-    p1  'B' -> p2,
-    p2  'C' -> f,
-    S   'a' -> q1,
-    q1  'A' -> q2,
-    q2  'b' -> q3,
-    q3  'B' -> q4,
-    q4  'c' -> q5,
-    q5  'C' -> f
-  },
-  # start state
-  S,
-  {
-    # finite states
-    f
-  }
+S
 )

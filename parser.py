@@ -52,7 +52,7 @@ class Parser:
         self._tShould(token, ['{'])
 
         # load non-terminals
-        self._symbols(self.grammar.addNonTerminal)
+        self._loadIdsArr(self.grammar.addNonTerminal)
 
         # comma and opening bracket
         token = self._getToken()
@@ -76,17 +76,27 @@ class Parser:
         token = self._getToken()
         self._tShould(token, [','])
         token = self._getToken()
-        self._tShould(token, ['str'])
+        self._tShould(token, ['id'])
         self.grammar.setStartSymbol(token.string)
 
         # closing bracket and comma - end of grammar
         token = self._getToken()
         self._tShould(token, [')'])
         token = self._getToken()
-        self._tShould(token, [','])
+        self._tShould(token, [',', ''])
+
+        if token.type == '':
+            self.aut = False
+            return
 
         # new empty automat
         self.aut = automat.Automat()
+
+        # automat alphabet are terminals and nonterminals from grammar
+        for symbol in self.grammar.nonterminals:
+            self.aut.addAlpha(symbol)
+        for symbol in self.grammar.terminals:
+            self.aut.addAlpha(symbol)
 
         # wait for opening brackets
         token = self._getToken()
@@ -96,15 +106,6 @@ class Parser:
 
         # load states
         self._loadIdsArr(self.aut.addState)
-
-        # comma and opening bracket
-        token = self._getToken()
-        self._tShould(token, [','])
-        token = self._getToken()
-        self._tShould(token, ['{'])
-
-        # load alphabet
-        self._alphabet()
 
         # comma and opening bracket
         token = self._getToken()
@@ -183,7 +184,7 @@ class Parser:
         if token.type == '}':
             return  # states are empty
         while token.type != '':
-            self._tShould(token, ['str'])
+            self._tShould(token, ['str', 'id'])
             callback(token.string)
             token = self._getToken()
             self._tShould(token, [',', '}'])
@@ -199,7 +200,7 @@ class Parser:
         if token.type == '}':
             return []   # states are empty
         while token.type != '':
-            self._tShould(token, ['str'])
+            self._tShould(token, ['str', 'id'])
             symbols.append(token.string)
             token = self._getToken()
             self._tShould(token, [',', '}'])
@@ -230,7 +231,7 @@ class Parser:
 
         while token.type != '':
             # expecting id of target state
-            self._tShould(token, ['str'])
+            self._tShould(token, ['id'])
             nonterminal = token.string
 
             # expecting arrow
@@ -378,7 +379,7 @@ class Parser:
 
             # expecting "c like" id
             elif state == 'id':
-                if self._isIdBegin(ch) or (ord('0') <= ord(ch) <= ord('9')):
+                if self._isIdInside(ch):
                     str += ch
                 else:
                     self._ungetChar()
@@ -416,11 +417,26 @@ class Parser:
         else:
             return False
 
+    def _isIdInside(self, ch):
+        """Check inside character in c like id."""
+        if ord('a') <= ord(ch) <= ord('z'):
+            return True
+        elif ord('A') <= ord(ch) <= ord('Z'):
+            return True
+        elif ord('0') <= ord(ch) <= ord('9'):
+            return True
+        elif ch == "_":
+            return True
+        else:
+            return False
+
     def _isIdBegin(self, ch):
         """Check first character in c like id."""
         if ord('a') <= ord(ch) <= ord('z'):
             return True
         elif ord('A') <= ord(ch) <= ord('Z'):
+            return True
+        elif ch == "_":
             return True
         else:
             return False

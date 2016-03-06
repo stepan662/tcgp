@@ -17,9 +17,6 @@ class Automat:
 
     def addAlpha(self, char):
         """Add character into alphabet."""
-        if len(char) != 1:
-            raise ValueError("String '" + char + "' is not character", 40)
-
         self._alphabet[char] = True
 
     def addState(self, name):

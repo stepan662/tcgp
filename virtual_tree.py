@@ -38,12 +38,11 @@ def symbolArrPrint(symbols):
 class VirtualTree:
     """Composing of virtual tree from original rules."""
 
-    def __init__(self, firstSymbol, automat):
+    def __init__(self, firstSymbol):
         """Initialization."""
         self.stack = [Symbol('', 0), Symbol(firstSymbol, 0)]
         self.blocked = []
         self.states = []
-        self.automat = automat
 
     def charOnLevel(self, char, level):
         """Add char to tree level."""
@@ -54,9 +53,9 @@ class VirtualTree:
     def apply(self, origs):
         """Apply original rules to tree."""
         for orig in origs:
-            print("blocked: ",
-                  ", ".join([" ".join([str(oR) for oR in oRs])
-                             for oRs in self.blocked]))
+            # print("blocked: ",
+            #      ", ".join([" ".join([str(oR) for oR in oRs])
+            #                 for oRs in self.blocked]))
             print("stack:   ", symbolArrPrint(self.stack))
             if orig.cmd == Command.push:
                 # just push rule on blocked stack, do nothing
@@ -71,6 +70,7 @@ class VirtualTree:
                 elif orig.cmd == Command.pop:
                     # rules are on stack
                     rules = self.blocked.pop()
+                print(orig.cmd, ": ", " ,".join([str(rule) for rule in rules]))
 
                 for rule in rules:
 
@@ -87,7 +87,7 @@ class VirtualTree:
                     for s in reversed(rule.rightSide):
                         self.stack.append(Symbol(s, symbol.level + 1))
 
-                print(orig.cmd, ": ", " ,".join([str(rule) for rule in rules]))
+            print("stack:   ", symbolArrPrint(self.stack))
             print("")
 
     def getFinalStr(self):
@@ -99,7 +99,4 @@ class VirtualTree:
                 break
             else:
                 self.charOnLevel(str(symbol), symbol.level)
-#        for state in self.states:
-#            if not self.automat.isTerm(state):
-#                return False
         return self.states
