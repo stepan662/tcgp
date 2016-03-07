@@ -1,6 +1,6 @@
 """Grammar."""
 
-from rule import NewRule
+from rule import Rule
 from rule import OrigRules
 from rule import Command
 
@@ -55,7 +55,7 @@ class Grammar:
             # checks if symbol is in grammar
             self.isTerm(symbol)
         # include rule to grammar
-        r = NewRule(leftSide, rightSide)
+        r = Rule(leftSide, rightSide)
         self.rules.append(r)
 
     def setStartSymbol(self, name):
@@ -120,8 +120,8 @@ class Grammar:
                         if rul.r.leftSide == rercursiveNonTerm:
                             # go through all rules with recursive nonterm
                             # on left side
-                            newR = NewRule(nonterm, rul.r.rightSide +
-                                           nonRecursionPart)
+                            newR = Rule(nonterm, rul.r.rightSide +
+                                        nonRecursionPart)
                             newR.orig = rule.orig + rul.orig
                             self.rules.append(newR)
                 for rule in rulesRemove:
@@ -162,12 +162,12 @@ class Grammar:
             newName = self._getNewNontermName(nonterminal + "*")
             self.nonterminals.append(newName)
             removeRules.update(remove)
-            emptyRule = NewRule(newName, [])
+            emptyRule = Rule(newName, [])
             emptyRule.orig = [OrigRules(Command.pop, [])]
             self.rules.append(emptyRule)
 
             for rule in nonrecursive:
-                newR = NewRule(nonterminal, rule.r.rightSide + [newName])
+                newR = Rule(nonterminal, rule.r.rightSide + [newName])
                 newR.orig = rule.orig
                 for orig in newR.orig:
                     orig.cmd = Command.push
@@ -175,7 +175,7 @@ class Grammar:
                 self.rules.append(newR)
 
             for rule in recursive:
-                newR = NewRule(newName, rule.r.rightSide[1:] + [newName])
+                newR = Rule(newName, rule.r.rightSide[1:] + [newName])
                 newR.orig = rule.orig
                 self.rules.append(newR)
 
@@ -213,7 +213,7 @@ class Grammar:
                         newName = self._getNewNontermName(nonterminal + "*")
                         newNonTerms.add(newName)
                         # add old rule with new non-terminal (A -> aA*)
-                        newR = NewRule(nonterminal, [firstTerm, newName])
+                        newR = Rule(nonterminal, [firstTerm, newName])
                         newR.orig = [OrigRules(Command.apply, [])]
                         newRules.add(newR)
                         for rule in rules:
@@ -221,7 +221,7 @@ class Grammar:
                             removeRules.add(rule)
 
                             # add new rule with new non-terminal and shorter
-                            newR = NewRule(newName, rule.r.rightSide[1:])
+                            newR = Rule(newName, rule.r.rightSide[1:])
                             newR.orig = rule.orig
                             newRules.add(newR)
 

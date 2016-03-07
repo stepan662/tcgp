@@ -1,0 +1,236 @@
+(
+{prog, compound_stat, def_part, def_variables, params, params_n, func_params, func_params_n, type, def_functions, def_func_more, st_list, stat_n, stat, if_more, expr_n, expr, sem_up, sem_up_n, operand, operator},
+{void, multipl, minus, plus, less, various, ls_eq, greater, gr_eq, eq, lf_brct, rg_brct, lf_sq_brct, rg_sq_brct, semicolon, comma, doubdot, assigment, exp_num, dec_num, num, string, identifier, lex_error, eof, dir_char, kw_begin, kw_boolean, kw_do, kw_else, kw_end, kw_false, kw_find, kw_forward, kw_function, kw_if, kw_integer, kw_readln, kw_real, kw_sort, kw_string, kw_then, kw_true, kw_var, kw_while, kw_write, kw_type, div, dot, kw_repeat, kw_until},
+{
+prog -> def_part compound_stat dot(Command.apply prog -> def_part compound_stat dot)
+compound_stat -> kw_begin st_list kw_end(Command.apply compound_stat -> kw_begin st_list kw_end)
+def_part -> def_variables def_functions(Command.apply def_part -> def_variables def_functions)
+def_variables -> kw_var params(Command.apply def_variables -> kw_var params)
+def_variables ->         (Command.apply def_variables -> )
+params -> identifier doubdot type semicolon params_n(Command.apply params -> identifier doubdot type semicolon params_n)
+params_n -> params       (Command.apply params_n -> params)
+params_n ->              (Command.apply params_n -> )
+func_params -> identifier doubdot type func_params_n(Command.apply func_params -> identifier doubdot type func_params_n)
+func_params ->           (Command.apply func_params -> )
+func_params_n -> semicolon identifier doubdot type func_params_n(Command.apply func_params_n -> semicolon identifier doubdot type func_params_n)
+func_params_n ->         (Command.apply func_params_n -> )
+type -> kw_integer       (Command.apply type -> kw_integer)
+type -> kw_real          (Command.apply type -> kw_real)
+type -> kw_string        (Command.apply type -> kw_string)
+type -> kw_boolean       (Command.apply type -> kw_boolean)
+def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more(Command.apply def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more)
+def_functions ->         (Command.apply def_functions -> )
+def_func_more -> def_variables compound_stat semicolon def_functions(Command.apply def_func_more -> def_variables compound_stat semicolon def_functions)
+def_func_more -> kw_forward semicolon def_functions(Command.apply def_func_more -> kw_forward semicolon def_functions)
+st_list -> stat stat_n   (Command.apply st_list -> stat stat_n)
+st_list ->               (Command.apply st_list -> )
+stat_n -> semicolon stat stat_n(Command.apply stat_n -> semicolon stat stat_n)
+stat_n ->                (Command.apply stat_n -> )
+stat -> compound_stat    (Command.apply stat -> compound_stat)
+stat -> identifier assigment expr(Command.apply stat -> identifier assigment expr)
+stat -> kw_while expr kw_do compound_stat(Command.apply stat -> kw_while expr kw_do compound_stat)
+stat -> kw_readln lf_brct identifier rg_brct(Command.apply stat -> kw_readln lf_brct identifier rg_brct)
+stat -> kw_write lf_brct expr expr_n rg_brct(Command.apply stat -> kw_write lf_brct expr expr_n rg_brct)
+stat -> kw_repeat stat stat_n kw_until expr(Command.apply stat -> kw_repeat stat stat_n kw_until expr)
+stat -> kw_if expr kw_then compound_stat if_more(Command.apply stat -> kw_if expr kw_then compound_stat if_more)
+if_more -> kw_else compound_stat(Command.apply if_more -> kw_else compound_stat)
+if_more ->               (Command.apply if_more -> )
+expr_n -> comma expr expr_n(Command.apply expr_n -> comma expr expr_n)
+expr_n ->                (Command.apply expr_n -> )
+expr -> sem_up           (Command.apply expr -> sem_up)
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+sem_up_n -> operator sem_up(Command.apply sem_up_n -> operator sem_up)
+sem_up_n -> lf_brct expr expr_n rg_brct(Command.apply sem_up_n -> lf_brct expr expr_n rg_brct)
+sem_up_n ->              (Command.apply sem_up_n -> )
+operand -> lf_brct sem_up rg_brct(Command.apply operand -> lf_brct sem_up rg_brct)
+operand -> num           (Command.apply operand -> num)
+operand -> string        (Command.apply operand -> string)
+operand -> identifier    (Command.apply operand -> identifier)
+operator -> multipl      (Command.apply operator -> multipl)
+operator -> minus        (Command.apply operator -> minus)
+operator -> plus         (Command.apply operator -> plus)
+operator -> less         (Command.apply operator -> less)
+operator -> various      (Command.apply operator -> various)
+operator -> ls_eq        (Command.apply operator -> ls_eq)
+operator -> greater      (Command.apply operator -> greater)
+operator -> gr_eq        (Command.apply operator -> gr_eq)
+operator -> eq           (Command.apply operator -> eq)
+},
+prog
+)
+ 
+
+(
+{prog, compound_stat, def_part, def_variables, params, params_n, func_params, func_params_n, type, def_functions, def_func_more, st_list, stat_n, stat, if_more, expr_n, expr, sem_up, sem_up_n, operand, operator},
+{void, multipl, minus, plus, less, various, ls_eq, greater, gr_eq, eq, lf_brct, rg_brct, lf_sq_brct, rg_sq_brct, semicolon, comma, doubdot, assigment, exp_num, dec_num, num, string, identifier, lex_error, eof, dir_char, kw_begin, kw_boolean, kw_do, kw_else, kw_end, kw_false, kw_find, kw_forward, kw_function, kw_if, kw_integer, kw_readln, kw_real, kw_sort, kw_string, kw_then, kw_true, kw_var, kw_while, kw_write, kw_type, div, dot, kw_repeat, kw_until},
+{
+prog -> def_part compound_stat dot(Command.apply prog -> def_part compound_stat dot)
+compound_stat -> kw_begin st_list kw_end(Command.apply compound_stat -> kw_begin st_list kw_end)
+def_part -> def_variables def_functions(Command.apply def_part -> def_variables def_functions)
+def_variables -> kw_var params(Command.apply def_variables -> kw_var params)
+def_variables ->         (Command.apply def_variables -> )
+params -> identifier doubdot type semicolon params_n(Command.apply params -> identifier doubdot type semicolon params_n)
+params_n ->              (Command.apply params_n -> )
+func_params -> identifier doubdot type func_params_n(Command.apply func_params -> identifier doubdot type func_params_n)
+func_params ->           (Command.apply func_params -> )
+func_params_n -> semicolon identifier doubdot type func_params_n(Command.apply func_params_n -> semicolon identifier doubdot type func_params_n)
+func_params_n ->         (Command.apply func_params_n -> )
+type -> kw_integer       (Command.apply type -> kw_integer)
+type -> kw_real          (Command.apply type -> kw_real)
+type -> kw_string        (Command.apply type -> kw_string)
+type -> kw_boolean       (Command.apply type -> kw_boolean)
+def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more(Command.apply def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more)
+def_functions ->         (Command.apply def_functions -> )
+def_func_more -> kw_forward semicolon def_functions(Command.apply def_func_more -> kw_forward semicolon def_functions)
+st_list -> stat stat_n   (Command.apply st_list -> stat stat_n)
+st_list ->               (Command.apply st_list -> )
+stat_n -> semicolon stat stat_n(Command.apply stat_n -> semicolon stat stat_n)
+stat_n ->                (Command.apply stat_n -> )
+stat -> identifier assigment expr(Command.apply stat -> identifier assigment expr)
+stat -> kw_while expr kw_do compound_stat(Command.apply stat -> kw_while expr kw_do compound_stat)
+stat -> kw_readln lf_brct identifier rg_brct(Command.apply stat -> kw_readln lf_brct identifier rg_brct)
+stat -> kw_write lf_brct expr expr_n rg_brct(Command.apply stat -> kw_write lf_brct expr expr_n rg_brct)
+stat -> kw_repeat stat stat_n kw_until expr(Command.apply stat -> kw_repeat stat stat_n kw_until expr)
+stat -> kw_if expr kw_then compound_stat if_more(Command.apply stat -> kw_if expr kw_then compound_stat if_more)
+if_more -> kw_else compound_stat(Command.apply if_more -> kw_else compound_stat)
+if_more ->               (Command.apply if_more -> )
+expr_n -> comma expr expr_n(Command.apply expr_n -> comma expr expr_n)
+expr_n ->                (Command.apply expr_n -> )
+expr -> sem_up           (Command.apply expr -> sem_up)
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+sem_up_n -> operator sem_up(Command.apply sem_up_n -> operator sem_up)
+sem_up_n -> lf_brct expr expr_n rg_brct(Command.apply sem_up_n -> lf_brct expr expr_n rg_brct)
+sem_up_n ->              (Command.apply sem_up_n -> )
+operand -> lf_brct sem_up rg_brct(Command.apply operand -> lf_brct sem_up rg_brct)
+operand -> num           (Command.apply operand -> num)
+operand -> string        (Command.apply operand -> string)
+operand -> identifier    (Command.apply operand -> identifier)
+operator -> multipl      (Command.apply operator -> multipl)
+operator -> minus        (Command.apply operator -> minus)
+operator -> plus         (Command.apply operator -> plus)
+operator -> less         (Command.apply operator -> less)
+operator -> various      (Command.apply operator -> various)
+operator -> ls_eq        (Command.apply operator -> ls_eq)
+operator -> greater      (Command.apply operator -> greater)
+operator -> gr_eq        (Command.apply operator -> gr_eq)
+operator -> eq           (Command.apply operator -> eq)
+params_n -> identifier doubdot type semicolon params_n(Command.apply params -> identifier doubdot type semicolon params_n, Command.apply params_n -> params)
+def_func_more -> kw_var params compound_stat semicolon def_functions(Command.apply def_variables -> kw_var params, Command.apply def_func_more -> def_variables compound_stat semicolon def_functions)
+def_func_more -> kw_begin st_list kw_end semicolon def_functions(Command.apply compound_stat -> kw_begin st_list kw_end, Command.apply def_variables -> , Command.apply def_func_more -> def_variables compound_stat semicolon def_functions)
+stat -> kw_begin st_list kw_end(Command.apply compound_stat -> kw_begin st_list kw_end, Command.apply stat -> compound_stat)
+},
+prog
+)
+ 
+
+(
+{prog, compound_stat, def_part, def_variables, params, params_n, func_params, func_params_n, type, def_functions, def_func_more, st_list, stat_n, stat, if_more, expr_n, expr, sem_up, sem_up_n, operand, operator},
+{void, multipl, minus, plus, less, various, ls_eq, greater, gr_eq, eq, lf_brct, rg_brct, lf_sq_brct, rg_sq_brct, semicolon, comma, doubdot, assigment, exp_num, dec_num, num, string, identifier, lex_error, eof, dir_char, kw_begin, kw_boolean, kw_do, kw_else, kw_end, kw_false, kw_find, kw_forward, kw_function, kw_if, kw_integer, kw_readln, kw_real, kw_sort, kw_string, kw_then, kw_true, kw_var, kw_while, kw_write, kw_type, div, dot, kw_repeat, kw_until},
+{
+prog -> def_part compound_stat dot(Command.apply prog -> def_part compound_stat dot)
+compound_stat -> kw_begin st_list kw_end(Command.apply compound_stat -> kw_begin st_list kw_end)
+def_part -> def_variables def_functions(Command.apply def_part -> def_variables def_functions)
+def_variables -> kw_var params(Command.apply def_variables -> kw_var params)
+def_variables ->         (Command.apply def_variables -> )
+params -> identifier doubdot type semicolon params_n(Command.apply params -> identifier doubdot type semicolon params_n)
+params_n ->              (Command.apply params_n -> )
+func_params -> identifier doubdot type func_params_n(Command.apply func_params -> identifier doubdot type func_params_n)
+func_params ->           (Command.apply func_params -> )
+func_params_n -> semicolon identifier doubdot type func_params_n(Command.apply func_params_n -> semicolon identifier doubdot type func_params_n)
+func_params_n ->         (Command.apply func_params_n -> )
+type -> kw_integer       (Command.apply type -> kw_integer)
+type -> kw_real          (Command.apply type -> kw_real)
+type -> kw_string        (Command.apply type -> kw_string)
+type -> kw_boolean       (Command.apply type -> kw_boolean)
+def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more(Command.apply def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more)
+def_functions ->         (Command.apply def_functions -> )
+def_func_more -> kw_forward semicolon def_functions(Command.apply def_func_more -> kw_forward semicolon def_functions)
+st_list -> stat stat_n   (Command.apply st_list -> stat stat_n)
+st_list ->               (Command.apply st_list -> )
+stat_n -> semicolon stat stat_n(Command.apply stat_n -> semicolon stat stat_n)
+stat_n ->                (Command.apply stat_n -> )
+stat -> identifier assigment expr(Command.apply stat -> identifier assigment expr)
+stat -> kw_while expr kw_do compound_stat(Command.apply stat -> kw_while expr kw_do compound_stat)
+stat -> kw_readln lf_brct identifier rg_brct(Command.apply stat -> kw_readln lf_brct identifier rg_brct)
+stat -> kw_write lf_brct expr expr_n rg_brct(Command.apply stat -> kw_write lf_brct expr expr_n rg_brct)
+stat -> kw_repeat stat stat_n kw_until expr(Command.apply stat -> kw_repeat stat stat_n kw_until expr)
+stat -> kw_if expr kw_then compound_stat if_more(Command.apply stat -> kw_if expr kw_then compound_stat if_more)
+if_more -> kw_else compound_stat(Command.apply if_more -> kw_else compound_stat)
+if_more ->               (Command.apply if_more -> )
+expr_n -> comma expr expr_n(Command.apply expr_n -> comma expr expr_n)
+expr_n ->                (Command.apply expr_n -> )
+expr -> sem_up           (Command.apply expr -> sem_up)
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+sem_up_n -> operator sem_up(Command.apply sem_up_n -> operator sem_up)
+sem_up_n -> lf_brct expr expr_n rg_brct(Command.apply sem_up_n -> lf_brct expr expr_n rg_brct)
+sem_up_n ->              (Command.apply sem_up_n -> )
+operand -> lf_brct sem_up rg_brct(Command.apply operand -> lf_brct sem_up rg_brct)
+operand -> num           (Command.apply operand -> num)
+operand -> string        (Command.apply operand -> string)
+operand -> identifier    (Command.apply operand -> identifier)
+operator -> multipl      (Command.apply operator -> multipl)
+operator -> minus        (Command.apply operator -> minus)
+operator -> plus         (Command.apply operator -> plus)
+operator -> less         (Command.apply operator -> less)
+operator -> various      (Command.apply operator -> various)
+operator -> ls_eq        (Command.apply operator -> ls_eq)
+operator -> greater      (Command.apply operator -> greater)
+operator -> gr_eq        (Command.apply operator -> gr_eq)
+operator -> eq           (Command.apply operator -> eq)
+params_n -> identifier doubdot type semicolon params_n(Command.apply params -> identifier doubdot type semicolon params_n, Command.apply params_n -> params)
+def_func_more -> kw_var params compound_stat semicolon def_functions(Command.apply def_variables -> kw_var params, Command.apply def_func_more -> def_variables compound_stat semicolon def_functions)
+def_func_more -> kw_begin st_list kw_end semicolon def_functions(Command.apply compound_stat -> kw_begin st_list kw_end, Command.apply def_variables -> , Command.apply def_func_more -> def_variables compound_stat semicolon def_functions)
+stat -> kw_begin st_list kw_end(Command.apply compound_stat -> kw_begin st_list kw_end, Command.apply stat -> compound_stat)
+},
+prog
+)
+ 
+
+stack:    ''(0), 'prog'(0), 
+Command.apply :  prog -> def_part compound_stat dot
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_part'(1), 
+
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_part'(1), 
+Command.apply :  def_part -> def_variables def_functions
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'def_variables'(2), 
+
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'def_variables'(2), 
+Command.apply :  def_variables -> kw_var params
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'params'(3), 'kw_var'(3), 
+
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'params'(3), 'kw_var'(3), 
+Command.apply :  params -> identifier doubdot type semicolon params_n
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'params_n'(4), 'semicolon'(4), 'type'(4), 'doubdot'(4), 'identifier'(4), 
+
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'params_n'(4), 'semicolon'(4), 'type'(4), 'doubdot'(4), 'identifier'(4), 
+Command.apply :  type -> kw_integer
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'params_n'(4), 'semicolon'(4), 'kw_integer'(5), 
+
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'params_n'(4), 'semicolon'(4), 'kw_integer'(5), 
+Command.apply :  params_n -> 
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 
+
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 
+Command.apply :  def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 'func_params'(3), 'lf_brct'(3), 'identifier'(3), 'kw_function'(3), 
+
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 'func_params'(3), 'lf_brct'(3), 'identifier'(3), 'kw_function'(3), 
+Command.apply :  func_params -> identifier doubdot type func_params_n
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 'func_params_n'(4), 'type'(4), 'doubdot'(4), 'identifier'(4), 
+
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 'func_params_n'(4), 'type'(4), 'doubdot'(4), 'identifier'(4), 
+Command.apply :  type -> kw_integer
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 'func_params_n'(4), 'kw_integer'(5), 
+
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 'func_params_n'(4), 'kw_integer'(5), 
+Command.apply :  func_params_n -> 
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 
+
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 
+Command.apply :  type -> kw_integer
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'kw_integer'(4), 
+
+stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'kw_integer'(4), 
+Command.apply :  def_variables -> kw_var params
+stack:    
+Command.apply :  params -> identifier doubdot type semicolon params_n
