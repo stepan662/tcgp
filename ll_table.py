@@ -1,27 +1,10 @@
 """LL Table."""
 
 from virtual_tree import VirtualTree
+from eff import EFF
 
 # -- coding: utf-8 --
 __author__ = 'stepan'
-
-
-class PredictRow:
-    """Represents 3 columns (Empty, First, Follow)."""
-
-    def __init__(self):
-        """Initialization."""
-        self.empty = False
-        self.first = set()
-        self.follow = set()
-
-    def __str__(self):
-        """To string."""
-        s = ""
-        s += str(self.empty) + " "
-        s += str(self.first) + " "
-        s += str(self.follow)
-        return s
 
 
 class LLTable:
@@ -31,99 +14,29 @@ class LLTable:
         """
         Fill table by rules and symbols.
 
-        Include Empty, First, Follow and Predict algorithms
+        Include Predict algorithms
         """
         # ll table
         self._table = []
-        # table of Empty, First and Follow sets
-        self._ptable = {}
         # predict sets
         self._rulesPredict = []
         self._grammar = grammar
+
+        eff = EFF(grammar)
 
         self._dictTerms = {}
         self._dictNonTerms = {}
 
         rulesPredict = self._rulesPredict
-        ptable = self._ptable
         grammar = self._grammar
-
-        for nonterminal in grammar.nonterminals:
-            # init ptable
-            ptable[nonterminal] = PredictRow()
-
-        for terminal in grammar.terminals:
-            # init ptable
-            ptable[terminal] = PredictRow()
-            # first of terminal is it self
-            ptable[terminal].first.add(terminal)
-
-        # Empty and First algorithm
-
-        while True:
-            change = False      # remember if anything changed
-            for rule in grammar.rules:
-                ruleRow = ptable[rule.r.leftSide]
-                for i, symbol in enumerate(rule.r.rightSide):
-                    firstLength = len(ruleRow.first)
-                    # add first of symbol to rule's first
-                    ruleRow.first.update(ptable[symbol].first)
-                    if firstLength != len(ruleRow.first):
-                        # set is longer then before -> something has changed
-                        change = True
-                    if not ptable[symbol].empty:
-                        # this symbol can't be erased -> stop
-                        break
-                    elif i == (len(rule.r.rightSide) - 1):
-                        # all symbols can be erased
-                        if not ruleRow.empty:
-                            ruleRow.empty = True
-                            change = True
-
-                if len(rule.r.rightSide) == 0:
-                    # epsilon rule
-                    if ruleRow.empty is not True:
-                        ruleRow.empty = True
-                        change = True
-
-            if not change:
-                break
-
-        # Follow algorithm
-
-        # add end symbol ($) to follow of start symbol
-        ptable[grammar.start].follow.add('')
-
-        while True:
-            change = False
-            for rule in grammar.rules:
-                ruleSymbols = rule.r.rightSide
-                for i, symbol in enumerate(ruleSymbols):
-                    if grammar.isTerm(symbol):
-                        continue
-                    symbolSet = ptable[symbol].follow
-                    length = len(symbolSet)
-
-                    # symbols following this one
-                    rightSymbols = ruleSymbols[i + 1:]
-                    symbolSet.update(self.first(rightSymbols))
-                    if self.empty(rightSymbols):
-                        # following symbols can be removed
-                        symbolSet.update(
-                            ptable[rule.r.leftSide].follow)
-
-                    if length != len(symbolSet):
-                        change = True
-            if not change:
-                break
 
         # Predict algorithm
 
         for rule in grammar.rules:
             pset = set()
-            pset.update(self.first(rule.r.rightSide))
-            if self.empty(rule.r.rightSide):
-                pset.update(self.follow(rule.r.leftSide))
+            pset.update(eff.first(rule.rightSide))
+            if eff.empty(rule.rightSide):
+                pset.update(eff.follow(rule.leftSide))
             rulesPredict.append(pset)
 
         # create dictionaries for fast searching of symbols
@@ -145,7 +58,7 @@ class LLTable:
         # fill ll table
         for i, predict in enumerate(rulesPredict):
             rule = grammar.rules[i]
-            nonterminalId = self._dictNonTerms[rule.r.leftSide]
+            nonterminalId = self._dictNonTerms[rule.leftSide]
             for symbol in predict:
                 terminalId = self._dictTerms[symbol]
                 field = self._table[nonterminalId][terminalId]
@@ -157,34 +70,6 @@ class LLTable:
                                      str(rule) + "\n" + "(" +
                                      str(grammar.rules.index(field)) + ") " +
                                      str(field), 40)
-
-        # for i, predict in enumerate(rulesPredict):
-        #    st = str(i) + ":"
-        #    for symbol in predict:
-        #        st += " " + symbol + ","
-        #    print(st)
-        # for row in self._table:
-        #    print(row)
-
-    def empty(self, symbols):
-        """Get empty of symbols."""
-        for symbol in symbols:
-            if not self._ptable[symbol].empty:
-                return False
-        return True
-
-    def first(self, symbols):
-        """Get first of symbols."""
-        first = set()
-        for symbol in symbols:
-            first.update(self._ptable[symbol].first)
-            if not self.empty([symbol]):
-                break
-        return first
-
-    def follow(self, symbol):
-        """Get follow of symbol."""
-        return self._ptable[symbol].follow
 
     def getRule(self, nonterminal, terminal):
         """Get rule from ll table."""
@@ -218,9 +103,9 @@ class LLTable:
                                      input + "'")
 
                 # put rule on stack and take first symbol
-                stack = rule.r.rightSide + stack
+                stack = rule.rightSide + stack
                 # apply orignal rules to virtual tree
-                virtTree.apply(rule.orig)
+                virtTree.applyLL(rule.orig)
                 symbol = stack.pop(0)
 
             else:
@@ -243,12 +128,12 @@ class LLTable:
                     # symbol and terminal are not same - error
                     raise ValueError("Expecting '" + symbol + "', got '" +
                                      input + "'", 40)
-            # print([symbol] + stack)
-            # print(input)
+            print([symbol] + stack)
+            print(input)
 
         # check levels of virtual tree
         if automat is not False:
-            levels = virtTree.getFinalStr()
+            levels = virtTree.getFinalStrLL()
             bug = False
             index = -1
             for level in levels[:-1]:

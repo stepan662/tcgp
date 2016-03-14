@@ -2,6 +2,7 @@
 
 from rule import Rule
 from enum import Enum
+from virtual_tree import VirtualTree
 
 # -- coding: utf-8 --
 __author__ = 'stepan'
@@ -68,6 +69,13 @@ class TableItem:
             s += "r"
         return s
 
+    def __eq__(self, other):
+        """Check if equal."""
+        if isinstance(other, self.__class__):
+            return self.__dict__ == other.__dict__
+        else:
+            return False
+
 
 class StackItem:
     """Stack item - symbol and state."""
@@ -111,16 +119,22 @@ class LRTable:
         self.lrtable = []
 
         additionalRule = Rule('S*', [self.grammar.start])
+        self.grammar.rules = [additionalRule] + self.grammar.rules
+        self.grammar.nonterminals = ['S*'] + self.grammar.nonterminals
         firstRule = LRRule(additionalRule, 0)
         groups = [self.getClosure([firstRule])]
         groupSymbols = []
 
-        for group in groups:
-            newGs, markedS = self.newGroupsFromGroup(group, len(groups))
+        for i, group in enumerate(groups):
+            newGs, markedS = self.newGroupsFromGroup(group, i + 1)
             for newG in newGs:
                 if newG not in groups:
                     groups.append(newG)
-            groupSymbols.append(markedS)
+            transitions = {}
+            for symbol in markedS:
+                tGroup = markedS[symbol]
+                transitions[symbol] = groups.index(tGroup)
+            groupSymbols.append(transitions)
 
         for i, gs in enumerate(groupSymbols):
             print(i, gs)
@@ -139,15 +153,24 @@ class LRTable:
                     continue
                 markedS = rule.getMarkedSymbol()
                 if markedS is False:
+                    pass
                     follow = self.follow(rule.r.leftSide)
                     for symbol in follow:
                         row[symbol] = TableItem(
                             self.grammar.rules.index(rule.r), Operation.reduce)
                 elif not self.grammar.isTerm(markedS):
+                    if (markedS in row and
+                            row[markedS] != groupSymbols[i][markedS]):
+                        raise ValueError("Conflict", 40)
                     row[markedS] = groupSymbols[i][markedS]
                 else:
-                    row[markedS] = TableItem(
-                        groupSymbols[i][markedS], Operation.shift)
+                    tIt = TableItem(groupSymbols[i][markedS], Operation.shift)
+                    if (markedS in row and
+                            row[markedS] != tIt):
+                        raise ValueError(str(tIt) + " != " +
+                                         str(row[markedS]), 40)
+                    else:
+                        row[markedS] = tIt
             lrtable.append(row)
 
         allSymbols = self.grammar.terminals + [''] + self.grammar.nonterminals
@@ -161,7 +184,7 @@ class LRTable:
                     s += "\t"
             print(s)
 
-    def analyzeSymbols(self, getToken):
+    def analyzeSymbols(self, getToken, automat):
         """Analyze symbols by ll_table."""
         grammar = self.grammar
         table = self.lrtable
@@ -171,8 +194,8 @@ class LRTable:
 
         state = 0
         token = getToken()
+        rulesArr = []
         while True:
-            print("state: " + str(state))
             print(" ".join([str(item) for item in stack]))
             if token not in table[state]:
                 raise ValueError("No rule for token '" + token +
@@ -181,21 +204,55 @@ class LRTable:
             if alpha == -1:
                 break
             elif alpha.operation == Operation.shift:
-                print(token, "-> shift")
                 stack.append(StackItem(token, alpha.state))
                 token = getToken()
                 state = alpha.state
             else:
                 rule = grammar.rules[alpha.state]
-                s = "pop: "
                 for s1 in reversed(rule.rightSide):
-                    s += str(stack.pop())
-                print(s)
+                    pSymbol = stack.pop()
+                    if pSymbol.symbol != s1:
+                        raise ValueError("Expecting '" + str(s1) +
+                                         "', got '" + str(pSymbol) +
+                                         "' from rule " + str(rule))
                 q = stack[-1].state
-                print("q:", q)
                 state = table[q][rule.leftSide]
                 stack.append(StackItem(rule.leftSide, state))
-                print(rule, "-> reduce")
+                print(rule)
+                rulesArr.append(rule)
+
+        tree = VirtualTree(self.grammar.start)
+        tree.applyLR(reversed(rulesArr))
+        # check levels of virtual tree
+        if automat is not False:
+            levels = tree.getFinalStrLR()
+            bug = False
+            index = -1
+            for level in levels[:-1]:
+                s = ""
+                state = automat.getStart()
+                for symbol in level:
+                    s += symbol + " "
+                    if not bug:
+                        try:
+                            state = automat.applyCharToState(symbol, state)
+                        except ValueError as e:
+                            index = len(s) - len(symbol)
+                            bug = str(e)
+
+                print(s)
+                if not bug:
+                    if not automat.isTerm(state):
+                        index = len(s)
+                        bug = "Automat is not in final state"
+
+                if index != -1:
+                    print("^".rjust(index))
+                    index = -1
+
+            print(" ".join([char for char in levels[-1]]))
+            if bug:
+                print(bug)
 
     def empty(self, symbols):
         """Get empty of symbols."""
@@ -311,8 +368,9 @@ class LRTable:
             for rule in rules:
                 newGroup.append(rule.moveMarker())
 
-            markedSymbols[symbol] = groupNum
-            newGroups.append(self.getClosure(newGroup))
+            closure = self.getClosure(newGroup)
+            markedSymbols[symbol] = closure
+            newGroups.append(closure)
             groupNum += 1
         return [newGroups, markedSymbols]
 

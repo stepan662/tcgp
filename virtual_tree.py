@@ -44,24 +44,47 @@ class VirtualTree:
         self.blocked = []
         self.states = []
 
-    def charOnLevel(self, char, level):
-        """Add char to tree level."""
+    def charOnLevelEnd(self, char, level):
+        """Add char to end of tree level."""
         if level > len(self.states) - 1:
             self.states.append([])
         self.states[level].append(char)
 
-    def apply(self, origs):
+    def charOnLevelBegin(self, char, level):
+        """Add char to begining of tree level."""
+        if level > len(self.states) - 1:
+            self.states.append([])
+        self.states[level].insert(0, char)
+
+    def applyLR(self, rules):
+        """Apply array of rules."""
+        for rule in rules:
+            while True:
+                # skip nonterminals
+                symbol = self.stack.pop()
+                if symbol == '':
+                    return
+                self.charOnLevelBegin(str(symbol), symbol.level)
+                if symbol == rule.leftSide:
+                    break
+            # apply rule
+            for s in rule.rightSide:
+                self.stack.append(Symbol(s, symbol.level + 1))
+
+            print("stack:   ", symbolArrPrint(self.stack))
+
+    def applyLL(self, origs):
         """Apply original rules to tree."""
         for orig in origs:
             # print("blocked: ",
             #      ", ".join([" ".join([str(oR) for oR in oRs])
             #                 for oRs in self.blocked]))
-            print("stack:   ", symbolArrPrint(self.stack))
+            # print("stack:   ", symbolArrPrint(self.stack))
             if orig.cmd == Command.push:
                 # just push rule on blocked stack, do nothing
                 self.blocked.append(orig.rules)
-                print(orig.cmd, ": ", " ,".join([str(rule)
-                                                 for rule in orig.rules]))
+                # print(orig.cmd, ": ", " ,".join([str(rule)
+                #                                 for rule in orig.rules]))
             else:
                 # apply rules
                 if orig.cmd == Command.apply:
@@ -70,7 +93,8 @@ class VirtualTree:
                 elif orig.cmd == Command.pop:
                     # rules are on stack
                     rules = self.blocked.pop()
-                print(orig.cmd, ": ", " ,".join([str(rule) for rule in rules]))
+                # print(orig.cmd, ": ", " ,".join([str(rule)
+                #                            for rule in rules]))
 
                 for rule in rules:
 
@@ -79,7 +103,7 @@ class VirtualTree:
                         symbol = self.stack.pop()
                         if symbol == '':
                             return
-                        self.charOnLevel(str(symbol), symbol.level)
+                        self.charOnLevelEnd(str(symbol), symbol.level)
                         if symbol == rule.leftSide:
                             break
 
@@ -87,10 +111,21 @@ class VirtualTree:
                     for s in reversed(rule.rightSide):
                         self.stack.append(Symbol(s, symbol.level + 1))
 
-            print("stack:   ", symbolArrPrint(self.stack))
-            print("")
+            # print("stack:   ", symbolArrPrint(self.stack))
+            # print("")
 
-    def getFinalStr(self):
+    def getFinalStrLR(self):
+        """Finish reading symbols from stack."""
+        while True:
+            # skip rest of symbols
+            symbol = self.stack.pop()
+            if symbol == '':
+                break
+            else:
+                self.charOnLevelBegin(str(symbol), symbol.level)
+        return self.states
+
+    def getFinalStrLL(self):
         """Finish reading symbols from stack."""
         while True:
             # skip nonterminals
@@ -98,5 +133,5 @@ class VirtualTree:
             if symbol == '':
                 break
             else:
-                self.charOnLevel(str(symbol), symbol.level)
+                self.charOnLevelEnd(str(symbol), symbol.level)
         return self.states

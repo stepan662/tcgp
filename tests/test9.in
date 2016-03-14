@@ -1,0 +1,12 @@
+(
+{S, ABC, BC, C},
+{a, b, c},
+{
+  S -> {ABC},
+  ABC -> {a, ABC, BC},
+  ABC -> {a, BC},
+  BC -> {b, C},
+  C -> {c}
+},
+S
+)

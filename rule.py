@@ -13,7 +13,7 @@ class Command(Enum):
     pop = 2
 
 
-class Rule:
+class RuleRaw:
     """Represents grammar rule with symbols."""
 
     def __init__(self, leftSide, rightSide):
@@ -28,18 +28,18 @@ class Rule:
         return s
 
 
-class NewRule:
+class Rule(RuleRaw):
     """New rule with reference to old rule."""
 
     def __init__(self, leftSide, rightSide):
         """Initialization."""
-        self.r = Rule(leftSide, rightSide)
-        self.orig = [OrigRules(Command.apply, [self.r])]
+        super().__init__(leftSide, rightSide)
+        self.orig = [OrigRules(Command.apply, [RuleRaw(leftSide, rightSide)])]
 
     def __str__(self):
         """To string."""
-        s = self.r.leftSide + " -> "
-        s += " ".join([symbol for symbol in self.r.rightSide])
+        s = self.leftSide + " -> "
+        s += " ".join([symbol for symbol in self.rightSide])
         s = s.ljust(25)
         s += "("
         s += ", ".join([str(orig) for orig in self.orig])

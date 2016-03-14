@@ -1,0 +1,25 @@
+\begin{thebibliography}{1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\selectlanguage}[1]{\relax}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{Koutny}
+Koutný, J.: \emph{Gramatiky s omezenými derivačními stromy, phd thesis}.
+  Brno, FIT VUT v Brně, 2002.
+
+\bibitem{MedunaIFJ}
+Meduna, A.: \emph{Formal languages and computation: models and their
+  applications}. Taylor & Francis, New York, 2014, ISBN 978-1-4665-1345-7.
+
+\bibitem{fitWeb}
+Rábová, Z.; Hanáček, P.; Peringer, P.; aj.: Užitečné rady pro psaní
+  odborného textu [online]. {\tt
+  http://www.fit.vutbr.cz/info/statnice/psani\_textu.html}, 2008-11-01 [cit.
+  2008-11-28].
+
+\end{thebibliography}
