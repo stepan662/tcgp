@@ -1,4 +1,10 @@
-"""Tree-Controled Grammer parser."""
+"""
+Tree-Controled Grammer parser.
+
+python3
+/home/stepan/projects/tcgp/tcgp.py
+-g tests/test10.in -i tests/input10.in
+"""
 
 import getopt
 import sys
@@ -12,7 +18,7 @@ __author__ = 'stepan'
 
 opts, args = getopt.getopt(
     sys.argv[1:],
-    "hli:o:g:",
+    "hli:o:g:u:",
     ["help", "ll", "input=", "output=", "grammar="])
 # except getopt.GetoptError as err:
 #     print help information and exit:
@@ -35,14 +41,15 @@ for o, a in opts:
         output = open(a, 'w')
     elif o in ("-g", "--grammar"):
         grammarIn = open(a, 'r')
-    else:
-        assert False, "unhandled option"
 
-try:
-    grammar, automat = parse(grammarIn.read())
-except ValueError as e:
-    print(e.args[0])
-    exit(e.args[1])
+# try:
+grammar, automat, precedence = parse(grammarIn.read())
+# except ValueError as e:
+#    print(e.args[0])
+#    exit(e.args[1])
+
+print(precedence)
+print(grammar)
 
 # Determinate automat
 if automat:
@@ -57,6 +64,6 @@ if ll:
     print(grammar)
     table = LLTable(grammar)
 else:
-    table = LRTable(grammar)
+    table = LRTable(grammar, precedence)
 
 table.analyzeSymbols(parser.getToken, automat)

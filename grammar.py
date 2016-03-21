@@ -23,13 +23,10 @@ class Grammar:
         if name == '':
             raise ValueError("Invalid terminal symbol '" + name +
                              "'", 40)
-        if name in self.nonterminals:
-            raise ValueError("Duplicate non-terminal symbol '" +
-                             name + "'", 40)
         if name in self.terminals:
             raise ValueError("Symbol '" + name +
                              "' is already in terminals", 40)
-        else:
+        if name not in self.nonterminals:
             self.nonterminals.append(name)
 
     def addTerminal(self, name):
@@ -37,13 +34,10 @@ class Grammar:
         if name == '':
             raise ValueError("Invalid non-terminal symbol'" + name +
                              "'", 40)
-        if name in self.terminals:
-            raise ValueError("Duplicate terminal symbol '" +
-                             name + "'", 40)
         if name in self.nonterminals:
             raise ValueError("Symbol '" + name +
                              "' is already in non-terminals", 40)
-        else:
+        if name not in self.terminals:
             self.terminals.append(name)
 
     def addRule(self, leftSide, rightSide):
@@ -86,7 +80,7 @@ class Grammar:
         for rule in self.rules:
             s += str(rule) + "\n"
         s += "},\n"
-        s += self.start + "\n)\n"
+        s += str(self.start) + "\n)\n"
         return s
 
     def _getNewNontermName(self, name):

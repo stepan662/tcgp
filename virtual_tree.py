@@ -50,6 +50,11 @@ class VirtualTree:
             self.states.append([])
         self.states[level].append(char)
 
+    def addLevel(self, level):
+        """Add empty level to tree."""
+        if level > len(self.states) - 1:
+            self.states.append([])
+
     def charOnLevelBegin(self, char, level):
         """Add char to begining of tree level."""
         if level > len(self.states) - 1:
@@ -70,6 +75,10 @@ class VirtualTree:
             # apply rule
             for s in rule.rightSide:
                 self.stack.append(Symbol(s, symbol.level + 1))
+
+            if len(rule.rightSide) == 0:
+                # epsilon rule - we must add tree level
+                self.addLevel(symbol.level + 1)
 
             print("stack:   ", symbolArrPrint(self.stack))
 
@@ -110,6 +119,10 @@ class VirtualTree:
                     # apply rule
                     for s in reversed(rule.rightSide):
                         self.stack.append(Symbol(s, symbol.level + 1))
+
+                    if len(rule.rightSide) == 0:
+                        # epsilon rule - we must add tree level
+                        self.addLevel(symbol.level + 1)
 
             # print("stack:   ", symbolArrPrint(self.stack))
             # print("")

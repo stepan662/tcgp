@@ -2,6 +2,7 @@
 
 import automat
 import grammar
+from precedence_table import PrecedenceTable
 
 # -- coding: utf-8 --
 __author__ = 'stepan'
@@ -10,7 +11,7 @@ __author__ = 'stepan'
 def parse(input):
     """Parse input and return grammar and automat."""
     parser = Parser(input)
-    return [parser.getGrammar(), parser.getAutomat()]
+    return (parser.getGrammar(), parser.getAutomat(), parser.getPrecedence())
 
 
 class Token:
@@ -27,13 +28,20 @@ class Parser:
 
     def __init__(self, input):
         """Start parsing."""
+        self.grammar = False
+        self.aut = False
+        self.prec = False
+
+        exception = False
         try:
             self._parse(input)
         except ValueError as e:
             # print exception with line number
-            raise ValueError(e.args[0] +
+            exception = e
+        if exception:
+            raise ValueError(exception.args[0] +
                              " (line: " + self._line.__str__() + ")",
-                             e.args[1])
+                             exception.args[1])
 
     def _parse(self, input):
         """Read and parse automat."""
@@ -42,102 +50,132 @@ class Parser:
         self._line = 1
         self._charLine = 1
 
-        # new empty grammar
-        self.grammar = grammar.Grammar()
+        while True:
+            # wait for keyword
+            token = self._getToken()
+            self._tShould(token, ['id', ''])
+            keyword = token.string
 
-        # wait for opening brackets
-        token = self._getToken()
-        self._tShould(token, ['('])
-        token = self._getToken()
-        self._tShould(token, ['{'])
+            if token.type == '':
+                break
 
-        # load non-terminals
-        self._loadIdsArr(self.grammar.addNonTerminal)
+            token = self._getToken()
+            self._tShould(token, ['='])
+            if keyword == 'grammar':
+                if self.grammar is not False:
+                    raise ValueError("Grammar is defined twice in this file.",
+                                     40)
 
-        # comma and opening bracket
-        token = self._getToken()
-        self._tShould(token, [','])
-        token = self._getToken()
-        self._tShould(token, ['{'])
+                # new empty grammar
+                self.grammar = grammar.Grammar()
 
-        # load terminals
-        self._symbols(self.grammar.addTerminal)
+                # wait for opening brackets
+                token = self._getToken()
+                self._tShould(token, ['('])
+                token = self._getToken()
+                self._tShould(token, ['{'])
 
-        # comma and opening bracket
-        token = self._getToken()
-        self._tShould(token, [','])
-        token = self._getToken()
-        self._tShould(token, ['{'])
+                # load non-terminals
+                self._loadIdsArr(self.grammar.addNonTerminal)
 
-        # load rules
-        self._loadGrammarRules()
+                # comma and opening bracket
+                token = self._getToken()
+                self._tShould(token, [','])
+                token = self._getToken()
+                self._tShould(token, ['{'])
 
-        # comma and one character
-        token = self._getToken()
-        self._tShould(token, [','])
-        token = self._getToken()
-        self._tShould(token, ['id'])
-        self.grammar.setStartSymbol(token.string)
+                # load terminals
+                self._loadCharArr(self.grammar.addTerminal)
 
-        # closing bracket and comma - end of grammar
-        token = self._getToken()
-        self._tShould(token, [')'])
-        token = self._getToken()
-        self._tShould(token, [',', ''])
+                # comma and opening bracket
+                token = self._getToken()
+                self._tShould(token, [','])
+                token = self._getToken()
+                self._tShould(token, ['{'])
 
-        if token.type == '':
-            self.aut = False
-            return
+                # load rules
+                self._loadGrammarRules()
 
-        # new empty automat
-        self.aut = automat.Automat()
+                # comma and one character
+                token = self._getToken()
+                self._tShould(token, [','])
+                token = self._getToken()
+                self._tShould(token, ['id'])
+                self.grammar.setStartSymbol(token.string)
 
-        # automat alphabet are terminals and nonterminals from grammar
-        for symbol in self.grammar.nonterminals:
-            self.aut.addAlpha(symbol)
-        for symbol in self.grammar.terminals:
-            self.aut.addAlpha(symbol)
+                # closing bracket and comma - end of grammar
+                token = self._getToken()
+                self._tShould(token, [')'])
 
-        # wait for opening brackets
-        token = self._getToken()
-        self._tShould(token, ['('])
-        token = self._getToken()
-        self._tShould(token, ['{'])
+            elif keyword == 'automaton':
+                if self.grammar is False:
+                    raise ValueError("Automaton must " +
+                                     " be defined after grammar.", 40)
+                if self.aut is not False:
+                    raise ValueError("Automaton is defined twice.", 40)
 
-        # load states
-        self._loadIdsArr(self.aut.addState)
+                # new empty automat
+                self.aut = automat.Automat()
 
-        # comma and opening bracket
-        token = self._getToken()
-        self._tShould(token, [','])
-        token = self._getToken()
-        self._tShould(token, ['{'])
+                # automat alphabet are terminals and nonterminals from grammar
+                for symbol in self.grammar.nonterminals:
+                    self.aut.addAlpha(symbol)
+                for symbol in self.grammar.terminals:
+                    self.aut.addAlpha(symbol)
 
-        # load rules
-        self._loadAutomatRules()
+                # wait for opening brackets
+                token = self._getToken()
+                self._tShould(token, ['('])
+                token = self._getToken()
+                self._tShould(token, ['{'])
 
-        # comma and start state
-        token = self._getToken()
-        self._tShould(token, [','])
-        token = self._getToken()
-        if token.type != 'id':
-            raise ValueError("Missing start state", 40)
-        else:
-            self.aut.setStart(token.string)
+                # load states
+                self._loadIdsArr(self.aut.addState)
 
-        # comma and opening bracket
-        token = self._getToken()
-        self._tShould(token, [','])
-        token = self._getToken()
-        self._tShould(token, ['{'])
+                # comma and opening bracket
+                token = self._getToken()
+                self._tShould(token, [','])
+                token = self._getToken()
+                self._tShould(token, ['{'])
 
-        self._terminating()
+                # load rules
+                self._loadAutomatRules()
 
-        # closing bracket and nothing
-        token = self._getToken()
-        self._tShould(token, [')'])
-        token = self._getToken()
-        self._tShould(token, [''])
+                # comma and start state
+                token = self._getToken()
+                self._tShould(token, [','])
+                token = self._getToken()
+                if token.type != 'id':
+                    raise ValueError("Missing start state", 40)
+                else:
+                    self.aut.setStart(token.string)
+
+                # comma and opening bracket
+                token = self._getToken()
+                self._tShould(token, [','])
+                token = self._getToken()
+                self._tShould(token, ['{'])
+
+                self._loadIdsArr(self.aut.setTerminating)
+
+                # closing bracket and nothing
+                token = self._getToken()
+                self._tShould(token, [')'])
+            elif keyword == 'precedence':
+                if self.grammar is False:
+                    raise ValueError("Precedence must be defined after" +
+                                     " grammar.", 40)
+                if self.prec is not False:
+                    raise ValueError("Precedence is defined twice.", 40)
+
+                self.prec = PrecedenceTable()
+                token = self._getToken()
+                self._tShould(token, ['('])
+                while self.loadPrecedenceRules():
+                    pass
+
+            else:
+                raise ValueError("Undefined keyword '" + keyword + "'", 40)
 
     def getGrammar(self):
         """Return created grammar."""
@@ -147,15 +185,16 @@ class Parser:
         """Return created automat."""
         return self.aut
 
+    def getPrecedence(self):
+        """Return created precedence."""
+        return self.prec
+
     def _loadCharArr(self, callback):
         token = self._getToken()
         if token.type == '}':
             return  # states are empty
         while token.type != '':
-            self._tShould(token, ['id'])
-            if(len(token.string) > 1):
-                raise ValueError("Expecting single character instead of '" +
-                                 token.string + "'", 40)
+            self._tShould(token, ['str'])
             callback(token.string)
             token = self._getToken()
             self._tShould(token, [',', '}'])
@@ -178,51 +217,29 @@ class Parser:
             else:
                 return
 
-    def _symbols(self, callback):
-        """Load alphabet into grammar."""
-        token = self._getToken()
-        if token.type == '}':
-            return  # states are empty
-        while token.type != '':
-            self._tShould(token, ['str', 'id'])
-            callback(token.string)
-            token = self._getToken()
-            self._tShould(token, [',', '}'])
-            if token.type == ',':
-                token = self._getToken()
-            else:
-                return
-
-    def _symbols2(self):
+    def grammarRuleBody(self):
         """Load symbols in rule."""
         token = self._getToken()
         symbols = []
         if token.type == '}':
-            return []   # states are empty
+            return []
         while token.type != '':
-            self._tShould(token, ['str', 'id'])
-            symbols.append(token.string)
-            token = self._getToken()
-            self._tShould(token, [',', '}'])
-            if token.type == ',':
+            self._tShould(token, ['str', 'id', ';'])
+            if token.type == 'str':
+                if not self.grammar.isTerm(token.string):
+                    raise ValueError("Nonterminal '" + token.string +
+                                     "' musn't be bounded by ''", 40)
+                symbols.append(token.string)
+                token = self._getToken()
+            elif token.type == 'id':
+                if self.grammar.isTerm(token.string):
+                    raise ValueError("Terminal '" + token.string +
+                                     "' must be bounded by ''", 40)
+                self.grammar.isTerm(token.string)
+                symbols.append(token.string)
                 token = self._getToken()
             else:
                 return symbols
-
-    def _alphabet(self):
-        """Load alphabet into automat."""
-        token = self._getToken()
-        if token.type == '}':
-            return  # alphabet is empty
-        while token.type != '':
-            self._tShould(token, ['str'])
-            self.aut.addAlpha(token.string)
-            token = self._getToken()
-            self._tShould(token, [',', '}'])
-            if token.type == ',':
-                token = self._getToken()
-            else:
-                return
 
     def _loadGrammarRules(self):
         token = self._getToken()
@@ -238,22 +255,16 @@ class Parser:
             token = self._getToken()
             self._tShould(token, ['->'])
 
-            # expecting {
-            token = self._getToken()
-            self._tShould(token, ['{'])
-
             # load symbols in rule
-            rightSide = self._symbols2()
+            rightSide = self.grammarRuleBody()
             leftSide = nonterminal
 
             self.grammar.addRule(leftSide, rightSide)
 
             # expecting comma or closing bracket
             token = self._getToken()
-            self._tShould(token, [',', '}'])
-            if token.type == ',':
-                token = self._getToken()
-            else:
+            self._tShould(token, ['id', '}'])
+            if token.type != 'id':
                 return
 
     def _loadAutomatRules(self):
@@ -284,26 +295,46 @@ class Parser:
 
             # expecting comma or closing bracket
             token = self._getToken()
-            self._tShould(token, [',', '}'])
-            if token.type == ',':
-                token = self._getToken()
-            else:
+            self._tShould(token, [';'])
+
+            token = self._getToken()
+            self._tShould(token, ['id', '}'])
+            if token.type != 'id':
                 return
 
-    def _terminating(self):
-        """Load all final states."""
+    def loadPrecedenceRules(self):
+        """Load precedence rules."""
         token = self._getToken()
-        if token.type == '}':
-            return
-        while token.type != '':
-            self._tShould(token, ['id'])
-            self.aut.setTerminating(token.string)
+        self._tShould(token, ['id', ')'])
+
+        if token.type == ')':
+            return False
+
+        leftSide = token.string
+        rightSide = []
+
+        token = self._getToken()
+        self._tShould(token, [':'])
+
+        while True:
             token = self._getToken()
-            self._tShould(token, [',', '}'])
-            if token.type == ',':
-                token = self._getToken()
+            self._tShould(token, ['str', 'id'])
+            if token.type == 'str':
+                if not self.grammar.isTerm(token.string):
+                    raise ValueError("Nonterminal '" + token.string +
+                                     "' musn't be bounded by ''", 40)
             else:
-                return
+                if self.grammar.isTerm(token.string):
+                    raise ValueError("Terminal '" + token.string +
+                                     "' must be bounded by ''", 40)
+            rightSide.append(token.string)
+
+            token = self._getToken()
+            self._tShould(token, [',', ';'])
+            if token.type == ';':
+                break
+        self.prec.addPrecedence(leftSide, rightSide)
+        return True
 
     def _tShould(self, token, types):
         """
@@ -342,6 +373,12 @@ class Parser:
                     return Token('{', '')
                 elif ch == '}':
                     return Token('}', '')
+                elif ch == ';':
+                    return Token(';', '')
+                elif ch == ':':
+                    return Token(':', '')
+                elif ch == '=':
+                    return Token('=', '')
                 elif ch == '(':
                     return Token('(', '')
                 elif ch == ')':
@@ -352,14 +389,14 @@ class Parser:
                     str += ch
                     state = 'id'
                 else:
-                    raise ValueError("Unexpected character '" + ch, 40)
+                    raise ValueError("Unexpected character '" + ch + "'", 40)
 
             # expecting second char of arrow (>)
             elif state == 'arrow':
                 if ch == '>':
                     return Token('->', '')
                 else:
-                    raise ValueError("Unexpected character '" + ch, 40)
+                    raise ValueError("Unexpected character '" + ch + "'", 40)
 
             # expecting string chars, breaked by apostrof
             elif state == 'string':

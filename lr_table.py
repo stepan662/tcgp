@@ -1,8 +1,9 @@
 """LR Table."""
 
 from rule import Rule
-from enum import Enum
+from operation import Operation
 from virtual_tree import VirtualTree
+from eff import EFF
 
 # -- coding: utf-8 --
 __author__ = 'stepan'
@@ -42,18 +43,15 @@ class LRRule:
         return s
 
     def __eq__(self, other):
-        """Copare equal."""
-        return self.__dict__ == other.__dict__
+        """Check if equal."""
+        if isinstance(other, self.__class__):
+            return self.__dict__ == other.__dict__
+        else:
+            return False
 
 
-class Operation(Enum):
-    """LR operation type."""
-    shift = 0
-    reduce = 1
-
-
-class TableItem:
-    """Table item - state number and operation."""
+class Item:
+    """Item - state number and operation."""
 
     def __init__(self, state, operation):
         """Initialization."""
@@ -77,6 +75,37 @@ class TableItem:
             return False
 
 
+class TableItem:
+    """Table item array of conflicting Items."""
+    def __init__(self, item):
+        """Initialization."""
+        self.operations = [False, False]
+        self.operations[item.operation.value] = item
+
+        self.operation = item
+        self.conflict = False
+
+    def getItem(self, operation):
+        """Get item."""
+        return self.operations[operation.value]
+
+    def addItem(self, item):
+        """Add confilcting item."""
+        self.conflict = True
+        if self.operations[item.operation.value] is False:
+            self.operations[item.operation.value] = item
+        else:
+            ValueError("Non reduce - shift error", 40)
+
+    def __str__(self):
+        """To string."""
+        s = "("
+        s += " ".join([str(op) for op in self.operations if op])
+        s += ")"
+
+        return s
+
+
 class StackItem:
     """Stack item - symbol and state."""
 
@@ -92,97 +121,163 @@ class StackItem:
         return s
 
 
-class PredictRow:
-    """Represents 3 columns (Empty, First, Follow)."""
+class LRGroup:
+    """State group of rules with marker."""
+    def __init__(self, rules):
+        """Init with init rules and make hash out of it."""
+        self.rules = rules
 
-    def __init__(self):
-        """Initialization."""
-        self.empty = False
-        self.first = set()
-        self.follow = set()
+        # create unique id from ids of original rules and markers
+        # this is importnant for faster comparing of groups
+        self.id = "".join([str(id(rule.r)) + str(rule.marker)
+                          for rule in rules])
+        self.transitions = {}
+
+    def addTransition(self, symbol, stateId):
+        """Add transition to group."""
+        self.transitions[symbol] = stateId
+
+    def getMarkedSymbols(self):
+        """Get array of symbols after marker in group."""
+        markedSymbols = {}
+        for rule in self.rules:
+            symbol = rule.getMarkedSymbol()
+            if symbol is not False:
+                if symbol not in markedSymbols:
+                    markedSymbols[symbol] = []
+                if rule not in markedSymbols[symbol]:
+                    markedSymbols[symbol].append(rule)
+        return markedSymbols
 
     def __str__(self):
         """To string."""
+        s = ", ".join([str(rule) for rule in self.rules])
+        s += "\tT: " + str(self.transitions)
+        return s
+
+    def __eq__(self, other):
+        """Compare groups by id generated from original rules nad markers."""
+        if isinstance(other, self.__class__):
+            return self.id == other.id
+        else:
+            return False
+
+
+class LRGroups:
+    """LR State groups generator and helper."""
+
+    def __init__(self, grammar, firstRule):
+        """Create state groups from grammar."""
+        self.grammar = grammar
+        firstGroup = LRGroup([firstRule])
+
+        self.groups = [firstGroup]
+
+        # create state groups
+        for i, group in enumerate(self.groups):
+            self._groupClosure(group)
+            self.newGroupsFromGroup(group)
+
+    def newGroupsFromGroup(self, group):
+        """Get new groups with moved marker."""
+        markedSymbols = group.getMarkedSymbols()
+        for symbol in markedSymbols:
+            rules = markedSymbols[symbol]
+            groupRules = []
+            for rule in rules:
+                groupRules.append(rule.moveMarker())
+            newGroup = LRGroup(groupRules)
+            if newGroup not in self.groups:
+                # group composed from this rules is not in groups
+                self.groups.append(newGroup)
+            group.addTransition(symbol, self.groups.index(newGroup))
+
+    def _groupClosure(self, group):
+        """Get LR closure for rule."""
+        while True:
+            change = False
+            for rule1 in group.rules:
+                symbol = rule1.getMarkedSymbol()
+                if symbol is not False and not self.grammar.isTerm(symbol):
+                    for rule2 in self.grammar.rules:
+                        if rule2.leftSide == symbol:
+                            markedR = LRRule(rule2, 0)
+                            if markedR not in group.rules:
+                                change = True
+                                group.rules.append(markedR)
+            if not change:
+                break
+
+    def __str__(self):
+        """"To string."""
         s = ""
-        s += str(self.empty) + " "
-        s += str(self.first) + " "
-        s += str(self.follow)
+        s = "\n".join([str(i) + ": " + str(group)
+                       for i, group in enumerate(self.groups)])
         return s
 
 
 class LRTable:
     """Create LR table from given grammar."""
 
-    def __init__(self, grammar):
+    def __init__(self, grammar, precedence):
         """Initialization."""
         self.grammar = grammar
         self.lrtable = []
+        self.precendece = precedence
 
         additionalRule = Rule('S*', [self.grammar.start])
         self.grammar.rules = [additionalRule] + self.grammar.rules
         self.grammar.nonterminals = ['S*'] + self.grammar.nonterminals
         firstRule = LRRule(additionalRule, 0)
-        groups = [self.getClosure([firstRule])]
-        groupSymbols = []
 
-        for i, group in enumerate(groups):
-            newGs, markedS = self.newGroupsFromGroup(group, i + 1)
-            for newG in newGs:
-                if newG not in groups:
-                    groups.append(newG)
-            transitions = {}
-            for symbol in markedS:
-                tGroup = markedS[symbol]
-                transitions[symbol] = groups.index(tGroup)
-            groupSymbols.append(transitions)
+        # add priorities to rules by their order
+        for i, rule in enumerate(reversed(self.grammar.rules)):
+            rule.priority = i
 
-        for i, gs in enumerate(groupSymbols):
-            print(i, gs)
-        for i, group in enumerate(groups):
-            print(str(i) + ": ", ", ".join([str(rule) for rule in group]))
+        self.groups = LRGroups(grammar, firstRule)
+        groups = self.groups
+        # print(groups)
 
-        self.constructFollow()
+        self.eff = EFF(grammar)
 
         endRule = LRRule(additionalRule, 1)
         lrtable = self.lrtable
-        for i, group in enumerate(groups):
+        for i, group in enumerate(groups.groups):
             row = {}
-            for rule in group:
+            for rule in group.rules:
                 if rule == endRule:
                     row[''] = -1
                     continue
                 markedS = rule.getMarkedSymbol()
                 if markedS is False:
-                    pass
-                    follow = self.follow(rule.r.leftSide)
+                    follow = self.eff.follow(rule.r.leftSide)
                     for symbol in follow:
-                        row[symbol] = TableItem(
-                            self.grammar.rules.index(rule.r), Operation.reduce)
+                        row[symbol] = TableItem(Item(
+                            self.grammar.rules.index(rule.r),
+                            Operation.reduce))
                 elif not self.grammar.isTerm(markedS):
-                    if (markedS in row and
-                            row[markedS] != groupSymbols[i][markedS]):
-                        raise ValueError("Conflict", 40)
-                    row[markedS] = groupSymbols[i][markedS]
+                    row[markedS] = group.transitions[markedS]
                 else:
-                    tIt = TableItem(groupSymbols[i][markedS], Operation.shift)
-                    if (markedS in row and
-                            row[markedS] != tIt):
-                        raise ValueError(str(tIt) + " != " +
-                                         str(row[markedS]), 40)
+                    tIt = Item(group.transitions[markedS],
+                               Operation.shift)
+                    if markedS in row:
+                        row[markedS].addItem(tIt)
+                        # shift - reduce conflict
+                        # print(i, markedS, ":", row[markedS])
+                        # print(row[markedS].getItem(Operation.reduce).state)
                     else:
-                        row[markedS] = tIt
+                        row[markedS] = TableItem(tIt)
             lrtable.append(row)
+        print(self)
 
-        allSymbols = self.grammar.terminals + [''] + self.grammar.nonterminals
-        print("\t".join(["#"] + allSymbols))
-        for i, row in enumerate(lrtable):
-            s = str(i) + "\t"
-            for symbol in allSymbols:
-                if symbol in row:
-                    s += str(row[symbol]) + "\t"
-                else:
-                    s += "\t"
-            print(s)
+    def _getFirstPrecedenceSymbol(self, stack):
+        for symbol in reversed(stack):
+            if symbol.symbol == '':
+                raise ValueError("No precedence symbol on stack.", 40)
+
+            if (self.precendece.isDefined(symbol.symbol) or
+                    self.grammar.isTerm(symbol.symbol)):
+                return symbol.symbol
 
     def analyzeSymbols(self, getToken, automat):
         """Analyze symbols by ll_table."""
@@ -197,18 +292,29 @@ class LRTable:
         rulesArr = []
         while True:
             print(" ".join([str(item) for item in stack]))
+            if token not in self.grammar.terminals and token != '':
+                raise ValueError("Symbol '" + token +
+                                 "' is not in grammar alphabet.", 40)
             if token not in table[state]:
                 raise ValueError("No rule for token '" + token +
                                  "' in state " + str(state), 40)
             alpha = table[state][token]
             if alpha == -1:
                 break
-            elif alpha.operation == Operation.shift:
-                stack.append(StackItem(token, alpha.state))
+
+            item = alpha.operation
+            if alpha.conflict:
+                operation = self.precendece.getPrecedence(
+                    self._getFirstPrecedenceSymbol(stack),
+                    token)
+                item = alpha.getItem(operation)
+
+            if item.operation == Operation.shift:
+                stack.append(StackItem(token, item.state))
                 token = getToken()
-                state = alpha.state
+                state = item.state
             else:
-                rule = grammar.rules[alpha.state]
+                rule = grammar.rules[item.state]
                 for s1 in reversed(rule.rightSide):
                     pSymbol = stack.pop()
                     if pSymbol.symbol != s1:
@@ -253,141 +359,24 @@ class LRTable:
             print(" ".join([char for char in levels[-1]]))
             if bug:
                 print(bug)
+        else:
+            levels = tree.getFinalStrLR()
+            for level in levels:
+                s = ""
+                for symbol in level:
+                    s += symbol + " "
+                print(s)
 
-    def empty(self, symbols):
-        """Get empty of symbols."""
-        for symbol in symbols:
-            if not self._ptable[symbol].empty:
-                return False
-        return True
-
-    def first(self, symbols):
-        """Get first of symbols."""
-        first = set()
-        for symbol in symbols:
-            first.update(self._ptable[symbol].first)
-            if not self.empty([symbol]):
-                break
-        return first
-
-    def follow(self, symbol):
-        """Get follow of symbol."""
-        return self._ptable[symbol].follow
-
-    def constructFollow(self):
-        """Construct structures for follow function."""
-        self._ptable = {}
-        ptable = self._ptable
-        grammar = self.grammar
-
-        for nonterminal in grammar.nonterminals:
-            # init ptable
-            ptable[nonterminal] = PredictRow()
-
-        for terminal in grammar.terminals:
-            # init ptable
-            ptable[terminal] = PredictRow()
-            # first of terminal is it self
-            ptable[terminal].first.add(terminal)
-
-        # Empty and First algorithm
-
-        while True:
-            change = False      # remember if anything changed
-            for rule in grammar.rules:
-                ruleRow = ptable[rule.leftSide]
-                for i, symbol in enumerate(rule.rightSide):
-                    firstLength = len(ruleRow.first)
-                    # add first of symbol to rule's first
-                    ruleRow.first.update(ptable[symbol].first)
-                    if firstLength != len(ruleRow.first):
-                        # set is longer then before -> something has changed
-                        change = True
-                    if not ptable[symbol].empty:
-                        # this symbol can't be erased -> stop
-                        break
-                    elif i == (len(rule.rightSide) - 1):
-                        # all symbols can be erased
-                        if not ruleRow.empty:
-                            ruleRow.empty = True
-                            change = True
-
-                if len(rule.rightSide) == 0:
-                    # epsilon rule
-                    if ruleRow.empty is not True:
-                        ruleRow.empty = True
-                        change = True
-
-            if not change:
-                break
-
-        # Follow algorithm
-
-        # add end symbol ($) to follow of start symbol
-        ptable[grammar.start].follow.add('')
-
-        while True:
-            change = False
-            for rule in grammar.rules:
-                ruleSymbols = rule.rightSide
-                for i, symbol in enumerate(ruleSymbols):
-                    if grammar.isTerm(symbol):
-                        continue
-                    symbolSet = ptable[symbol].follow
-                    length = len(symbolSet)
-
-                    # symbols following this one
-                    rightSymbols = ruleSymbols[i + 1:]
-                    symbolSet.update(self.first(rightSymbols))
-                    if self.empty(rightSymbols):
-                        # following symbols can be removed
-                        symbolSet.update(
-                            ptable[rule.leftSide].follow)
-
-                    if length != len(symbolSet):
-                        change = True
-            if not change:
-                break
-
-    def newGroupsFromGroup(self, group, groupNum):
-        """Get new groups with moved marker."""
-        markedSymbols = {}
-        symbols = []
-        for rule in group:
-            symbol = rule.getMarkedSymbol()
-            if symbol is not False:
-                if symbol not in markedSymbols:
-                    markedSymbols[symbol] = []
-                    symbols.append(symbol)
-                if rule not in markedSymbols[symbol]:
-                    markedSymbols[symbol].append(rule)
-        newGroups = []
-        for symbol in symbols:
-            rules = markedSymbols[symbol]
-            newGroup = []
-            for rule in rules:
-                newGroup.append(rule.moveMarker())
-
-            closure = self.getClosure(newGroup)
-            markedSymbols[symbol] = closure
-            newGroups.append(closure)
-            groupNum += 1
-        return [newGroups, markedSymbols]
-
-    def getClosure(self, rules):
-        """Get LR closure for rule."""
-        closure = rules
-        while True:
-            change = False
-            for rule1 in closure:
-                symbol = rule1.getMarkedSymbol()
-                if symbol is not False and not self.grammar.isTerm(symbol):
-                    for rule2 in self.grammar.rules:
-                        if rule2.leftSide == symbol:
-                            markedR = LRRule(rule2, 0)
-                            if markedR not in closure:
-                                change = True
-                                closure.append(markedR)
-            if not change:
-                break
-        return closure
+    def __str__(self):
+        """To string."""
+        allSymbols = self.grammar.terminals + [''] + self.grammar.nonterminals
+        s = "\t".join(["#"] + allSymbols) + "\n"
+        for i, row in enumerate(self.lrtable):
+            s += str(i) + "\t"
+            for symbol in allSymbols:
+                if symbol in row:
+                    s += str(row[symbol]) + "\t"
+                else:
+                    s += "\t"
+            s += "\n"
+        return s

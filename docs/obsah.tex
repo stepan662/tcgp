@@ -69,11 +69,11 @@
 
 \chapter{Formální jazyky}
 
-Teorie formálních jazyků si bere za cíl formalizovat obecně jazyky
+Teorie formálních jazyků si bere za cíl formalizovat jazyky
 (přirozené, programovací, matematické, ...) tak, abychom se mohli zabývat jejich
 automatizovaným zpracováním.
 Pojmy, které známe z lingvistiky jsou zde zobecněny a přesně definovány,
-takže nemusí přesně odpovídat naší dosavadní představě.
+takže nemusí úplně odpovídat naší dosavadní představě.
 
 \subsubsection*{Abeceda}
 
@@ -116,25 +116,33 @@ složených z terminálů a neterminálů, přičemž $\alpha$ obsahuje alespoň
 Zapisují se jako $\alpha \rightarrow \beta$.\\
 Pravidla se aplikují od startovacího symbolu, kdy postupně přepisujeme řetězec tak že nahradíme
 jakoukoliv část řetězce, která se nachází na levé straně některého pravidla za pravou stranu tohoto pravidla.
+Tato operace se také nazývá \term{derivace}.
 Řetězec upravujeme podle pravidel tak dlouho, až se v něm nacházejí pouze neterminály.
 
 \begin{figure}[H]
+  \label{img:rewriteRule}
   \centering
   \includegraphics{fig/rewriteRule.pdf}
+  \caption{Příklad derivace podle pravidla}
 \end{figure}
 
 \subsubsection*{Ekvivalence gramatik}
 Dvě gramatiky označujeme jako \term{ekvivalentní}, pokud generují stejný jazyk.
 
-\subsubsection*{Hierarchie jazyků}
+\subsubsection*{Výpočetní model}
 
-Protože obecná gramatika může obsahovat pravidla, která lze těžko zpracovávat,
-v praxi se gramatiky dále omezují - přesněji omezujeme tvar pravidel gramatiky.
-Omezením gramatiky získáme výhodu rychlejšího (a jednoduššího) zpracování,
-ovšem na úkor vyjadřovací síly.\\
+Výpočetní model lze definovat jako hypotetický přístroj,
+který využíváme k řešení daného problému. Vlastnosti modelu určují,
+jak sofistikované problémy je schopen řešit.
+
+\subsubsection*{Hierarchie jazyků} \label{chomsky:hierarchy}
+
+Omezením gramatiky lze zaručit to, že ji lze zpracovávat jednodušším
+\term{Výpočetním modelem}. Jazyky se proto
+dělí do tříd právě podle toho, jaký výpočetní model je dokáže zpracovat.\\
 
 \noindent
-Gramatiky se nejčastěji rozdělují podle Chomského hierarchie:
+Jedno z nejznámějších rozdělení je podle tzv. \term{Chomského hierarchie}:
 
 \begin{itemize}
   \item \textbf{Gramatiky typu 0} (frázové/neomezené gramatiky)\\
@@ -156,11 +164,28 @@ Gramatiky se nejčastěji rozdělují podle Chomského hierarchie:
   Tvoří třídu \term{bezkontextových jazyků}, zkratka \textbf{CF}.
 
   \item \textbf{Gramatiky typu 3} (regulární gramatiky)\\
-  Skládají se z pravidel typu $A \rightarrow a$ a $A \rightarrow aB$,
+  Skládají se z pravidel typu $A \rightarrow B$ a $A \rightarrow aB$,
   kde $A, B$ jsou neterminály a $a$ je terminál.\\
   Model pro zpracování se nazývá \term{konečný automat}.\\
   Tvoří třídu \term{regulárních jazyků}, zkratka \textbf{REG}.
 \end{itemize}
+
+\subsubsection*{Vyjadřovací síla jazyka}
+
+Čím větší má jazyk vyjadřovací sílu, tím detailnější omezení je jeho
+gramatika schopna klást na přijímané řetězce. Jsme tedy schopni jemněji rozlišovat,
+které řetězce patří do jazyka a které ne.
+
+V \term{Chomského hierarchii} jsou jazyky uspořádány tak, že slabší jazyk je
+vždy podmnožinou silnějšího. Tedy například mezi Bezkontextové jazyky patří i
+všechny Regulární jazyky.\\
+
+\begin{figure}[H]
+  \centering
+  \includegraphics{fig/Chomsky.pdf}
+  \caption{Schématické znázornění Chomského hieararchie}
+\end{figure}
+
 
 V této práci se budeme zabývat skupinami 2 a 3,
 tedy bezkontextovými a regulárními jazyky. Tyto jazyky jsou prodrobněji
@@ -171,7 +196,7 @@ popsány v následujících kapitolách.
 Regulární jazyky jsou nejjednodušší formální jazyky v Chomského hierarchii.
 I přesto si však našly široké využití v různých oblastech informačních technologií.
 Využívají se např. pro pokročilé vyhledávání v textu nebo
-pro rozdělení programovacího jazyka na základní jednotky (tokeny).
+pro rozdělení programovacího jazyka na základní jednotky.
 V implementační části této práce jsou využity ke kontrole úrovní derivačního stromu,
 také proto se jimi budeme hlouběji zabývat.
 
@@ -186,7 +211,7 @@ také proto se jimi budeme hlouběji zabývat.
   \end{itemize}
 \end{defn}
 
-\subsection*{Konečné automaty}
+\subsection{Konečné automaty}
 Každý Regulární jazyk lze zpracovávat konečným automatem a každý konečný automat
 lze vyjádřit regulárním jazykem.\\
 
@@ -209,17 +234,17 @@ stavu.
 
 \begin{exmp}
   Mějme konečný automat M1:
-  \begin{lstlisting}
+  \begin{lstlisting}[mathescape, escapeinside={(*}{*)}]
   M1 = (
-    {s, q, f},
-    {a, b, c},
-    {
-      sa -> q1,
-      qb -> q,
-      qc -> f
+    {s, q, f},        (* // množina stavů *)
+    {a, b, c},        (* // abeceda *)
+    {                 (* // množina pravidel *)
+      sa $\rightarrow$ q1,
+      qb $\rightarrow$ q,
+      qc $\rightarrow$ f
     },
-    s,
-    {f}
+    s,                (* // počateční stav *)
+    {f}               (* // množina ukončujících stavů *)
   )
   \end{lstlisting}
   A řetězec:
@@ -265,17 +290,17 @@ Tento konečný automat lze také zobrazit pomocí následujícího grafu:
 Uveďme další příklad, který už nebude tak jednoduchý:
 \begin{exmp}
   Mějme konečný automat M2:
-  \begin{lstlisting}[mathescape]
+  \begin{lstlisting}[mathescape, escapeinside={(*}{*)}]
   M2 = (
     {s, q1, q2, p1, p2, f1, f2},
     {a, b, c, d},
     {
-      sa -> q1,
-      q1b -> q2,
-      q2c -> f1,
-      q1$\varepsilon$ -> p1,
-      p1b -> p2,
-      p2d -> f2
+      sa $\rightarrow$ q1,
+      q1b $\rightarrow$ q2,
+      q2c $\rightarrow$ f1,
+      q1$\varepsilon$ $\rightarrow$ p1,
+      p1b $\rightarrow$ p2,
+      p2d $\rightarrow$ f2
     },
     s1,
     {f1}
@@ -296,7 +321,7 @@ Uveďme další příklad, který už nebude tak jednoduchý:
   \end{figure}
 
   Pokud se při zpracování ocitneme ve stavu $q1$ a vstupním symbolem bude 'b',
-  není jasné, jestli máme použít 2. nebo 4. pravidlo. Museli bychom vyzkoušet obě možnosti
+  není jasné, jestli máme použít 2. nebo 4. pravidlo. Museli bychom vyzkoušet jít oběma cestami
   a až zpětně bychom zjistili, která možnost byla správná. Tomuto jevu se v teorii
   formálních jazyků říká \term{nedeterminismus} a setkáme
   se s ním ještě několikrát.\\
@@ -315,7 +340,7 @@ Uveďme další příklad, který už nebude tak jednoduchý:
 
 \end{exmp}
 
-\subsection*{Determinizace konečného automatu}
+\subsection{Determinizace konečného automatu}
 
 Z výše uvedených odstavců je zjevné, že je lepší se preventivně nedeterminismu
 zbavit. Nejprve ukážeme demonstraci na tomto konkrétním příkladě a poté uvedeme
@@ -425,18 +450,130 @@ lze převést na Deterministický KA \cite[str. 39]{MedunaIFJ}.
 Z toho vyplývá, že jakýkoliv Regulární jazyk lze zpracovávat deterministicky,
 což u jazyků z ostatních tříd \term{Chomského hierarchie} neplatí.\\
 
-Existují také další transformace Konečného automatu, jako například:
-minimalizace a odstranění nedostupných stavů. Ty slouží ale spíše k
-jakémusi uhlazení automatu - při práci konečného automatu nám nemusí vadit,
-že jsou některé stavy nedostupné, protože se k nim ani nemůžeme dostat.
-Bez nich by sice zabíral méně paměťi, ale odstraňování těchto stavů, stojí
-zase výpočetní čas.\\
-Podobné je to i s minimalizací - to že uživatel
-zadá více stavů, než je nutné, můžeme brát jako jeho osobní věc a to že bychom
-nepotřebné vypustili, by ho mohlo spíše poplést. Dopad na výkon automatu je
-zde zanedbatelný.
+Existují také další transformace Konečného automatu, jako např.
+odstranění nedostupných stavů nebo minimalizace. V této práci však
+nebudou využívány a proto zde nejsou více rozebírány.\\
+
+\subsection*{Na co konečné automaty nestačí}
+
+\begin{exmp}
+  \label{exmp:brackets}
+
+  Řekněme, že chceme konečným automatem kontrolovat,
+  jestli matematický výraz obsahuje stejné množství
+  otevíracích závorek jako uzavíracích a jestli jsou ve správném pořadí.\\
+  Příklady řetězců:
+  \begin{itemize}
+    \item '(())' - v pořádku
+    \item '(()())' - v pořádku
+    \item '(()' - špatně
+    \item ')(' - špatně
+  \end{itemize}
+
+  Příklad si zjednodušíme tak, že nebudeme uvažovat žádná čísla ani znaky uvnitř
+  závorek.\\
+
+  Když tedy přečteme první '(' musíme přejít do stavu, který značí
+  "čekám jednu uzavírací závorku" (pro větší přehlednost budeme tento stav označovat $[)]$)
+  a když je dalším znakem ')' přejít do konečného stavu.
+  Tento konečný automat lze znázornit takto:
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics{fig/finiteAutomat2.pdf}
+  \end{figure}
+
+  Tento automat bude fungovat bez problému pro řetězec '()',
+  my ale chceme zpracovávat i zanořené závorky a na to tento automat zatím nestačí.
+  Pokud tedy chceme univerzálnější automat, stačí přidat další stav:
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics{fig/finiteAutomat2_1.pdf}
+  \end{figure}
+
+  Zde již zvládneme i závorky s jedním zanořením. Problémem ovšem je, že
+  pro každé nové zanoření musíme přidat nový stav.
+  Kdybychom tedy chtěli zpracovávat jakýkoliv počet zanoření (tedy potenciálně $\infty$),
+  musel by automat obsahovat nekonečné množství stavů.
+  Vidíme, že problémem Konečného automatu je, že může obsahovat pouze konečný
+  počet stavů (a každý musíme ručně definovat).
+  Zde tedy vidíme příklad jazyka, který nejde zpracovávat Konečným automatem
+  a z toho vyplívá, že není ani Regulárním jazykem.
+  Řekněme si rovnou, že bezkontextové jazyky tento problém řeší a k tomuto
+  příkladu se ještě vrátíme.
+
+\end{exmp}
 
 \section{Bezkontextové jazyky}
+
+Bezkontextový jazyk je definován Bezkontextovou gramatikou.
+Jak jsme již uvedli v \term{Chomského hierarchii} (str. \pageref{chomsky:hierarchy}),
+tyto gramatiky obsahují pravidla ve tvaru $A \rightarrow \gamma$, kde $A$ je neterminál a
+$\gamma$ řetězec terminálů a neterminálů.
+
+\subsection{Bezkontextové gramatiky}
+
+Pokračujme nyní v příkladu \ref{exmp:brackets} a ukažme si, jak ho lze
+vyjádřit pomocí bezkontextové gramatiky a zpracovávat zásobníkovým automatem.\\
+
+Chceme tedy vyjádřit výraz tvořený závorkami, pomocí gramatických pravidel.
+Označme dvojici závorek jako výraz = neterminál $E$. Gramtické pravidlo tedy bude
+vypadat takto:
+\[E \rightarrow ()\]
+Nyní bychom ale chtěli vyjádřit, že uvnitř závorek může být další výraz, to
+lze udělat tímto rekurzivním způsobem:
+\[E \rightarrow (E)\]
+Zkusme nyní rozgenerovávat výraz E, tak jak to bylo naznačeno na Obr. \ref{img:rewriteRule},
+tedy pomocí přepisování neterminálů:
+\begin{lstlisting}
+  1.        E
+  2.       (E)
+  3.      ((E))
+  4.     (((E)))
+  5.       ...
+\end{lstlisting}
+Vidíme, že zanořování, které nám dělalo problémy u regulárních jazyků, zde vyjádříme bez problému,
+ještě by to však chtělo několik vylepšení.
+Můžeme si všimnout, že rozgenerovávání by se vlastně mělo provádět do nekonečna,
+protože neterminálu E se nyní nelze zbavit. To lze vyřešit přidáním tzv.
+$\varepsilon$-pravidla:
+\[E \rightarrow \varepsilon\]
+To nám říká, že neterminál E je možno kdykoliv vymazat. Dále bychom ještě chtěli,
+aby se za závorkou mohla vyskytovat další závorka, např. '(()())'.
+Stačí přidat do výrazu další rekurzi:
+\[E \rightarrow (E)E\]
+Všimněme si ještě, že začínáme od symbolu $E$, který lze vymazat pomocí
+$\varepsilon$-pravidla, přijímáme tedy i prázdný řetězec. Pokud bychom chtěli
+vyjádřit, že celý výraz musí být alespoň v jedněch závrokách lze to udělat
+přidáním speciálního počátečního pravidla:
+\[S \rightarrow (E)\]
+Nyní tedy budeme začínat od symbolu S. Označme si tuto gramatiku jako
+$G$ a vyjádřeme ji formálně:
+\begin{lstlisting}[mathescape, escapeinside={(*}{*)}]
+  G = (
+    {S, E},           (* // množina neterminálů *)
+    {(, )},           (* // množina terminálů *)
+    {                 (* // množina pravidel *)
+      S $\rightarrow$ (E),
+      E $\rightarrow$ (E)E,
+      E $\rightarrow$ $\varepsilon$
+    },
+    S                 (* // počáteční symbol *)
+  )
+\end{lstlisting}
+
+Je zřejmé, že bezkontextovými jazyky jsme schopni popsat mnohem
+složitější jazyky, než regulárními jazyky. Daní za větší \term{vyjadřovací sílu}
+je ale znatelně složitější zpracování těchto jazyků.
+
+\subsection{Zásobníkové automaty}
+
+Zásobníkový automat rozšiřuje \term{Konečný automat} o zásobník, kam lze
+ukládat symboly (terminály i neterminály). Pro rozhodnutí, jaké pravidlo použít,
+využívá vedle vstupního symbolu i symbol na vrcholu zásobníku. V rámci vykonání
+přechodu lze zároveň manipulovat se zásobníkem.\\
+
 
 \subsection{Derivační strom}
 Při aplikaci gramatiky na řetězec jde vlastně o ověření,
@@ -444,13 +581,13 @@ jestli lze z počátečního symbolu,
 postupnou derivací (aplikací pravidel gramatiky) získat daný řetězec.
 Mějme například gramatiku:
 
-\begin{lstlisting}
+\begin{lstlisting}[mathescape]
   G = (
     {S, a, b, c},
     {a, b, c},
     {
-      S -> aSc,
-      S -> b
+      S $\rightarrow$ aSc,
+      S $\rightarrow$ b
     },
     S
   )
@@ -484,18 +621,18 @@ Nyní zkusíme postupně aplikovat pravidla na počáteční symbol,
 tak abychom získali řetězec $s$
 (v komentáři jsou uvedena pravidla, která byla použita):
 
-\begin{lstlisting}
-  S
-  aSc                     //S -> aSc
-  aaScc                   //S -> aSc
-  aaaSccc                 //S -> aSc
-  aaabccc                 //S -> b
+\begin{lstlisting}[mathescape]
+     S
+    aSc                   //S $\rightarrow$ aSc
+   aaScc                  //S $\rightarrow$ aSc
+  aaaSccc                 //S $\rightarrow$ aSc
+  aaabccc                 //S $\rightarrow$ b
 \end{lstlisting}
 
 \noindent
 Touto posloupností derivací jsme byli schopni dosáhnout kontrolovaného řetězce $s$,
 daný řetězec tedy patří do gramatiky. Výše zobrazené derivace lze zobrazit
-i jinak a to pomocí tzv. \texttt{Derivačního stromu}:
+i jinak a to pomocí tzv. \term{Derivačního stromu}:
 
 \begin{figure}[H]
   \centering
@@ -634,7 +771,7 @@ Metody řešící tento problém jsou již podrobně prozkoumané a obecně zná
 proto není tolik vysvětlován jejich princip, ale spíše jejich vlastnosti, mající
 vliv na podobu derivačního stromu.\\
 
-Při konstrukci syntaktického analyzátoru se vždy objeví otázka, zdali je lepší
+Při návrhu syntaktického analyzátoru se vždy objeví otázka, zdali je lepší
 při konstrukci derivačního stromu postupovat od kořene (shora dolů) nebo od
 zkoumaného řetězce (zdola nahoru). Odpověď na tuto otázku není jednoznačná,
 což je vidět i na široce používaných analyzátorech programovacích jazyků,
