@@ -1,18 +1,19 @@
-(
-{S, A, B, C},
-{a, b, c},
-{
-  S -> {A, B, C},
-  A -> {a, A},
-  A -> {a},
-  B -> {b, B},
-  B -> {b},
-  C -> {c, C},
-  C -> {c}
-},
-S
-),
-(
+grammar = (
+  {S, A, B, C},
+  {'a', 'b', 'c'},
+  {
+    S -> A B C;
+    A -> 'a' A;
+    A -> 'a';
+    B -> 'b' B;
+    B -> 'b';
+    C -> 'c' C;
+    C -> 'c';
+  },
+  S
+)
+
+automaton = (
   # finite state machine R
   {
     # states
@@ -20,16 +21,16 @@ S
   },
   {
     # rules
-    S   'S' -> f,
-    S   'A' -> p1,
-    p1  'B' -> p2,
-    p2  'C' -> f,
-    S   'a' -> q1,
-    q1  'A' -> q2,
-    q2  'b' -> q3,
-    q3  'B' -> q4,
-    q4  'c' -> q5,
-    q5  'C' -> f
+    S   'S' -> f;
+    S   'A' -> p1;
+    p1  'B' -> p2;
+    p2  'C' -> f;
+    S   'a' -> q1;
+    q1  'A' -> q2;
+    q2  'b' -> q3;
+    q3  'B' -> q4;
+    q4  'c' -> q5;
+    q5  'C' -> f;
   },
   # start state
   S,

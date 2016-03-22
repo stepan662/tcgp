@@ -8,15 +8,24 @@ __author__ = 'stepan'
 
 class Symbol(str):
     """Symbol with tree level number."""
+    id = 0
+
     def __new__(cls, str, level):
         """Initialization."""
         obj = str.__new__(cls, str)
         obj.level = level
+        obj.id = "g_0"
         return obj
 
     def toString(self):
         """Print string and level."""
         return "'" + self + "'(" + str(self.level) + ")"
+
+    @classmethod
+    def getId(cls):
+        """Unique id of object."""
+        cls.id += 1
+        return "s_" + str(cls.id)
 
 
 def symbolArr(strArr, level):
@@ -43,6 +52,28 @@ class VirtualTree:
         self.stack = [Symbol('', 0), Symbol(firstSymbol, 0)]
         self.blocked = []
         self.states = []
+        self.dotNames = False
+        self.lrRuleFunc = self.applyLRRule
+
+    def getDotStr(self):
+        """Get string for dot."""
+        s = "digraph program {\n"
+        s += self.dot[0]
+        for key in self.dot[1]:
+            arr = self.dot[1][key]
+            for item in arr:
+                s += key + " -> " + item + "\n"
+        s += "}\n"
+        return s
+
+    def setDotRecord(self, dotRec):
+        """Function to apply rule."""
+        if dotRec:
+            self.dot = ["", {}]
+            self.lrRuleFunc = self.applyLRDotOutput
+        else:
+            self.dot = False
+            self.lrRuleFunc = self.applyLRRule
 
     def charOnLevelEnd(self, char, level):
         """Add char to end of tree level."""
@@ -61,6 +92,34 @@ class VirtualTree:
             self.states.append([])
         self.states[level].insert(0, char)
 
+    def applyLRRule(self, symbol, rule):
+        """Apply LR Rule."""
+        for s in rule.rightSide:
+            self.stack.append(Symbol(s, symbol.level + 1))
+
+        if len(rule.rightSide) == 0:
+            # epsilon rule - we must add tree level
+            self.addLevel(symbol.level + 1)
+
+    def applyLRDotOutput(self, symbol, rule):
+        """Apply LR Rule and add DOT output."""
+        dotStr = " ".join([str(newS) for newS in rule.rightSide])
+        dotId = Symbol.getId()
+        for s in rule.rightSide:
+            newS = Symbol(s, symbol.level + 1)
+            newS.id = dotId
+            self.stack.append(newS)
+
+        self.dot[0] += dotId + " [label=\"" +\
+            dotStr + "\"];\n"
+        if symbol.id not in self.dot[1]:
+            self.dot[1][symbol.id] = []
+        self.dot[1][symbol.id] = [dotId] + self.dot[1][symbol.id]
+
+        if len(rule.rightSide) == 0:
+            # epsilon rule - we must add tree level
+            self.addLevel(symbol.level + 1)
+
     def applyLR(self, rules):
         """Apply array of rules."""
         for rule in rules:
@@ -73,12 +132,7 @@ class VirtualTree:
                 if symbol == rule.leftSide:
                     break
             # apply rule
-            for s in rule.rightSide:
-                self.stack.append(Symbol(s, symbol.level + 1))
-
-            if len(rule.rightSide) == 0:
-                # epsilon rule - we must add tree level
-                self.addLevel(symbol.level + 1)
+            self.lrRuleFunc(symbol, rule)
 
             print("stack:   ", symbolArrPrint(self.stack))
 

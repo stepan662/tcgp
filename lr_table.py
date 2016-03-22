@@ -37,6 +37,8 @@ class LRRule:
         for i, symbol in enumerate(self.r.rightSide):
             if self.marker == i:
                 s += "●"
+            elif i != 0:
+                s += " "
             s += symbol
         if self.marker == len(self.r.rightSide):
             s += "●"
@@ -91,11 +93,16 @@ class TableItem:
 
     def addItem(self, item):
         """Add confilcting item."""
-        self.conflict = True
         if self.operations[item.operation.value] is False:
+            # there is conflict shift - reduce conflict
+            self.conflict = True
             self.operations[item.operation.value] = item
         else:
-            ValueError("Non reduce - shift error", 40)
+            if self.operations[item.operation.value] != item:
+                # there is other conflict - table item is not the same
+                raise ValueError("Non reduce - shift error: " +
+                                 str(self.operations[item.operation.value]) +
+                                 " or " + str(item), 40)
 
     def __str__(self):
         """To string."""
@@ -268,6 +275,7 @@ class LRTable:
                     else:
                         row[markedS] = TableItem(tIt)
             lrtable.append(row)
+        print(groups)
         print(self)
 
     def _getFirstPrecedenceSymbol(self, stack):
@@ -293,41 +301,58 @@ class LRTable:
         while True:
             print(" ".join([str(item) for item in stack]))
             if token not in self.grammar.terminals and token != '':
+                # input symbol is not in grammar alphabet
                 raise ValueError("Symbol '" + token +
                                  "' is not in grammar alphabet.", 40)
             if token not in table[state]:
+                # no rule for this symbol and state
                 raise ValueError("No rule for token '" + token +
                                  "' in state " + str(state), 40)
+            # get item from table
             alpha = table[state][token]
             if alpha == -1:
+                # we are at the end
                 break
 
-            item = alpha.operation
             if alpha.conflict:
+                # we have two possibilities - there is shift - reduce conflict
+                # decide conflict by precedence table
                 operation = self.precendece.getPrecedence(
                     self._getFirstPrecedenceSymbol(stack),
                     token)
                 item = alpha.getItem(operation)
+            else:
+                # no conflict, get operation
+                item = alpha.operation
 
             if item.operation == Operation.shift:
+                # shift - add symbol to stack
                 stack.append(StackItem(token, item.state))
                 token = getToken()
                 state = item.state
             else:
+                # reduce - apply rule
                 rule = grammar.rules[item.state]
                 for s1 in reversed(rule.rightSide):
+                    # check, that symbols on stack are same with right side
+                    # of the rule
                     pSymbol = stack.pop()
                     if pSymbol.symbol != s1:
                         raise ValueError("Expecting '" + str(s1) +
                                          "', got '" + str(pSymbol) +
                                          "' from rule " + str(rule))
-                q = stack[-1].state
-                state = table[q][rule.leftSide]
+                # get state of last symbol on stack
+                symbolState = stack[-1].state
+                # get new state from beta table
+                state = table[symbolState][rule.leftSide]
+                # add rule left side to stack
                 stack.append(StackItem(rule.leftSide, state))
-                print(rule)
+                # add record of rule applying to rules array
                 rulesArr.append(rule)
 
         tree = VirtualTree(self.grammar.start)
+        tree.setDotRecord(True)
+        # apply rule in reversed order - from top to bottom
         tree.applyLR(reversed(rulesArr))
         # check levels of virtual tree
         if automat is not False:
@@ -366,6 +391,9 @@ class LRTable:
                 for symbol in level:
                     s += symbol + " "
                 print(s)
+
+        print(tree.getDotStr())
+        return True
 
     def __str__(self):
         """To string."""

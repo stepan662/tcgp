@@ -1,3 +1,4 @@
+False
 (
 {prog, compound_stat, def_part, def_variables, params, params_n, func_params, func_params_n, type, def_functions, def_func_more, st_list, stat_n, stat, if_more, expr_n, expr, sem_up, sem_up_n, operand, operator},
 {void, multipl, minus, plus, less, various, ls_eq, greater, gr_eq, eq, lf_brct, rg_brct, lf_sq_brct, rg_sq_brct, semicolon, comma, doubdot, assigment, exp_num, dec_num, num, string, identifier, lex_error, eof, dir_char, kw_begin, kw_boolean, kw_do, kw_else, kw_end, kw_false, kw_find, kw_forward, kw_function, kw_if, kw_integer, kw_readln, kw_real, kw_sort, kw_string, kw_then, kw_true, kw_var, kw_while, kw_write, kw_type, div, dot, kw_repeat, kw_until},
@@ -58,179 +59,599 @@ operator -> eq           (Command.apply operator -> eq)
 },
 prog
 )
- 
 
-(
-{prog, compound_stat, def_part, def_variables, params, params_n, func_params, func_params_n, type, def_functions, def_func_more, st_list, stat_n, stat, if_more, expr_n, expr, sem_up, sem_up_n, operand, operator},
-{void, multipl, minus, plus, less, various, ls_eq, greater, gr_eq, eq, lf_brct, rg_brct, lf_sq_brct, rg_sq_brct, semicolon, comma, doubdot, assigment, exp_num, dec_num, num, string, identifier, lex_error, eof, dir_char, kw_begin, kw_boolean, kw_do, kw_else, kw_end, kw_false, kw_find, kw_forward, kw_function, kw_if, kw_integer, kw_readln, kw_real, kw_sort, kw_string, kw_then, kw_true, kw_var, kw_while, kw_write, kw_type, div, dot, kw_repeat, kw_until},
-{
-prog -> def_part compound_stat dot(Command.apply prog -> def_part compound_stat dot)
-compound_stat -> kw_begin st_list kw_end(Command.apply compound_stat -> kw_begin st_list kw_end)
-def_part -> def_variables def_functions(Command.apply def_part -> def_variables def_functions)
-def_variables -> kw_var params(Command.apply def_variables -> kw_var params)
-def_variables ->         (Command.apply def_variables -> )
-params -> identifier doubdot type semicolon params_n(Command.apply params -> identifier doubdot type semicolon params_n)
-params_n ->              (Command.apply params_n -> )
-func_params -> identifier doubdot type func_params_n(Command.apply func_params -> identifier doubdot type func_params_n)
-func_params ->           (Command.apply func_params -> )
-func_params_n -> semicolon identifier doubdot type func_params_n(Command.apply func_params_n -> semicolon identifier doubdot type func_params_n)
-func_params_n ->         (Command.apply func_params_n -> )
+0: S* -> ●prog, prog -> ●def_part compound_stat dot, def_part -> ●def_variables def_functions, def_variables -> ●kw_var params, def_variables -> ●	T: {'kw_var': 1, 'prog': 4, 'def_part': 3, 'def_variables': 2}
+1: def_variables -> kw_var●params, params -> ●identifier doubdot type semicolon params_n	T: {'params': 5, 'identifier': 6}
+2: def_part -> def_variables●def_functions, def_functions -> ●kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more, def_functions -> ●	T: {'kw_function': 7, 'def_functions': 8}
+3: prog -> def_part●compound_stat dot, compound_stat -> ●kw_begin st_list kw_end	T: {'compound_stat': 9, 'kw_begin': 10}
+4: S* -> prog●	T: {}
+5: def_variables -> kw_var params●	T: {}
+6: params -> identifier●doubdot type semicolon params_n	T: {'doubdot': 11}
+7: def_functions -> kw_function●identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more	T: {'identifier': 12}
+8: def_part -> def_variables def_functions●	T: {}
+9: prog -> def_part compound_stat●dot	T: {'dot': 13}
+10: compound_stat -> kw_begin●st_list kw_end, st_list -> ●stat stat_n, st_list -> ●, stat -> ●compound_stat, stat -> ●identifier assigment expr, stat -> ●kw_while expr kw_do compound_stat, stat -> ●kw_readln lf_brct identifier rg_brct, stat -> ●kw_write lf_brct expr expr_n rg_brct, stat -> ●kw_repeat stat stat_n kw_until expr, stat -> ●kw_if expr kw_then compound_stat if_more, compound_stat -> ●kw_begin st_list kw_end	T: {'compound_stat': 14, 'kw_readln': 15, 'st_list': 16, 'kw_if': 22, 'identifier': 17, 'kw_while': 18, 'kw_repeat': 19, 'kw_write': 20, 'stat': 21, 'kw_begin': 10}
+11: params -> identifier doubdot●type semicolon params_n, type -> ●kw_integer, type -> ●kw_real, type -> ●kw_string, type -> ●kw_boolean	T: {'type': 23, 'kw_string': 24, 'kw_boolean': 25, 'kw_real': 26, 'kw_integer': 27}
+12: def_functions -> kw_function identifier●lf_brct func_params rg_brct doubdot type semicolon def_func_more	T: {'lf_brct': 28}
+13: prog -> def_part compound_stat dot●	T: {}
+14: stat -> compound_stat●	T: {}
+15: stat -> kw_readln●lf_brct identifier rg_brct	T: {'lf_brct': 29}
+16: compound_stat -> kw_begin st_list●kw_end	T: {'kw_end': 30}
+17: stat -> identifier●assigment expr	T: {'assigment': 31}
+18: stat -> kw_while●expr kw_do compound_stat, expr -> ●sem_up, sem_up -> ●operand sem_up_n, operand -> ●lf_brct sem_up rg_brct, operand -> ●num, operand -> ●string, operand -> ●identifier	T: {'sem_up': 32, 'lf_brct': 38, 'identifier': 34, 'expr': 35, 'operand': 36, 'num': 37, 'string': 33}
+19: stat -> kw_repeat●stat stat_n kw_until expr, stat -> ●compound_stat, stat -> ●identifier assigment expr, stat -> ●kw_while expr kw_do compound_stat, stat -> ●kw_readln lf_brct identifier rg_brct, stat -> ●kw_write lf_brct expr expr_n rg_brct, stat -> ●kw_repeat stat stat_n kw_until expr, stat -> ●kw_if expr kw_then compound_stat if_more, compound_stat -> ●kw_begin st_list kw_end	T: {'compound_stat': 14, 'kw_readln': 15, 'kw_if': 22, 'identifier': 17, 'kw_while': 18, 'kw_repeat': 19, 'kw_write': 20, 'stat': 39, 'kw_begin': 10}
+20: stat -> kw_write●lf_brct expr expr_n rg_brct	T: {'lf_brct': 40}
+21: st_list -> stat●stat_n, stat_n -> ●semicolon stat stat_n, stat_n -> ●	T: {'semicolon': 41, 'stat_n': 42}
+22: stat -> kw_if●expr kw_then compound_stat if_more, expr -> ●sem_up, sem_up -> ●operand sem_up_n, operand -> ●lf_brct sem_up rg_brct, operand -> ●num, operand -> ●string, operand -> ●identifier	T: {'sem_up': 32, 'lf_brct': 38, 'identifier': 34, 'expr': 43, 'operand': 36, 'num': 37, 'string': 33}
+23: params -> identifier doubdot type●semicolon params_n	T: {'semicolon': 44}
+24: type -> kw_string●	T: {}
+25: type -> kw_boolean●	T: {}
+26: type -> kw_real●	T: {}
+27: type -> kw_integer●	T: {}
+28: def_functions -> kw_function identifier lf_brct●func_params rg_brct doubdot type semicolon def_func_more, func_params -> ●identifier doubdot type func_params_n, func_params -> ●	T: {'func_params': 45, 'identifier': 46}
+29: stat -> kw_readln lf_brct●identifier rg_brct	T: {'identifier': 47}
+30: compound_stat -> kw_begin st_list kw_end●	T: {}
+31: stat -> identifier assigment●expr, expr -> ●sem_up, sem_up -> ●operand sem_up_n, operand -> ●lf_brct sem_up rg_brct, operand -> ●num, operand -> ●string, operand -> ●identifier	T: {'sem_up': 32, 'lf_brct': 38, 'identifier': 34, 'expr': 48, 'operand': 36, 'num': 37, 'string': 33}
+32: expr -> sem_up●	T: {}
+33: operand -> string●	T: {}
+34: operand -> identifier●	T: {}
+35: stat -> kw_while expr●kw_do compound_stat	T: {'kw_do': 49}
+36: sem_up -> operand●sem_up_n, sem_up_n -> ●operator sem_up, sem_up_n -> ●lf_brct expr expr_n rg_brct, sem_up_n -> ●, operator -> ●multipl, operator -> ●minus, operator -> ●plus, operator -> ●less, operator -> ●various, operator -> ●ls_eq, operator -> ●greater, operator -> ●gr_eq, operator -> ●eq	T: {'plus': 50, 'ls_eq': 51, 'less': 52, 'operator': 61, 'greater': 53, 'minus': 57, 'lf_brct': 55, 'gr_eq': 54, 'multipl': 58, 'various': 59, 'sem_up_n': 60, 'eq': 56}
+37: operand -> num●	T: {}
+38: operand -> lf_brct●sem_up rg_brct, sem_up -> ●operand sem_up_n, operand -> ●lf_brct sem_up rg_brct, operand -> ●num, operand -> ●string, operand -> ●identifier	T: {'sem_up': 62, 'string': 33, 'identifier': 34, 'operand': 36, 'num': 37, 'lf_brct': 38}
+39: stat -> kw_repeat stat●stat_n kw_until expr, stat_n -> ●semicolon stat stat_n, stat_n -> ●	T: {'semicolon': 41, 'stat_n': 63}
+40: stat -> kw_write lf_brct●expr expr_n rg_brct, expr -> ●sem_up, sem_up -> ●operand sem_up_n, operand -> ●lf_brct sem_up rg_brct, operand -> ●num, operand -> ●string, operand -> ●identifier	T: {'sem_up': 32, 'lf_brct': 38, 'identifier': 34, 'expr': 64, 'operand': 36, 'num': 37, 'string': 33}
+41: stat_n -> semicolon●stat stat_n, stat -> ●compound_stat, stat -> ●identifier assigment expr, stat -> ●kw_while expr kw_do compound_stat, stat -> ●kw_readln lf_brct identifier rg_brct, stat -> ●kw_write lf_brct expr expr_n rg_brct, stat -> ●kw_repeat stat stat_n kw_until expr, stat -> ●kw_if expr kw_then compound_stat if_more, compound_stat -> ●kw_begin st_list kw_end	T: {'compound_stat': 14, 'kw_readln': 15, 'kw_if': 22, 'identifier': 17, 'kw_while': 18, 'kw_repeat': 19, 'kw_write': 20, 'stat': 65, 'kw_begin': 10}
+42: st_list -> stat stat_n●	T: {}
+43: stat -> kw_if expr●kw_then compound_stat if_more	T: {'kw_then': 66}
+44: params -> identifier doubdot type semicolon●params_n, params_n -> ●params, params_n -> ●, params -> ●identifier doubdot type semicolon params_n	T: {'params_n': 67, 'identifier': 6, 'params': 68}
+45: def_functions -> kw_function identifier lf_brct func_params●rg_brct doubdot type semicolon def_func_more	T: {'rg_brct': 69}
+46: func_params -> identifier●doubdot type func_params_n	T: {'doubdot': 70}
+47: stat -> kw_readln lf_brct identifier●rg_brct	T: {'rg_brct': 71}
+48: stat -> identifier assigment expr●	T: {}
+49: stat -> kw_while expr kw_do●compound_stat, compound_stat -> ●kw_begin st_list kw_end	T: {'compound_stat': 72, 'kw_begin': 10}
+50: operator -> plus●	T: {}
+51: operator -> ls_eq●	T: {}
+52: operator -> less●	T: {}
+53: operator -> greater●	T: {}
+54: operator -> gr_eq●	T: {}
+55: sem_up_n -> lf_brct●expr expr_n rg_brct, expr -> ●sem_up, sem_up -> ●operand sem_up_n, operand -> ●lf_brct sem_up rg_brct, operand -> ●num, operand -> ●string, operand -> ●identifier	T: {'sem_up': 32, 'lf_brct': 38, 'identifier': 34, 'expr': 73, 'operand': 36, 'num': 37, 'string': 33}
+56: operator -> eq●	T: {}
+57: operator -> minus●	T: {}
+58: operator -> multipl●	T: {}
+59: operator -> various●	T: {}
+60: sem_up -> operand sem_up_n●	T: {}
+61: sem_up_n -> operator●sem_up, sem_up -> ●operand sem_up_n, operand -> ●lf_brct sem_up rg_brct, operand -> ●num, operand -> ●string, operand -> ●identifier	T: {'sem_up': 74, 'string': 33, 'identifier': 34, 'operand': 36, 'num': 37, 'lf_brct': 38}
+62: operand -> lf_brct sem_up●rg_brct	T: {'rg_brct': 75}
+63: stat -> kw_repeat stat stat_n●kw_until expr	T: {'kw_until': 76}
+64: stat -> kw_write lf_brct expr●expr_n rg_brct, expr_n -> ●comma expr expr_n, expr_n -> ●	T: {'comma': 77, 'expr_n': 78}
+65: stat_n -> semicolon stat●stat_n, stat_n -> ●semicolon stat stat_n, stat_n -> ●	T: {'semicolon': 41, 'stat_n': 79}
+66: stat -> kw_if expr kw_then●compound_stat if_more, compound_stat -> ●kw_begin st_list kw_end	T: {'compound_stat': 80, 'kw_begin': 10}
+67: params -> identifier doubdot type semicolon params_n●	T: {}
+68: params_n -> params●	T: {}
+69: def_functions -> kw_function identifier lf_brct func_params rg_brct●doubdot type semicolon def_func_more	T: {'doubdot': 81}
+70: func_params -> identifier doubdot●type func_params_n, type -> ●kw_integer, type -> ●kw_real, type -> ●kw_string, type -> ●kw_boolean	T: {'type': 82, 'kw_string': 24, 'kw_boolean': 25, 'kw_real': 26, 'kw_integer': 27}
+71: stat -> kw_readln lf_brct identifier rg_brct●	T: {}
+72: stat -> kw_while expr kw_do compound_stat●	T: {}
+73: sem_up_n -> lf_brct expr●expr_n rg_brct, expr_n -> ●comma expr expr_n, expr_n -> ●	T: {'comma': 77, 'expr_n': 83}
+74: sem_up_n -> operator sem_up●	T: {}
+75: operand -> lf_brct sem_up rg_brct●	T: {}
+76: stat -> kw_repeat stat stat_n kw_until●expr, expr -> ●sem_up, sem_up -> ●operand sem_up_n, operand -> ●lf_brct sem_up rg_brct, operand -> ●num, operand -> ●string, operand -> ●identifier	T: {'sem_up': 32, 'lf_brct': 38, 'identifier': 34, 'expr': 84, 'operand': 36, 'num': 37, 'string': 33}
+77: expr_n -> comma●expr expr_n, expr -> ●sem_up, sem_up -> ●operand sem_up_n, operand -> ●lf_brct sem_up rg_brct, operand -> ●num, operand -> ●string, operand -> ●identifier	T: {'sem_up': 32, 'lf_brct': 38, 'identifier': 34, 'expr': 85, 'operand': 36, 'num': 37, 'string': 33}
+78: stat -> kw_write lf_brct expr expr_n●rg_brct	T: {'rg_brct': 86}
+79: stat_n -> semicolon stat stat_n●	T: {}
+80: stat -> kw_if expr kw_then compound_stat●if_more, if_more -> ●kw_else compound_stat, if_more -> ●	T: {'if_more': 87, 'kw_else': 88}
+81: def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot●type semicolon def_func_more, type -> ●kw_integer, type -> ●kw_real, type -> ●kw_string, type -> ●kw_boolean	T: {'type': 89, 'kw_string': 24, 'kw_boolean': 25, 'kw_real': 26, 'kw_integer': 27}
+82: func_params -> identifier doubdot type●func_params_n, func_params_n -> ●semicolon identifier doubdot type func_params_n, func_params_n -> ●	T: {'semicolon': 90, 'func_params_n': 91}
+83: sem_up_n -> lf_brct expr expr_n●rg_brct	T: {'rg_brct': 92}
+84: stat -> kw_repeat stat stat_n kw_until expr●	T: {}
+85: expr_n -> comma expr●expr_n, expr_n -> ●comma expr expr_n, expr_n -> ●	T: {'comma': 77, 'expr_n': 93}
+86: stat -> kw_write lf_brct expr expr_n rg_brct●	T: {}
+87: stat -> kw_if expr kw_then compound_stat if_more●	T: {}
+88: if_more -> kw_else●compound_stat, compound_stat -> ●kw_begin st_list kw_end	T: {'compound_stat': 94, 'kw_begin': 10}
+89: def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type●semicolon def_func_more	T: {'semicolon': 95}
+90: func_params_n -> semicolon●identifier doubdot type func_params_n	T: {'identifier': 96}
+91: func_params -> identifier doubdot type func_params_n●	T: {}
+92: sem_up_n -> lf_brct expr expr_n rg_brct●	T: {}
+93: expr_n -> comma expr expr_n●	T: {}
+94: if_more -> kw_else compound_stat●	T: {}
+95: def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon●def_func_more, def_func_more -> ●def_variables compound_stat semicolon def_functions, def_func_more -> ●kw_forward semicolon def_functions, def_variables -> ●kw_var params, def_variables -> ●	T: {'def_func_more': 97, 'kw_var': 1, 'kw_forward': 98, 'def_variables': 99}
+96: func_params_n -> semicolon identifier●doubdot type func_params_n	T: {'doubdot': 100}
+97: def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more●	T: {}
+98: def_func_more -> kw_forward●semicolon def_functions	T: {'semicolon': 101}
+99: def_func_more -> def_variables●compound_stat semicolon def_functions, compound_stat -> ●kw_begin st_list kw_end	T: {'compound_stat': 102, 'kw_begin': 10}
+100: func_params_n -> semicolon identifier doubdot●type func_params_n, type -> ●kw_integer, type -> ●kw_real, type -> ●kw_string, type -> ●kw_boolean	T: {'type': 103, 'kw_string': 24, 'kw_boolean': 25, 'kw_real': 26, 'kw_integer': 27}
+101: def_func_more -> kw_forward semicolon●def_functions, def_functions -> ●kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more, def_functions -> ●	T: {'kw_function': 7, 'def_functions': 104}
+102: def_func_more -> def_variables compound_stat●semicolon def_functions	T: {'semicolon': 105}
+103: func_params_n -> semicolon identifier doubdot type●func_params_n, func_params_n -> ●semicolon identifier doubdot type func_params_n, func_params_n -> ●	T: {'semicolon': 90, 'func_params_n': 106}
+104: def_func_more -> kw_forward semicolon def_functions●	T: {}
+105: def_func_more -> def_variables compound_stat semicolon●def_functions, def_functions -> ●kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more, def_functions -> ●	T: {'kw_function': 7, 'def_functions': 107}
+106: func_params_n -> semicolon identifier doubdot type func_params_n●	T: {}
+107: def_func_more -> def_variables compound_stat semicolon def_functions●	T: {}
+#	void	multipl	minus	plus	less	various	ls_eq	greater	gr_eq	eq	lf_brct	rg_brct	lf_sq_brct	rg_sq_brct	semicolon	comma	doubdot	assigment	exp_num	dec_num	num	string	identifier	lex_error	eof	dir_char	kw_begin	kw_boolean	kw_do	kw_else	kw_end	kw_false	kw_find	kw_forward	kw_function	kw_if	kw_integer	kw_readln	kw_real	kw_sort	kw_string	kw_then	kw_true	kw_var	kw_while	kw_write	kw_type	div	dot	kw_repeat	kw_until		S*	prog	compound_stat	def_part	def_variables	params	params_n	func_params	func_params_n	type	def_functions	def_func_more	st_list	stat_n	stat	if_more	expr_n	expr	sem_up	sem_up_n	operand	operator
+0																											(5r)								(5r)									(1s)										4		3	2
+1																							(6s)																																			5
+2																											(18r)								(7s)																												8
+3																											(10s)																												9
+4																																																				-1
+5																											(4r)								(4r)
+6																	(11s)
+7																							(12s)
+8																											(3r)
+9																																																	(13s)
+10																							(17s)				(10s)				(22r)					(22s)		(15s)							(18s)	(20s)				(19s)					14										16		21
+11																												(25s)									(27s)		(26s)		(24s)																					23
+12											(28s)
+13																																																				(1r)
+14															(25r)																(25r)																				(25r)
+15											(29s)
+16																															(30s)
+17																		(31s)
+18											(38s)										(37s)	(33s)	(34s)																																															35	32		36
+19																							(17s)				(10s)									(22s)		(15s)							(18s)	(20s)				(19s)					14												39
+20											(40s)
+21															(41s)																(24r)																				(24r)															42
+22											(38s)										(37s)	(33s)	(34s)																																															43	32		36
+23															(44s)
+24												(15r)			(15r)
+25												(16r)			(16r)
+26												(14r)			(14r)
+27												(13r)			(13r)
+28												(10r)											(46s)																																					45
+29																							(47s)
+30															(2r)															(2r)	(2r)																		(2r)		(2r)
+31											(38s)										(37s)	(33s)	(34s)																																															48	32		36
+32												(36r)			(36r)	(36r)													(36r)		(36r)											(36r)									(36r)
+33		(43r)	(43r)	(43r)	(43r)	(43r)	(43r)	(43r)	(43r)	(43r)	(43r)	(43r)			(43r)	(43r)													(43r)		(43r)											(43r)									(43r)
+34		(44r)	(44r)	(44r)	(44r)	(44r)	(44r)	(44r)	(44r)	(44r)	(44r)	(44r)			(44r)	(44r)													(44r)		(44r)											(44r)									(44r)
+35																													(49s)
+36		(58s)	(57s)	(50s)	(52s)	(59s)	(51s)	(53s)	(54s)	(56s)	(55s)	(40r)			(40r)	(40r)													(40r)		(40r)											(40r)									(40r)																					60		61
+37		(42r)	(42r)	(42r)	(42r)	(42r)	(42r)	(42r)	(42r)	(42r)	(42r)	(42r)			(42r)	(42r)													(42r)		(42r)											(42r)									(42r)
+38											(38s)										(37s)	(33s)	(34s)																																																62		36
+39															(41s)																(24r)																				(24r)															63
+40											(38s)										(37s)	(33s)	(34s)																																															64	32		36
+41																							(17s)				(10s)									(22s)		(15s)							(18s)	(20s)				(19s)					14												65
+42																															(21r)
+43																																										(66s)
+44																							(6s)				(8r)								(8r)																							68	67
+45												(69s)
+46																	(70s)
+47												(71s)
+48															(26r)																(26r)																				(26r)
+49																											(10s)																												72
+50											(47r)										(47r)	(47r)	(47r)
+51											(50r)										(50r)	(50r)	(50r)
+52											(48r)										(48r)	(48r)	(48r)
+53											(51r)										(51r)	(51r)	(51r)
+54											(52r)										(52r)	(52r)	(52r)
+55											(38s)										(37s)	(33s)	(34s)																																															73	32		36
+56											(53r)										(53r)	(53r)	(53r)
+57											(46r)										(46r)	(46r)	(46r)
+58											(45r)										(45r)	(45r)	(45r)
+59											(49r)										(49r)	(49r)	(49r)
+60												(37r)			(37r)	(37r)													(37r)		(37r)											(37r)									(37r)
+61											(38s)										(37s)	(33s)	(34s)																																																74		36
+62												(75s)
+63																																																			(76s)
+64												(35r)				(77s)																																																					78
+65															(41s)																(24r)																				(24r)															79
+66																											(10s)																												80
+67																											(6r)								(6r)
+68																											(7r)								(7r)
+69																	(81s)
+70																												(25s)									(27s)		(26s)		(24s)																					82
+71															(28r)																(28r)																				(28r)
+72															(27r)																(27r)																				(27r)
+73												(35r)				(77s)																																																					83
+74												(38r)			(38r)	(38r)													(38r)		(38r)											(38r)									(38r)
+75		(41r)	(41r)	(41r)	(41r)	(41r)	(41r)	(41r)	(41r)	(41r)	(41r)	(41r)			(41r)	(41r)													(41r)		(41r)											(41r)									(41r)
+76											(38s)										(37s)	(33s)	(34s)																																															84	32		36
+77											(38s)										(37s)	(33s)	(34s)																																															85	32		36
+78												(86s)
+79																															(23r)																				(23r)
+80															(33r)															(88s)	(33r)																				(33r)																	87
+81																												(25s)									(27s)		(26s)		(24s)																					89
+82												(12r)			(90s)																																														91
+83												(92s)
+84															(30r)																(30r)																				(30r)
+85												(35r)				(77s)																																																					93
+86															(29r)																(29r)																				(29r)
+87															(31r)																(31r)																				(31r)
+88																											(10s)																												94
+89															(95s)
+90																							(96s)
+91												(9r)
+92												(39r)			(39r)	(39r)													(39r)		(39r)											(39r)									(39r)
+93												(34r)
+94															(32r)																(32r)																				(32r)
+95																											(5r)							(98s)	(5r)									(1s)													99							97
+96																	(100s)
+97																											(17r)
+98															(101s)
+99																											(10s)																												102
+100																												(25s)									(27s)		(26s)		(24s)																					103
+101																											(18r)								(7s)																												104
+102															(105s)
+103												(12r)			(90s)																																														106
+104																											(20r)
+105																											(18r)								(7s)																												107
+106												(11r)
+107																											(19r)
+
+<,0>
+<,0> <kw_var,1>
+<,0> <kw_var,1> <identifier,6>
+<,0> <kw_var,1> <identifier,6> <doubdot,11>
+<,0> <kw_var,1> <identifier,6> <doubdot,11> <kw_integer,27>
 type -> kw_integer       (Command.apply type -> kw_integer)
-type -> kw_real          (Command.apply type -> kw_real)
-type -> kw_string        (Command.apply type -> kw_string)
-type -> kw_boolean       (Command.apply type -> kw_boolean)
-def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more(Command.apply def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more)
-def_functions ->         (Command.apply def_functions -> )
-def_func_more -> kw_forward semicolon def_functions(Command.apply def_func_more -> kw_forward semicolon def_functions)
-st_list -> stat stat_n   (Command.apply st_list -> stat stat_n)
-st_list ->               (Command.apply st_list -> )
-stat_n -> semicolon stat stat_n(Command.apply stat_n -> semicolon stat stat_n)
-stat_n ->                (Command.apply stat_n -> )
-stat -> identifier assigment expr(Command.apply stat -> identifier assigment expr)
-stat -> kw_while expr kw_do compound_stat(Command.apply stat -> kw_while expr kw_do compound_stat)
-stat -> kw_readln lf_brct identifier rg_brct(Command.apply stat -> kw_readln lf_brct identifier rg_brct)
-stat -> kw_write lf_brct expr expr_n rg_brct(Command.apply stat -> kw_write lf_brct expr expr_n rg_brct)
-stat -> kw_repeat stat stat_n kw_until expr(Command.apply stat -> kw_repeat stat stat_n kw_until expr)
-stat -> kw_if expr kw_then compound_stat if_more(Command.apply stat -> kw_if expr kw_then compound_stat if_more)
-if_more -> kw_else compound_stat(Command.apply if_more -> kw_else compound_stat)
-if_more ->               (Command.apply if_more -> )
-expr_n -> comma expr expr_n(Command.apply expr_n -> comma expr expr_n)
-expr_n ->                (Command.apply expr_n -> )
-expr -> sem_up           (Command.apply expr -> sem_up)
-sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
-sem_up_n -> operator sem_up(Command.apply sem_up_n -> operator sem_up)
-sem_up_n -> lf_brct expr expr_n rg_brct(Command.apply sem_up_n -> lf_brct expr expr_n rg_brct)
-sem_up_n ->              (Command.apply sem_up_n -> )
-operand -> lf_brct sem_up rg_brct(Command.apply operand -> lf_brct sem_up rg_brct)
-operand -> num           (Command.apply operand -> num)
-operand -> string        (Command.apply operand -> string)
-operand -> identifier    (Command.apply operand -> identifier)
-operator -> multipl      (Command.apply operator -> multipl)
-operator -> minus        (Command.apply operator -> minus)
-operator -> plus         (Command.apply operator -> plus)
-operator -> less         (Command.apply operator -> less)
-operator -> various      (Command.apply operator -> various)
-operator -> ls_eq        (Command.apply operator -> ls_eq)
-operator -> greater      (Command.apply operator -> greater)
-operator -> gr_eq        (Command.apply operator -> gr_eq)
-operator -> eq           (Command.apply operator -> eq)
-params_n -> identifier doubdot type semicolon params_n(Command.apply params -> identifier doubdot type semicolon params_n, Command.apply params_n -> params)
-def_func_more -> kw_var params compound_stat semicolon def_functions(Command.apply def_variables -> kw_var params, Command.apply def_func_more -> def_variables compound_stat semicolon def_functions)
-def_func_more -> kw_begin st_list kw_end semicolon def_functions(Command.apply compound_stat -> kw_begin st_list kw_end, Command.apply def_variables -> , Command.apply def_func_more -> def_variables compound_stat semicolon def_functions)
-stat -> kw_begin st_list kw_end(Command.apply compound_stat -> kw_begin st_list kw_end, Command.apply stat -> compound_stat)
-},
-prog
-)
- 
-
-(
-{prog, compound_stat, def_part, def_variables, params, params_n, func_params, func_params_n, type, def_functions, def_func_more, st_list, stat_n, stat, if_more, expr_n, expr, sem_up, sem_up_n, operand, operator},
-{void, multipl, minus, plus, less, various, ls_eq, greater, gr_eq, eq, lf_brct, rg_brct, lf_sq_brct, rg_sq_brct, semicolon, comma, doubdot, assigment, exp_num, dec_num, num, string, identifier, lex_error, eof, dir_char, kw_begin, kw_boolean, kw_do, kw_else, kw_end, kw_false, kw_find, kw_forward, kw_function, kw_if, kw_integer, kw_readln, kw_real, kw_sort, kw_string, kw_then, kw_true, kw_var, kw_while, kw_write, kw_type, div, dot, kw_repeat, kw_until},
-{
-prog -> def_part compound_stat dot(Command.apply prog -> def_part compound_stat dot)
-compound_stat -> kw_begin st_list kw_end(Command.apply compound_stat -> kw_begin st_list kw_end)
-def_part -> def_variables def_functions(Command.apply def_part -> def_variables def_functions)
-def_variables -> kw_var params(Command.apply def_variables -> kw_var params)
-def_variables ->         (Command.apply def_variables -> )
-params -> identifier doubdot type semicolon params_n(Command.apply params -> identifier doubdot type semicolon params_n)
+<,0> <kw_var,1> <identifier,6> <doubdot,11> <type,23>
+<,0> <kw_var,1> <identifier,6> <doubdot,11> <type,23> <semicolon,44>
 params_n ->              (Command.apply params_n -> )
-func_params -> identifier doubdot type func_params_n(Command.apply func_params -> identifier doubdot type func_params_n)
-func_params ->           (Command.apply func_params -> )
-func_params_n -> semicolon identifier doubdot type func_params_n(Command.apply func_params_n -> semicolon identifier doubdot type func_params_n)
-func_params_n ->         (Command.apply func_params_n -> )
+<,0> <kw_var,1> <identifier,6> <doubdot,11> <type,23> <semicolon,44> <params_n,67>
+params -> identifier doubdot type semicolon params_n(Command.apply params -> identifier doubdot type semicolon params_n)
+<,0> <kw_var,1> <params,5>
+def_variables -> kw_var params(Command.apply def_variables -> kw_var params)
+<,0> <def_variables,2>
+<,0> <def_variables,2> <kw_function,7>
+<,0> <def_variables,2> <kw_function,7> <identifier,12>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <identifier,46>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <identifier,46> <doubdot,70>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <identifier,46> <doubdot,70> <kw_integer,27>
 type -> kw_integer       (Command.apply type -> kw_integer)
-type -> kw_real          (Command.apply type -> kw_real)
-type -> kw_string        (Command.apply type -> kw_string)
-type -> kw_boolean       (Command.apply type -> kw_boolean)
-def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more(Command.apply def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more)
-def_functions ->         (Command.apply def_functions -> )
-def_func_more -> kw_forward semicolon def_functions(Command.apply def_func_more -> kw_forward semicolon def_functions)
-st_list -> stat stat_n   (Command.apply st_list -> stat stat_n)
-st_list ->               (Command.apply st_list -> )
-stat_n -> semicolon stat stat_n(Command.apply stat_n -> semicolon stat stat_n)
-stat_n ->                (Command.apply stat_n -> )
-stat -> identifier assigment expr(Command.apply stat -> identifier assigment expr)
-stat -> kw_while expr kw_do compound_stat(Command.apply stat -> kw_while expr kw_do compound_stat)
-stat -> kw_readln lf_brct identifier rg_brct(Command.apply stat -> kw_readln lf_brct identifier rg_brct)
-stat -> kw_write lf_brct expr expr_n rg_brct(Command.apply stat -> kw_write lf_brct expr expr_n rg_brct)
-stat -> kw_repeat stat stat_n kw_until expr(Command.apply stat -> kw_repeat stat stat_n kw_until expr)
-stat -> kw_if expr kw_then compound_stat if_more(Command.apply stat -> kw_if expr kw_then compound_stat if_more)
-if_more -> kw_else compound_stat(Command.apply if_more -> kw_else compound_stat)
-if_more ->               (Command.apply if_more -> )
-expr_n -> comma expr expr_n(Command.apply expr_n -> comma expr expr_n)
-expr_n ->                (Command.apply expr_n -> )
-expr -> sem_up           (Command.apply expr -> sem_up)
-sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
-sem_up_n -> operator sem_up(Command.apply sem_up_n -> operator sem_up)
-sem_up_n -> lf_brct expr expr_n rg_brct(Command.apply sem_up_n -> lf_brct expr expr_n rg_brct)
-sem_up_n ->              (Command.apply sem_up_n -> )
-operand -> lf_brct sem_up rg_brct(Command.apply operand -> lf_brct sem_up rg_brct)
-operand -> num           (Command.apply operand -> num)
-operand -> string        (Command.apply operand -> string)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <identifier,46> <doubdot,70> <type,82>
+func_params_n ->         (Command.apply func_params_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <identifier,46> <doubdot,70> <type,82> <func_params_n,91>
+func_params -> identifier doubdot type func_params_n(Command.apply func_params -> identifier doubdot type func_params_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <kw_integer,27>
+type -> kw_integer       (Command.apply type -> kw_integer)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1> <identifier,6>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1> <identifier,6> <doubdot,11>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1> <identifier,6> <doubdot,11> <kw_integer,27>
+type -> kw_integer       (Command.apply type -> kw_integer)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1> <identifier,6> <doubdot,11> <type,23>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1> <identifier,6> <doubdot,11> <type,23> <semicolon,44>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1> <identifier,6> <doubdot,11> <type,23> <semicolon,44> <identifier,6>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1> <identifier,6> <doubdot,11> <type,23> <semicolon,44> <identifier,6> <doubdot,11>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1> <identifier,6> <doubdot,11> <type,23> <semicolon,44> <identifier,6> <doubdot,11> <kw_integer,27>
+type -> kw_integer       (Command.apply type -> kw_integer)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1> <identifier,6> <doubdot,11> <type,23> <semicolon,44> <identifier,6> <doubdot,11> <type,23>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1> <identifier,6> <doubdot,11> <type,23> <semicolon,44> <identifier,6> <doubdot,11> <type,23> <semicolon,44>
+params_n ->              (Command.apply params_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1> <identifier,6> <doubdot,11> <type,23> <semicolon,44> <identifier,6> <doubdot,11> <type,23> <semicolon,44> <params_n,67>
+params -> identifier doubdot type semicolon params_n(Command.apply params -> identifier doubdot type semicolon params_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1> <identifier,6> <doubdot,11> <type,23> <semicolon,44> <params,68>
+params_n -> params       (Command.apply params_n -> params)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1> <identifier,6> <doubdot,11> <type,23> <semicolon,44> <params_n,67>
+params -> identifier doubdot type semicolon params_n(Command.apply params -> identifier doubdot type semicolon params_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <kw_var,1> <params,5>
+def_variables -> kw_var params(Command.apply def_variables -> kw_var params)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40> <identifier,34>
 operand -> identifier    (Command.apply operand -> identifier)
-operator -> multipl      (Command.apply operator -> multipl)
-operator -> minus        (Command.apply operator -> minus)
-operator -> plus         (Command.apply operator -> plus)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40> <operand,36>
+sem_up_n ->              (Command.apply sem_up_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40> <operand,36> <sem_up_n,60>
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40> <sem_up,32>
+expr -> sem_up           (Command.apply expr -> sem_up)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40> <expr,64>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40> <expr,64> <comma,77>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40> <expr,64> <comma,77> <string,33>
+operand -> string        (Command.apply operand -> string)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40> <expr,64> <comma,77> <operand,36>
+sem_up_n ->              (Command.apply sem_up_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40> <expr,64> <comma,77> <operand,36> <sem_up_n,60>
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40> <expr,64> <comma,77> <sem_up,32>
+expr -> sem_up           (Command.apply expr -> sem_up)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40> <expr,64> <comma,77> <expr,85>
+expr_n ->                (Command.apply expr_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40> <expr,64> <comma,77> <expr,85> <expr_n,93>
+expr_n -> comma expr expr_n(Command.apply expr_n -> comma expr expr_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40> <expr,64> <expr_n,78>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <kw_write,20> <lf_brct,40> <expr,64> <expr_n,78> <rg_brct,86>
+stat -> kw_write lf_brct expr expr_n rg_brct(Command.apply stat -> kw_write lf_brct expr expr_n rg_brct)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <num,37>
+operand -> num           (Command.apply operand -> num)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <operand,36>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <operand,36> <less,52>
 operator -> less         (Command.apply operator -> less)
-operator -> various      (Command.apply operator -> various)
-operator -> ls_eq        (Command.apply operator -> ls_eq)
-operator -> greater      (Command.apply operator -> greater)
-operator -> gr_eq        (Command.apply operator -> gr_eq)
-operator -> eq           (Command.apply operator -> eq)
-params_n -> identifier doubdot type semicolon params_n(Command.apply params -> identifier doubdot type semicolon params_n, Command.apply params_n -> params)
-def_func_more -> kw_var params compound_stat semicolon def_functions(Command.apply def_variables -> kw_var params, Command.apply def_func_more -> def_variables compound_stat semicolon def_functions)
-def_func_more -> kw_begin st_list kw_end semicolon def_functions(Command.apply compound_stat -> kw_begin st_list kw_end, Command.apply def_variables -> , Command.apply def_func_more -> def_variables compound_stat semicolon def_functions)
-stat -> kw_begin st_list kw_end(Command.apply compound_stat -> kw_begin st_list kw_end, Command.apply stat -> compound_stat)
-},
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <operand,36> <operator,61>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <operand,36> <operator,61> <identifier,34>
+operand -> identifier    (Command.apply operand -> identifier)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <operand,36> <operator,61> <operand,36>
+sem_up_n ->              (Command.apply sem_up_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <operand,36> <operator,61> <operand,36> <sem_up_n,60>
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <operand,36> <operator,61> <sem_up,74>
+sem_up_n -> operator sem_up(Command.apply sem_up_n -> operator sem_up)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <operand,36> <sem_up_n,60>
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <sem_up,32>
+expr -> sem_up           (Command.apply expr -> sem_up)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <identifier,34>
+operand -> identifier    (Command.apply operand -> identifier)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <identifier,34>
+operand -> identifier    (Command.apply operand -> identifier)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <operand,36>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <operand,36> <minus,57>
+operator -> minus        (Command.apply operator -> minus)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <operand,36> <operator,61>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <operand,36> <operator,61> <num,37>
+operand -> num           (Command.apply operand -> num)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <operand,36> <operator,61> <operand,36>
+sem_up_n ->              (Command.apply sem_up_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <operand,36> <operator,61> <operand,36> <sem_up_n,60>
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <operand,36> <operator,61> <sem_up,74>
+sem_up_n -> operator sem_up(Command.apply sem_up_n -> operator sem_up)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <operand,36> <sem_up_n,60>
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <sem_up,32>
+expr -> sem_up           (Command.apply expr -> sem_up)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <expr,73>
+expr_n ->                (Command.apply expr_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <expr,73> <expr_n,83>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <expr,73> <expr_n,83> <rg_brct,92>
+sem_up_n -> lf_brct expr expr_n rg_brct(Command.apply sem_up_n -> lf_brct expr expr_n rg_brct)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <sem_up_n,60>
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <sem_up,32>
+expr -> sem_up           (Command.apply expr -> sem_up)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <identifier,17> <assigment,31> <expr,48>
+stat -> identifier assigment expr(Command.apply stat -> identifier assigment expr)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <stat,21>
+stat_n ->                (Command.apply stat_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <stat,21> <stat_n,42>
+st_list -> stat stat_n   (Command.apply st_list -> stat stat_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <st_list,16>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <kw_begin,10> <st_list,16> <kw_end,30>
+compound_stat -> kw_begin st_list kw_end(Command.apply compound_stat -> kw_begin st_list kw_end)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <kw_else,88>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <kw_else,88> <kw_begin,10>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <kw_else,88> <kw_begin,10> <identifier,17>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <kw_else,88> <kw_begin,10> <identifier,17> <assigment,31>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <kw_else,88> <kw_begin,10> <identifier,17> <assigment,31> <identifier,34>
+operand -> identifier    (Command.apply operand -> identifier)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <kw_else,88> <kw_begin,10> <identifier,17> <assigment,31> <operand,36>
+sem_up_n ->              (Command.apply sem_up_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <kw_else,88> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <sem_up_n,60>
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <kw_else,88> <kw_begin,10> <identifier,17> <assigment,31> <sem_up,32>
+expr -> sem_up           (Command.apply expr -> sem_up)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <kw_else,88> <kw_begin,10> <identifier,17> <assigment,31> <expr,48>
+stat -> identifier assigment expr(Command.apply stat -> identifier assigment expr)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <kw_else,88> <kw_begin,10> <stat,21>
+stat_n ->                (Command.apply stat_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <kw_else,88> <kw_begin,10> <stat,21> <stat_n,42>
+st_list -> stat stat_n   (Command.apply st_list -> stat stat_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <kw_else,88> <kw_begin,10> <st_list,16>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <kw_else,88> <kw_begin,10> <st_list,16> <kw_end,30>
+compound_stat -> kw_begin st_list kw_end(Command.apply compound_stat -> kw_begin st_list kw_end)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <kw_else,88> <compound_stat,94>
+if_more -> kw_else compound_stat(Command.apply if_more -> kw_else compound_stat)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <kw_if,22> <expr,43> <kw_then,66> <compound_stat,80> <if_more,87>
+stat -> kw_if expr kw_then compound_stat if_more(Command.apply stat -> kw_if expr kw_then compound_stat if_more)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40> <identifier,34>
+operand -> identifier    (Command.apply operand -> identifier)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40> <operand,36>
+sem_up_n ->              (Command.apply sem_up_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40> <operand,36> <sem_up_n,60>
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40> <sem_up,32>
+expr -> sem_up           (Command.apply expr -> sem_up)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40> <expr,64>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40> <expr,64> <comma,77>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40> <expr,64> <comma,77> <string,33>
+operand -> string        (Command.apply operand -> string)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40> <expr,64> <comma,77> <operand,36>
+sem_up_n ->              (Command.apply sem_up_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40> <expr,64> <comma,77> <operand,36> <sem_up_n,60>
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40> <expr,64> <comma,77> <sem_up,32>
+expr -> sem_up           (Command.apply expr -> sem_up)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40> <expr,64> <comma,77> <expr,85>
+expr_n ->                (Command.apply expr_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40> <expr,64> <comma,77> <expr,85> <expr_n,93>
+expr_n -> comma expr expr_n(Command.apply expr_n -> comma expr expr_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40> <expr,64> <expr_n,78>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <kw_write,20> <lf_brct,40> <expr,64> <expr_n,78> <rg_brct,86>
+stat -> kw_write lf_brct expr expr_n rg_brct(Command.apply stat -> kw_write lf_brct expr expr_n rg_brct)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <stat,65>
+stat_n ->                (Command.apply stat_n -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <semicolon,41> <stat,65> <stat_n,79>
+stat_n -> semicolon stat stat_n(Command.apply stat_n -> semicolon stat stat_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <semicolon,41> <stat,65> <stat_n,79>
+stat_n -> semicolon stat stat_n(Command.apply stat_n -> semicolon stat stat_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <stat,21> <stat_n,42>
+st_list -> stat stat_n   (Command.apply st_list -> stat stat_n)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <st_list,16>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <kw_begin,10> <st_list,16> <kw_end,30>
+compound_stat -> kw_begin st_list kw_end(Command.apply compound_stat -> kw_begin st_list kw_end)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <compound_stat,102>
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <compound_stat,102> <semicolon,105>
+def_functions ->         (Command.apply def_functions -> )
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_variables,99> <compound_stat,102> <semicolon,105> <def_functions,107>
+def_func_more -> def_variables compound_stat semicolon def_functions(Command.apply def_func_more -> def_variables compound_stat semicolon def_functions)
+<,0> <def_variables,2> <kw_function,7> <identifier,12> <lf_brct,28> <func_params,45> <rg_brct,69> <doubdot,81> <type,89> <semicolon,95> <def_func_more,97>
+def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more(Command.apply def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more)
+<,0> <def_variables,2> <def_functions,8>
+def_part -> def_variables def_functions(Command.apply def_part -> def_variables def_functions)
+<,0> <def_part,3>
+<,0> <def_part,3> <kw_begin,10>
+<,0> <def_part,3> <kw_begin,10> <identifier,17>
+<,0> <def_part,3> <kw_begin,10> <identifier,17> <assigment,31>
+<,0> <def_part,3> <kw_begin,10> <identifier,17> <assigment,31> <identifier,34>
+operand -> identifier    (Command.apply operand -> identifier)
+<,0> <def_part,3> <kw_begin,10> <identifier,17> <assigment,31> <operand,36>
+<,0> <def_part,3> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55>
+<,0> <def_part,3> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <num,37>
+operand -> num           (Command.apply operand -> num)
+<,0> <def_part,3> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <operand,36>
+sem_up_n ->              (Command.apply sem_up_n -> )
+<,0> <def_part,3> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <operand,36> <sem_up_n,60>
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+<,0> <def_part,3> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <sem_up,32>
+expr -> sem_up           (Command.apply expr -> sem_up)
+<,0> <def_part,3> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <expr,73>
+expr_n ->                (Command.apply expr_n -> )
+<,0> <def_part,3> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <expr,73> <expr_n,83>
+<,0> <def_part,3> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <lf_brct,55> <expr,73> <expr_n,83> <rg_brct,92>
+sem_up_n -> lf_brct expr expr_n rg_brct(Command.apply sem_up_n -> lf_brct expr expr_n rg_brct)
+<,0> <def_part,3> <kw_begin,10> <identifier,17> <assigment,31> <operand,36> <sem_up_n,60>
+sem_up -> operand sem_up_n(Command.apply sem_up -> operand sem_up_n)
+<,0> <def_part,3> <kw_begin,10> <identifier,17> <assigment,31> <sem_up,32>
+expr -> sem_up           (Command.apply expr -> sem_up)
+<,0> <def_part,3> <kw_begin,10> <identifier,17> <assigment,31> <expr,48>
+stat -> identifier assigment expr(Command.apply stat -> identifier assigment expr)
+<,0> <def_part,3> <kw_begin,10> <stat,21>
+stat_n ->                (Command.apply stat_n -> )
+<,0> <def_part,3> <kw_begin,10> <stat,21> <stat_n,42>
+st_list -> stat stat_n   (Command.apply st_list -> stat stat_n)
+<,0> <def_part,3> <kw_begin,10> <st_list,16>
+<,0> <def_part,3> <kw_begin,10> <st_list,16> <kw_end,30>
+compound_stat -> kw_begin st_list kw_end(Command.apply compound_stat -> kw_begin st_list kw_end)
+<,0> <def_part,3> <compound_stat,9>
+<,0> <def_part,3> <compound_stat,9> <dot,13>
+prog -> def_part compound_stat dot(Command.apply prog -> def_part compound_stat dot)
+<,0> <prog,4>
+stack:    ''(0), 'def_part'(1), 'compound_stat'(1), 'dot'(1),
+stack:    ''(0), 'def_part'(1), 'kw_begin'(2), 'st_list'(2), 'kw_end'(2),
+stack:    ''(0), 'def_part'(1), 'kw_begin'(2), 'stat'(3), 'stat_n'(3),
+stack:    ''(0), 'def_part'(1), 'kw_begin'(2), 'stat'(3),
+stack:    ''(0), 'def_part'(1), 'kw_begin'(2), 'identifier'(4), 'assigment'(4), 'expr'(4),
+stack:    ''(0), 'def_part'(1), 'kw_begin'(2), 'identifier'(4), 'assigment'(4), 'sem_up'(5),
+stack:    ''(0), 'def_part'(1), 'kw_begin'(2), 'identifier'(4), 'assigment'(4), 'operand'(6), 'sem_up_n'(6),
+stack:    ''(0), 'def_part'(1), 'kw_begin'(2), 'identifier'(4), 'assigment'(4), 'operand'(6), 'lf_brct'(7), 'expr'(7), 'expr_n'(7), 'rg_brct'(7),
+stack:    ''(0), 'def_part'(1), 'kw_begin'(2), 'identifier'(4), 'assigment'(4), 'operand'(6), 'lf_brct'(7), 'expr'(7),
+stack:    ''(0), 'def_part'(1), 'kw_begin'(2), 'identifier'(4), 'assigment'(4), 'operand'(6), 'lf_brct'(7), 'sem_up'(8),
+stack:    ''(0), 'def_part'(1), 'kw_begin'(2), 'identifier'(4), 'assigment'(4), 'operand'(6), 'lf_brct'(7), 'operand'(9), 'sem_up_n'(9),
+stack:    ''(0), 'def_part'(1), 'kw_begin'(2), 'identifier'(4), 'assigment'(4), 'operand'(6), 'lf_brct'(7), 'operand'(9),
+stack:    ''(0), 'def_part'(1), 'kw_begin'(2), 'identifier'(4), 'assigment'(4), 'operand'(6), 'lf_brct'(7), 'num'(10),
+stack:    ''(0), 'def_part'(1), 'kw_begin'(2), 'identifier'(4), 'assigment'(4), 'identifier'(7),
+stack:    ''(0), 'def_variables'(2), 'def_functions'(2),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_func_more'(3),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'compound_stat'(4), 'semicolon'(4), 'def_functions'(4),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'compound_stat'(4), 'semicolon'(4),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'st_list'(5), 'kw_end'(5),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'stat_n'(6),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'stat'(7), 'stat_n'(7),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'stat'(7), 'semicolon'(8), 'stat'(8), 'stat_n'(8),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'stat'(7), 'semicolon'(8), 'stat'(8),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'stat'(7), 'semicolon'(8), 'kw_write'(9), 'lf_brct'(9), 'expr'(9), 'expr_n'(9), 'rg_brct'(9),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'stat'(7), 'semicolon'(8), 'kw_write'(9), 'lf_brct'(9), 'expr'(9), 'comma'(10), 'expr'(10), 'expr_n'(10),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'stat'(7), 'semicolon'(8), 'kw_write'(9), 'lf_brct'(9), 'expr'(9), 'comma'(10), 'expr'(10),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'stat'(7), 'semicolon'(8), 'kw_write'(9), 'lf_brct'(9), 'expr'(9), 'comma'(10), 'sem_up'(11),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'stat'(7), 'semicolon'(8), 'kw_write'(9), 'lf_brct'(9), 'expr'(9), 'comma'(10), 'operand'(12), 'sem_up_n'(12),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'stat'(7), 'semicolon'(8), 'kw_write'(9), 'lf_brct'(9), 'expr'(9), 'comma'(10), 'operand'(12),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'stat'(7), 'semicolon'(8), 'kw_write'(9), 'lf_brct'(9), 'expr'(9), 'comma'(10), 'string'(13),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'stat'(7), 'semicolon'(8), 'kw_write'(9), 'lf_brct'(9), 'sem_up'(10),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'stat'(7), 'semicolon'(8), 'kw_write'(9), 'lf_brct'(9), 'operand'(11), 'sem_up_n'(11),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'stat'(7), 'semicolon'(8), 'kw_write'(9), 'lf_brct'(9), 'operand'(11),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'stat'(7), 'semicolon'(8), 'kw_write'(9), 'lf_brct'(9), 'identifier'(12),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'compound_stat'(8), 'if_more'(8),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'compound_stat'(8), 'kw_else'(9), 'compound_stat'(9),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'compound_stat'(8), 'kw_else'(9), 'kw_begin'(10), 'st_list'(10), 'kw_end'(10),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'compound_stat'(8), 'kw_else'(9), 'kw_begin'(10), 'stat'(11), 'stat_n'(11),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'compound_stat'(8), 'kw_else'(9), 'kw_begin'(10), 'stat'(11),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'compound_stat'(8), 'kw_else'(9), 'kw_begin'(10), 'identifier'(12), 'assigment'(12), 'expr'(12),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'compound_stat'(8), 'kw_else'(9), 'kw_begin'(10), 'identifier'(12), 'assigment'(12), 'sem_up'(13),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'compound_stat'(8), 'kw_else'(9), 'kw_begin'(10), 'identifier'(12), 'assigment'(12), 'operand'(14), 'sem_up_n'(14),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'compound_stat'(8), 'kw_else'(9), 'kw_begin'(10), 'identifier'(12), 'assigment'(12), 'operand'(14),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'compound_stat'(8), 'kw_else'(9), 'kw_begin'(10), 'identifier'(12), 'assigment'(12), 'identifier'(15),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'st_list'(9), 'kw_end'(9),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'stat'(10), 'stat_n'(10),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'stat'(10),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'identifier'(11), 'assigment'(11), 'expr'(11),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'identifier'(11), 'assigment'(11), 'sem_up'(12),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'identifier'(11), 'assigment'(11), 'operand'(13), 'sem_up_n'(13),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'identifier'(11), 'assigment'(11), 'operand'(13), 'lf_brct'(14), 'expr'(14), 'expr_n'(14), 'rg_brct'(14),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'identifier'(11), 'assigment'(11), 'operand'(13), 'lf_brct'(14), 'expr'(14),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'identifier'(11), 'assigment'(11), 'operand'(13), 'lf_brct'(14), 'sem_up'(15),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'identifier'(11), 'assigment'(11), 'operand'(13), 'lf_brct'(14), 'operand'(16), 'sem_up_n'(16),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'identifier'(11), 'assigment'(11), 'operand'(13), 'lf_brct'(14), 'operand'(16), 'operator'(17), 'sem_up'(17),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'identifier'(11), 'assigment'(11), 'operand'(13), 'lf_brct'(14), 'operand'(16), 'operator'(17), 'operand'(18), 'sem_up_n'(18),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'identifier'(11), 'assigment'(11), 'operand'(13), 'lf_brct'(14), 'operand'(16), 'operator'(17), 'operand'(18),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'identifier'(11), 'assigment'(11), 'operand'(13), 'lf_brct'(14), 'operand'(16), 'operator'(17), 'num'(19),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'identifier'(11), 'assigment'(11), 'operand'(13), 'lf_brct'(14), 'operand'(16), 'minus'(18),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'identifier'(11), 'assigment'(11), 'operand'(13), 'lf_brct'(14), 'identifier'(17),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'expr'(8), 'kw_then'(8), 'kw_begin'(9), 'identifier'(11), 'assigment'(11), 'identifier'(14),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'sem_up'(9),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'operand'(10), 'sem_up_n'(10),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'operand'(10), 'operator'(11), 'sem_up'(11),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'operand'(10), 'operator'(11), 'operand'(12), 'sem_up_n'(12),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'operand'(10), 'operator'(11), 'operand'(12),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'operand'(10), 'operator'(11), 'identifier'(13),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'operand'(10), 'less'(12),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'stat'(6), 'semicolon'(7), 'kw_if'(8), 'num'(11),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'kw_write'(7), 'lf_brct'(7), 'expr'(7), 'expr_n'(7), 'rg_brct'(7),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'kw_write'(7), 'lf_brct'(7), 'expr'(7), 'comma'(8), 'expr'(8), 'expr_n'(8),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'kw_write'(7), 'lf_brct'(7), 'expr'(7), 'comma'(8), 'expr'(8),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'kw_write'(7), 'lf_brct'(7), 'expr'(7), 'comma'(8), 'sem_up'(9),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'kw_write'(7), 'lf_brct'(7), 'expr'(7), 'comma'(8), 'operand'(10), 'sem_up_n'(10),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'kw_write'(7), 'lf_brct'(7), 'expr'(7), 'comma'(8), 'operand'(10),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'kw_write'(7), 'lf_brct'(7), 'expr'(7), 'comma'(8), 'string'(11),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'kw_write'(7), 'lf_brct'(7), 'sem_up'(8),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'kw_write'(7), 'lf_brct'(7), 'operand'(9), 'sem_up_n'(9),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'kw_write'(7), 'lf_brct'(7), 'operand'(9),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'def_variables'(4), 'kw_begin'(5), 'kw_write'(7), 'lf_brct'(7), 'identifier'(10),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'kw_var'(5), 'params'(5),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'kw_var'(5), 'identifier'(6), 'doubdot'(6), 'type'(6), 'semicolon'(6), 'params_n'(6),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'kw_var'(5), 'identifier'(6), 'doubdot'(6), 'type'(6), 'semicolon'(6), 'params'(7),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'kw_var'(5), 'identifier'(6), 'doubdot'(6), 'type'(6), 'semicolon'(6), 'identifier'(8), 'doubdot'(8), 'type'(8), 'semicolon'(8), 'params_n'(8),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'kw_var'(5), 'identifier'(6), 'doubdot'(6), 'type'(6), 'semicolon'(6), 'identifier'(8), 'doubdot'(8), 'type'(8), 'semicolon'(8),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'kw_var'(5), 'identifier'(6), 'doubdot'(6), 'type'(6), 'semicolon'(6), 'identifier'(8), 'doubdot'(8), 'kw_integer'(9),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'type'(3), 'semicolon'(3), 'kw_var'(5), 'identifier'(6), 'doubdot'(6), 'kw_integer'(7),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'func_params'(3), 'rg_brct'(3), 'doubdot'(3), 'kw_integer'(4),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'identifier'(4), 'doubdot'(4), 'type'(4), 'func_params_n'(4),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'identifier'(4), 'doubdot'(4), 'type'(4),
+stack:    ''(0), 'def_variables'(2), 'kw_function'(3), 'identifier'(3), 'lf_brct'(3), 'identifier'(4), 'doubdot'(4), 'kw_integer'(5),
+stack:    ''(0), 'kw_var'(3), 'params'(3),
+stack:    ''(0), 'kw_var'(3), 'identifier'(4), 'doubdot'(4), 'type'(4), 'semicolon'(4), 'params_n'(4),
+stack:    ''(0), 'kw_var'(3), 'identifier'(4), 'doubdot'(4), 'type'(4), 'semicolon'(4),
+stack:    ''(0), 'kw_var'(3), 'identifier'(4), 'doubdot'(4), 'kw_integer'(5),
 prog
-)
- 
-
-stack:    ''(0), 'prog'(0), 
-Command.apply :  prog -> def_part compound_stat dot
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_part'(1), 
-
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_part'(1), 
-Command.apply :  def_part -> def_variables def_functions
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'def_variables'(2), 
-
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'def_variables'(2), 
-Command.apply :  def_variables -> kw_var params
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'params'(3), 'kw_var'(3), 
-
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'params'(3), 'kw_var'(3), 
-Command.apply :  params -> identifier doubdot type semicolon params_n
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'params_n'(4), 'semicolon'(4), 'type'(4), 'doubdot'(4), 'identifier'(4), 
-
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'params_n'(4), 'semicolon'(4), 'type'(4), 'doubdot'(4), 'identifier'(4), 
-Command.apply :  type -> kw_integer
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'params_n'(4), 'semicolon'(4), 'kw_integer'(5), 
-
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 'params_n'(4), 'semicolon'(4), 'kw_integer'(5), 
-Command.apply :  params_n -> 
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 
-
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_functions'(2), 
-Command.apply :  def_functions -> kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 'func_params'(3), 'lf_brct'(3), 'identifier'(3), 'kw_function'(3), 
-
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 'func_params'(3), 'lf_brct'(3), 'identifier'(3), 'kw_function'(3), 
-Command.apply :  func_params -> identifier doubdot type func_params_n
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 'func_params_n'(4), 'type'(4), 'doubdot'(4), 'identifier'(4), 
-
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 'func_params_n'(4), 'type'(4), 'doubdot'(4), 'identifier'(4), 
-Command.apply :  type -> kw_integer
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 'func_params_n'(4), 'kw_integer'(5), 
-
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 'func_params_n'(4), 'kw_integer'(5), 
-Command.apply :  func_params_n -> 
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 
-
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'type'(3), 'doubdot'(3), 'rg_brct'(3), 
-Command.apply :  type -> kw_integer
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'kw_integer'(4), 
-
-stack:    ''(0), 'dot'(1), 'compound_stat'(1), 'def_func_more'(3), 'semicolon'(3), 'kw_integer'(4), 
-Command.apply :  def_variables -> kw_var params
-stack:    
-Command.apply :  params -> identifier doubdot type semicolon params_n
+def_part compound_stat dot
+def_variables def_functions kw_begin st_list kw_end
+kw_var params kw_function identifier lf_brct func_params rg_brct doubdot type semicolon def_func_more stat stat_n
+identifier doubdot type semicolon params_n identifier doubdot type func_params_n kw_integer def_variables compound_stat semicolon def_functions identifier assigment expr
+kw_integer kw_integer kw_var params kw_begin st_list kw_end sem_up
+identifier doubdot type semicolon params_n stat stat_n operand sem_up_n
+kw_integer params kw_write lf_brct expr expr_n rg_brct semicolon stat stat_n identifier lf_brct expr expr_n rg_brct
+identifier doubdot type semicolon params_n sem_up comma expr expr_n kw_if expr kw_then compound_stat if_more semicolon stat stat_n sem_up
+kw_integer operand sem_up_n sem_up sem_up kw_begin st_list kw_end kw_else compound_stat kw_write lf_brct expr expr_n rg_brct operand sem_up_n
+identifier operand sem_up_n operand sem_up_n stat stat_n kw_begin st_list kw_end sem_up comma expr expr_n num
+string num operator sem_up identifier assigment expr stat stat_n operand sem_up_n sem_up
+less operand sem_up_n sem_up identifier assigment expr identifier operand sem_up_n
+identifier operand sem_up_n sem_up string
+identifier lf_brct expr expr_n rg_brct operand sem_up_n
+sem_up identifier
+operand sem_up_n
+identifier operator sem_up
+minus operand sem_up_n
+num

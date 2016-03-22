@@ -1,0 +1,16 @@
+digraph program {
+s_1 [label="E - E"];
+s_2 [label="a"];
+s_3 [label="E * E"];
+s_4 [label="a"];
+s_5 [label="M E"];
+s_6 [label="a"];
+s_7 [label="-"];
+g_0 -> s_1
+s_3 -> s_5
+s_3 -> s_4
+s_1 -> s_3
+s_1 -> s_2
+s_5 -> s_7
+s_5 -> s_6
+}

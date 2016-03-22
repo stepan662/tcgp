@@ -1,9 +1,14 @@
-(
+grammar = (
 {A},
 {'a'},
 {
-  A -> {A, A},
-  A -> {'a'}
+  A -> A A;
+  A -> 'a';
 },
 A
+)
+
+precedence = (
+  left: A;
+  left: 'a';
 )
