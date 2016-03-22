@@ -174,6 +174,47 @@ class Parser:
                 while self.loadPrecedenceRules():
                     pass
 
+            elif keyword == 'levels':
+                token = self._getToken()
+                self._tShould(token, ['{'])
+
+                self.aut = automat.Automat()
+
+                # automat alphabet are terminals and nonterminals from grammar
+                for symbol in self.grammar.nonterminals:
+                    self.aut.addAlpha(symbol)
+                for symbol in self.grammar.terminals:
+                    self.aut.addAlpha(symbol)
+
+                start = '0'
+                self.aut.addState(start)
+                self.aut.setStart(start)
+                stringNum = 0
+                charNum = 0
+                while True:
+                    lastState = start
+                    token = self._getToken()
+                    self._tShould(token, ['}', ';', 'str'])
+                    if token.type == '}':
+                        break
+                    else:
+                        self.aut
+                        while True:
+                            if token.type == ';':
+                                self.aut.setTerminating(lastState)
+                                break
+
+                            newState = str(stringNum) + "-" + str(charNum)
+                            self.aut.addState(newState)
+                            self.aut.addRule(lastState, token.string, newState)
+                            lastState = newState
+
+                            token = self._getToken()
+                            self._tShould(token, ['str', ';'])
+
+                            charNum += 1
+                    stringNum += 1
+
             else:
                 raise ValueError("Undefined keyword '" + keyword + "'", 40)
 

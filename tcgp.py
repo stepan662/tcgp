@@ -48,19 +48,19 @@ except ValueError as e:
     print(e.args[0])
     exit(e.args[1])
 
-print(precedence)
-print(grammar)
-
 # Determinate automat
 if automat:
+    print(automat)
     automat.dropERules()
     automat.determinate()
+    print(automat)
 
 parser = InputParser(input.read())
 if ll:
-    print(grammar)
     table = LLTable(grammar)
 else:
     table = LRTable(grammar, precedence)
+
+print(table)
 
 table.analyzeSymbols(parser.getToken, automat)

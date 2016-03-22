@@ -275,8 +275,6 @@ class LRTable:
                     else:
                         row[markedS] = TableItem(tIt)
             lrtable.append(row)
-        print(groups)
-        print(self)
 
     def _getFirstPrecedenceSymbol(self, stack):
         for symbol in reversed(stack):

@@ -17,7 +17,7 @@ class LLTable:
         Include Predict algorithms
         """
         # ll table
-        self._table = []
+        self._table = {}
         # predict sets
         self._rulesPredict = []
         self._grammar = grammar
@@ -28,7 +28,6 @@ class LLTable:
         self._dictNonTerms = {}
 
         rulesPredict = self._rulesPredict
-        grammar = self._grammar
 
         # Predict algorithm
 
@@ -50,32 +49,29 @@ class LLTable:
             self._dictNonTerms[symbol] = i
 
         # init ll table
-        for i in range(0, len(grammar.nonterminals)):
-            self._table.append([])
-            for j in range(0, len(grammar.terminals) + 1):
-                self._table[i].append(False)
+        for nonterm in grammar.nonterminals:
+            self._table[nonterm] = {}
 
         # fill ll table
         for i, predict in enumerate(rulesPredict):
             rule = grammar.rules[i]
-            nonterminalId = self._dictNonTerms[rule.leftSide]
+            nonterminal = rule.leftSide
             for symbol in predict:
-                terminalId = self._dictTerms[symbol]
-                field = self._table[nonterminalId][terminalId]
-                if field is False:
-                    self._table[nonterminalId][terminalId] = rule
+                terminal = symbol
+                row = self._table[nonterminal]
+                if nonterminal not in row:
+                    row[terminal] = rule
                 else:
                     raise ValueError("This is not ll grammar, " +
                                      "confict rules:\n(" + str(i) + ") " +
                                      str(rule) + "\n" + "(" +
-                                     str(grammar.rules.index(field)) + ") " +
-                                     str(field), 40)
+                                     str(grammar.rules.index(row[terminal])) +
+                                     ") " +
+                                     str(row[terminal]), 40)
 
     def getRule(self, nonterminal, terminal):
         """Get rule from ll table."""
-        nonterminalId = self._dictNonTerms[nonterminal]
-        terminalId = self._dictTerms[terminal]
-        return self._table[nonterminalId][terminalId]
+        return self._table[nonterminal][terminal]
 
     def analyzeSymbols(self, getToken, automat):
         """Analyze array of symbols by ll_table."""
@@ -164,3 +160,18 @@ class LLTable:
 
     def _isTerm(self, symbol):
         return symbol in self._dictTerms
+
+    def __str__(self):
+        """To string."""
+        s = "\t".join([symbol for symbol in
+                       ["#"] + self._grammar.terminals + ['$']])
+        s += "\n"
+        for nonterm in self._grammar.nonterminals:
+            s += nonterm + "\t"
+            row = self._table[nonterm]
+            for term in self._grammar.terminals + ['']:
+                if term in row:
+                    s += str(self._grammar.rules.index(row[term]))
+                s += "\t"
+            s += "\n"
+        return s
