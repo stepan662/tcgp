@@ -42,11 +42,11 @@ for o, a in opts:
     elif o in ("-g", "--grammar"):
         grammarIn = open(a, 'r')
 
-# try:
-grammar, automat, precedence = parse(grammarIn.read())
-# except ValueError as e:
-#    print(e.args[0])
-#    exit(e.args[1])
+try:
+    grammar, automat, precedence = parse(grammarIn.read())
+except ValueError as e:
+    print(e.args[0])
+    exit(e.args[1])
 
 print(precedence)
 print(grammar)
@@ -58,9 +58,6 @@ if automat:
 
 parser = InputParser(input.read())
 if ll:
-    print(grammar)
-    grammar.leftFactorization()
-    grammar.removeDeepLeftRecursion()
     print(grammar)
     table = LLTable(grammar)
 else:

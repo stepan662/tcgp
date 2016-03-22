@@ -1,7 +1,5 @@
 """Virtual tree."""
 
-from rule import Command
-
 # -- coding: utf-8 --
 __author__ = 'stepan'
 
@@ -136,50 +134,24 @@ class VirtualTree:
 
             print("stack:   ", symbolArrPrint(self.stack))
 
-    def applyLL(self, origs):
+    def applyLL(self, rule):
         """Apply original rules to tree."""
-        for orig in origs:
-            # print("blocked: ",
-            #      ", ".join([" ".join([str(oR) for oR in oRs])
-            #                 for oRs in self.blocked]))
-            # print("stack:   ", symbolArrPrint(self.stack))
-            if orig.cmd == Command.push:
-                # just push rule on blocked stack, do nothing
-                self.blocked.append(orig.rules)
-                # print(orig.cmd, ": ", " ,".join([str(rule)
-                #                                 for rule in orig.rules]))
-            else:
-                # apply rules
-                if orig.cmd == Command.apply:
-                    # rules are simply present
-                    rules = orig.rules
-                elif orig.cmd == Command.pop:
-                    # rules are on stack
-                    rules = self.blocked.pop()
-                # print(orig.cmd, ": ", " ,".join([str(rule)
-                #                            for rule in rules]))
+        while True:
+            # skip nonterminals
+            symbol = self.stack.pop()
+            if symbol == '':
+                return
+            self.charOnLevelEnd(str(symbol), symbol.level)
+            if symbol == rule.leftSide:
+                break
 
-                for rule in rules:
+        # apply rule
+        for s in reversed(rule.rightSide):
+            self.stack.append(Symbol(s, symbol.level + 1))
 
-                    while True:
-                        # skip nonterminals
-                        symbol = self.stack.pop()
-                        if symbol == '':
-                            return
-                        self.charOnLevelEnd(str(symbol), symbol.level)
-                        if symbol == rule.leftSide:
-                            break
-
-                    # apply rule
-                    for s in reversed(rule.rightSide):
-                        self.stack.append(Symbol(s, symbol.level + 1))
-
-                    if len(rule.rightSide) == 0:
-                        # epsilon rule - we must add tree level
-                        self.addLevel(symbol.level + 1)
-
-            # print("stack:   ", symbolArrPrint(self.stack))
-            # print("")
+        if len(rule.rightSide) == 0:
+            # epsilon rule - we must add tree level
+            self.addLevel(symbol.level + 1)
 
     def getFinalStrLR(self):
         """Finish reading symbols from stack."""

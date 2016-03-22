@@ -105,7 +105,7 @@ class LLTable:
                 # put rule on stack and take first symbol
                 stack = rule.rightSide + stack
                 # apply orignal rules to virtual tree
-                virtTree.applyLL(rule.orig)
+                virtTree.applyLL(rule)
                 symbol = stack.pop(0)
 
             else:
