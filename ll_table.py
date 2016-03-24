@@ -59,7 +59,7 @@ class LLTable:
             for symbol in predict:
                 terminal = symbol
                 row = self._table[nonterminal]
-                if nonterminal not in row:
+                if terminal not in row:
                     row[terminal] = rule
                 else:
                     raise ValueError("This is not ll grammar, " +
@@ -71,6 +71,8 @@ class LLTable:
 
     def getRule(self, nonterminal, terminal):
         """Get rule from ll table."""
+        if terminal not in self._table[nonterminal]:
+            return False
         return self._table[nonterminal][terminal]
 
     def analyzeSymbols(self, getToken, automat):
@@ -96,7 +98,7 @@ class LLTable:
                 if rule is False:
                     # no rule for this symbol and input
                     raise ValueError("No rule for '" + symbol + "', '" +
-                                     input + "'")
+                                     input + "'", 0)
 
                 # put rule on stack and take first symbol
                 stack = rule.rightSide + stack

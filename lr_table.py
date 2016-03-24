@@ -100,9 +100,8 @@ class TableItem:
         else:
             if self.operations[item.operation.value] != item:
                 # there is other conflict - table item is not the same
-                raise ValueError("Non reduce - shift error: " +
-                                 str(self.operations[item.operation.value]) +
-                                 " or " + str(item), 40)
+                return False
+        return True
 
     def __str__(self):
         """To string."""
@@ -250,31 +249,61 @@ class LRTable:
         endRule = LRRule(additionalRule, 1)
         lrtable = self.lrtable
         for i, group in enumerate(groups.groups):
-            row = {}
+            lrtable.append({})
             for rule in group.rules:
                 if rule == endRule:
-                    row[''] = -1
+                    # end point marked as -1
+                    self._addToTable(i, '', -1)
                     continue
                 markedS = rule.getMarkedSymbol()
                 if markedS is False:
+                    # marked symbol on last position - reduce operation
                     follow = self.eff.follow(rule.r.leftSide)
                     for symbol in follow:
-                        row[symbol] = TableItem(Item(
-                            self.grammar.rules.index(rule.r),
-                            Operation.reduce))
+                        item = Item(self.grammar.rules.index(rule.r),
+                                    Operation.reduce)
+                        self._addToTable(i, symbol, item)
+
                 elif not self.grammar.isTerm(markedS):
-                    row[markedS] = group.transitions[markedS]
+                    # marked symbol is non-terminal - beta part of table
+                    self._addToTable(i, markedS, group.transitions[markedS])
+
                 else:
+                    # marked symbol is terminal - shift operation
                     tIt = Item(group.transitions[markedS],
                                Operation.shift)
-                    if markedS in row:
-                        row[markedS].addItem(tIt)
-                        # shift - reduce conflict
-                        # print(i, markedS, ":", row[markedS])
-                        # print(row[markedS].getItem(Operation.reduce).state)
-                    else:
-                        row[markedS] = TableItem(tIt)
-            lrtable.append(row)
+                    self._addToTable(i, markedS, tIt)
+
+    def _addToTable(self, group, symbol, item):
+        row = self.lrtable[group]
+        if symbol in row:
+            # there is conflict in lr table
+            if type(row[symbol]) == TableItem and type(item) == Item:
+                # probably shift - reduce conflict - no problem now
+                if not row[symbol].addItem(item):
+                    raise ValueError(
+                        str(self) +
+                        "Non shift - reduce conlict in lr table:\n[" +
+                        str(group) + ", " + str(symbol) + "] " +
+                        "can be " + str(row[symbol]) +
+                        " or " +
+                        str(item), 40)
+
+            elif row[symbol] != item:
+                # two numbers can't be on same place in table
+                raise ValueError("Conflict in lr table:\n[" +
+                                 str(group) + ", " + str(symbol) + "] " +
+                                 "can be " + str(row[symbol]) +
+                                 " or " +
+                                 str(item), 40)
+        else:
+            # no conflict
+            if type(item) == Item:
+                # create table item object
+                row[symbol] = TableItem(item)
+            else:
+                # simple number
+                row[symbol] = item
 
     def _getFirstPrecedenceSymbol(self, stack):
         for symbol in reversed(stack):
@@ -285,7 +314,7 @@ class LRTable:
                     self.grammar.isTerm(symbol.symbol)):
                 return symbol.symbol
 
-    def analyzeSymbols(self, getToken, automat):
+    def analyzeSymbols(self, getToken):
         """Analyze symbols by ll_table."""
         grammar = self.grammar
         table = self.lrtable
@@ -297,7 +326,7 @@ class LRTable:
         token = getToken()
         rulesArr = []
         while True:
-            print(" ".join([str(item) for item in stack]))
+            # print(" ".join([str(item) for item in stack]))
             if token not in self.grammar.terminals and token != '':
                 # input symbol is not in grammar alphabet
                 raise ValueError("Symbol '" + token +
@@ -349,49 +378,13 @@ class LRTable:
                 rulesArr.append(rule)
 
         tree = VirtualTree(self.grammar.start)
-        tree.setDotRecord(True)
+        # tree.setDotRecord(True)
         # apply rule in reversed order - from top to bottom
         tree.applyLR(reversed(rulesArr))
         # check levels of virtual tree
-        if automat is not False:
-            levels = tree.getFinalStrLR()
-            bug = False
-            index = -1
-            for level in levels[:-1]:
-                s = ""
-                state = automat.getStart()
-                for symbol in level:
-                    s += symbol + " "
-                    if not bug:
-                        try:
-                            state = automat.applyCharToState(symbol, state)
-                        except ValueError as e:
-                            index = len(s) - len(symbol)
-                            bug = str(e)
+        tree.finishLR()
 
-                print(s)
-                if not bug:
-                    if not automat.isTerm(state):
-                        index = len(s)
-                        bug = "Automat is not in final state"
-
-                if index != -1:
-                    print("^".rjust(index))
-                    index = -1
-
-            print(" ".join([char for char in levels[-1]]))
-            if bug:
-                print(bug)
-        else:
-            levels = tree.getFinalStrLR()
-            for level in levels:
-                s = ""
-                for symbol in level:
-                    s += symbol + " "
-                print(s)
-
-        print(tree.getDotStr())
-        return True
+        return tree
 
     def __str__(self):
         """To string."""

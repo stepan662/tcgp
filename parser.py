@@ -1,4 +1,4 @@
-"""Parse grammar and finite state automat from file."""
+"""Parse tree controlled grammar from file."""
 
 import automat
 import grammar
@@ -6,12 +6,6 @@ from precedence_table import PrecedenceTable
 
 # -- coding: utf-8 --
 __author__ = 'stepan'
-
-
-def parse(input):
-    """Parse input and return grammar and automat."""
-    parser = Parser(input)
-    return (parser.getGrammar(), parser.getAutomat(), parser.getPrecedence())
 
 
 class Token:
@@ -26,29 +20,32 @@ class Token:
 class Parser:
     """Finite state machine parser."""
 
-    def __init__(self, input):
+    def __init__(self):
         """Start parsing."""
         self.grammar = False
         self.aut = False
         self.prec = False
+        self.automaton = False
+        self.levels = False
 
-        exception = False
-        try:
-            self._parse(input)
-        except ValueError as e:
-            # print exception with line number
-            exception = e
-        if exception:
-            raise ValueError(exception.args[0] +
-                             " (line: " + self._line.__str__() + ")",
-                             exception.args[1])
+    def getLine(self):
+        """Get last token line."""
+        return self._line
 
-    def _parse(self, input):
+    def getPos(self):
+        """Get last token position."""
+        if self._pos == 0:
+            return 1
+        return self._pos
+
+    def parse(self, input):
         """Read and parse automat."""
         self.index = 0
         self.str = input
         self._line = 1
+        self._pos = 0
         self._charLine = 1
+        self._charPos = 0
 
         while True:
             # wait for keyword
@@ -111,17 +108,18 @@ class Parser:
                 if self.grammar is False:
                     raise ValueError("Automaton must " +
                                      " be defined after grammar.", 40)
-                if self.aut is not False:
+                if self.automaton is not False:
                     raise ValueError("Automaton is defined twice.", 40)
+                self.automaton = True
 
                 # new empty automat
-                self.aut = automat.Automat()
+                aut = automat.Automat()
 
                 # automat alphabet are terminals and nonterminals from grammar
                 for symbol in self.grammar.nonterminals:
-                    self.aut.addAlpha(symbol)
+                    aut.addAlpha(symbol)
                 for symbol in self.grammar.terminals:
-                    self.aut.addAlpha(symbol)
+                    aut.addAlpha(symbol)
 
                 # wait for opening brackets
                 token = self._getToken()
@@ -130,7 +128,7 @@ class Parser:
                 self._tShould(token, ['{'])
 
                 # load states
-                self._loadIdsArr(self.aut.addState)
+                self._loadIdsArr(aut.addState)
 
                 # comma and opening bracket
                 token = self._getToken()
@@ -139,7 +137,7 @@ class Parser:
                 self._tShould(token, ['{'])
 
                 # load rules
-                self._loadAutomatRules()
+                self._loadAutomatRules(aut)
 
                 # comma and start state
                 token = self._getToken()
@@ -148,7 +146,7 @@ class Parser:
                 if token.type != 'id':
                     raise ValueError("Missing start state", 40)
                 else:
-                    self.aut.setStart(token.string)
+                    aut.setStart(token.string)
 
                 # comma and opening bracket
                 token = self._getToken()
@@ -156,11 +154,16 @@ class Parser:
                 token = self._getToken()
                 self._tShould(token, ['{'])
 
-                self._loadIdsArr(self.aut.setTerminating)
+                self._loadIdsArr(aut.setTerminating)
 
                 # closing bracket and nothing
                 token = self._getToken()
                 self._tShould(token, [')'])
+                if not self.aut:
+                    self.aut = aut
+                else:
+                    aut.join(self.aut)
+                    self.aut = aut
             elif keyword == 'precedence':
                 if self.grammar is False:
                     raise ValueError("Precedence must be defined after" +
@@ -175,20 +178,27 @@ class Parser:
                     pass
 
             elif keyword == 'levels':
+                if self.grammar is False:
+                    raise ValueError("Levels must be defined after" +
+                                     " grammar.", 40)
+                if self.levels is not False:
+                    raise ValueError("Levels are defined twice.", 40)
+                self.levels = True
+
                 token = self._getToken()
                 self._tShould(token, ['{'])
 
-                self.aut = automat.Automat()
+                aut = automat.Automat()
 
                 # automat alphabet are terminals and nonterminals from grammar
                 for symbol in self.grammar.nonterminals:
-                    self.aut.addAlpha(symbol)
+                    aut.addAlpha(symbol)
                 for symbol in self.grammar.terminals:
-                    self.aut.addAlpha(symbol)
+                    aut.addAlpha(symbol)
 
                 start = '0'
-                self.aut.addState(start)
-                self.aut.setStart(start)
+                aut.addState(start)
+                aut.setStart(start)
                 stringNum = 0
                 charNum = 0
                 while True:
@@ -198,15 +208,14 @@ class Parser:
                     if token.type == '}':
                         break
                     else:
-                        self.aut
                         while True:
                             if token.type == ';':
-                                self.aut.setTerminating(lastState)
+                                aut.setTerminating(lastState)
                                 break
 
                             newState = str(stringNum) + "-" + str(charNum)
-                            self.aut.addState(newState)
-                            self.aut.addRule(lastState, token.string, newState)
+                            aut.addState(newState)
+                            aut.addRule(lastState, token.string, newState)
                             lastState = newState
 
                             token = self._getToken()
@@ -214,6 +223,10 @@ class Parser:
 
                             charNum += 1
                     stringNum += 1
+                if not self.aut:
+                    self.aut = aut
+                else:
+                    self.aut.join(aut)
 
             else:
                 raise ValueError("Undefined keyword '" + keyword + "'", 40)
@@ -308,7 +321,7 @@ class Parser:
             if token.type != 'id':
                 return
 
-    def _loadAutomatRules(self):
+    def _loadAutomatRules(self, aut):
         token = self._getToken()
         if token.type == '}':
             return  # rules are empty
@@ -332,7 +345,7 @@ class Parser:
             self._tShould(token, ['id'])
             target = token.string
 
-            self.aut.addRule(state, char, target)
+            aut.addRule(state, char, target)
 
             # expecting comma or closing bracket
             token = self._getToken()
@@ -388,20 +401,25 @@ class Parser:
                 return
             if ch == 'char' and token.type == 'id' and len(token.string) == 1:
                 return
-
-        raise ValueError("Syntax error: unexpected token type: '" +
-                         token.type +
-                         "', expecting " + types.__str__(), 40)
+        tokStr = "token type '" + token.type + "'"
+        if token.type == '':
+            tokStr = 'end of file'
+        raise ValueError("Syntax error: unexpected " +
+                         tokStr +
+                         ", expecting " + types.__str__(), 40)
 
     def _getToken(self):
         """Load next token."""
         ch = self._getChar()
         self._line = self._charLine
+        self._pos = self._charPos
         state = 'begin'
         str = ''
         while ch is not False:
             # skip white chars
             if state == 'begin':
+                self._line = self._charLine
+                self._pos = self._charPos
                 if ch.isspace():
                     state = 'begin'
                 elif ch == '#':
@@ -480,6 +498,9 @@ class Parser:
             if self.str[self.index] == '\n':
                 # line counter
                 self._charLine -= 1
+                self._charPos = self._lastCharPos
+            else:
+                self._charPos -= 1
         else:
             raise ValueError("Nothing to unget", 40)
 
@@ -490,6 +511,10 @@ class Parser:
             if ch == '\n':
                 # line counter
                 self._charLine += 1
+                self._lastCharPos = self._charPos
+                self._charPos = 0
+            else:
+                self._charPos += 1
             self.index += 1
             return ch
         else:

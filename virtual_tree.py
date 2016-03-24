@@ -48,7 +48,6 @@ class VirtualTree:
     def __init__(self, firstSymbol):
         """Initialization."""
         self.stack = [Symbol('', 0), Symbol(firstSymbol, 0)]
-        self.blocked = []
         self.states = []
         self.dotNames = False
         self.lrRuleFunc = self.applyLRRule
@@ -132,7 +131,7 @@ class VirtualTree:
             # apply rule
             self.lrRuleFunc(symbol, rule)
 
-            print("stack:   ", symbolArrPrint(self.stack))
+            # print("stack:   ", symbolArrPrint(self.stack))
 
     def applyLL(self, rule):
         """Apply original rules to tree."""
@@ -153,7 +152,7 @@ class VirtualTree:
             # epsilon rule - we must add tree level
             self.addLevel(symbol.level + 1)
 
-    def getFinalStrLR(self):
+    def finishLR(self):
         """Finish reading symbols from stack."""
         while True:
             # skip rest of symbols
@@ -162,9 +161,8 @@ class VirtualTree:
                 break
             else:
                 self.charOnLevelBegin(str(symbol), symbol.level)
-        return self.states
 
-    def getFinalStrLL(self):
+    def finishLL(self):
         """Finish reading symbols from stack."""
         while True:
             # skip nonterminals
@@ -173,4 +171,38 @@ class VirtualTree:
                 break
             else:
                 self.charOnLevelEnd(str(symbol), symbol.level)
-        return self.states
+
+    def checkTree(self, aut):
+        """Check tree by finite automat."""
+        for levelNum, level in enumerate(self.states[:-1]):
+            state = aut.getStart()
+            for symbNum, symbol in enumerate(level):
+                try:
+                    state = aut.applyCharToState(symbol, state)
+                except ValueError as e:
+                    bugLevel = levelNum
+                    bugIndex = symbNum
+                    bugMsg = str(e)
+                    return (bugLevel, bugIndex, bugMsg)
+        return True
+
+    def __str__(self):
+        """To string."""
+        s = ""
+        for level in self.states:
+            for symbol in level:
+                s += symbol + " "
+            s += "\n"
+        return s
+
+    def strWithBug(self, bug):
+        """To string with printed bug from check tree function."""
+        s = ""
+        for levelNum, level in enumerate(self.states):
+            for symbol in level:
+                s += symbol + " "
+            s += "\n"
+            if bug[0] == levelNum:
+                s += "^".rjust((bug[1] * 2) + 1) + "\n"
+        s += bug[2]
+        return s

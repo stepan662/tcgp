@@ -58,3 +58,9 @@ class State:
         """Remove epsilon rules."""
         if '' in self._rules:
             del self._rules['']
+
+    def __str__(self):
+        """To string."""
+        s = str(self._term)
+        s += ", " + str(self._rules)
+        return s

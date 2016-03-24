@@ -110,6 +110,7 @@ Pokud se zabýváme nekonečnými jazyky, nemůžeme je vyjádřit jednoduchým 
 \end{itemize}
 
 \subsubsection*{Přepisovací pravidla}
+\label{term:rewriteRule}
 
 \term{Přepisovací pravidlo} je složeno ze dvou řetězců $(\alpha, \beta)$,
 složených z terminálů a neterminálů, přičemž $\alpha$ obsahuje alespoň jeden neterminál.
@@ -384,7 +385,7 @@ V tomto konkrétním případě jsme si pomohli intuicí, uveďme ale obecné al
   \BlankLine
   \Begin{
     $\varepsilon$-uzávěr$(E)$ := $E$\;
-    \Repeat{$\varepsilon$-uzávěr$(E)$ byl změněn}{
+    \Repeat{$\varepsilon$-uzávěr$(E)$ nebyl změněn}{
       $\varepsilon$-uzávěr$(E)$ := $\varepsilon$-uzávěr$(E)$ $\cup$ $\{p| q \rightarrow p
         \in R$ a $q \in \varepsilon$-uzávěr$(E)\}$
     }
@@ -507,18 +508,18 @@ nebudou využívány a proto zde nejsou více rozebírány.\\
 
 \section{Bezkontextové jazyky}
 
-Bezkontextový jazyk je definován Bezkontextovou gramatikou.
+Bezkontextový jazyk je obvykle definován Bezkontextovou gramatikou.
 Jak jsme již uvedli v \term{Chomského hierarchii} (str. \pageref{chomsky:hierarchy}),
 tyto gramatiky obsahují pravidla ve tvaru $A \rightarrow \gamma$, kde $A$ je neterminál a
 $\gamma$ řetězec terminálů a neterminálů.
 
 \subsection{Bezkontextové gramatiky}
-
+\label{subsec:contextFreeGrammars}
 Pokračujme nyní v příkladu \ref{exmp:brackets} a ukažme si, jak ho lze
-vyjádřit pomocí bezkontextové gramatiky a zpracovávat zásobníkovým automatem.\\
+vyjádřit pomocí bezkontextové gramatiky.\\
 
 Chceme tedy vyjádřit výraz tvořený závorkami, pomocí gramatických pravidel.
-Označme dvojici závorek jako výraz = neterminál $E$. Gramtické pravidlo tedy bude
+Označme dvojici závorek jako výraz = neterminál $E$. Gramatické pravidlo tedy bude
 vypadat takto:
 \[E \rightarrow ()\]
 Nyní bychom ale chtěli vyjádřit, že uvnitř závorek může být další výraz, to
@@ -550,6 +551,7 @@ přidáním speciálního počátečního pravidla:
 \[S \rightarrow (E)\]
 Nyní tedy budeme začínat od symbolu S. Označme si tuto gramatiku jako
 $G$ a vyjádřeme ji formálně:
+
 \begin{lstlisting}[mathescape, escapeinside={(*}{*)}]
   G = (
     {S, E},           (* // množina neterminálů *)
@@ -567,15 +569,8 @@ Je zřejmé, že bezkontextovými jazyky jsme schopni popsat mnohem
 složitější jazyky, než regulárními jazyky. Daní za větší \term{vyjadřovací sílu}
 je ale znatelně složitější zpracování těchto jazyků.
 
-\subsection{Zásobníkové automaty}
-
-Zásobníkový automat rozšiřuje \term{Konečný automat} o zásobník, kam lze
-ukládat symboly (terminály i neterminály). Pro rozhodnutí, jaké pravidlo použít,
-využívá vedle vstupního symbolu i symbol na vrcholu zásobníku. V rámci vykonání
-přechodu lze zároveň manipulovat se zásobníkem.\\
-
-
 \subsection{Derivační strom}
+\label{subsec:derivationTree}
 Při aplikaci gramatiky na řetězec jde vlastně o ověření,
 jestli lze z počátečního symbolu,
 postupnou derivací (aplikací pravidel gramatiky) získat daný řetězec.
@@ -583,13 +578,14 @@ Mějme například gramatiku:
 
 \begin{lstlisting}[mathescape]
   G = (
-    {S, a, b, c},
-    {a, b, c},
+    {E},
+    {*, +, a},
     {
-      S $\rightarrow$ aSc,
-      S $\rightarrow$ b
+      E $\rightarrow$ E*E,
+      E $\rightarrow$ E+E,
+      E $\rightarrow$ a
     },
-    S
+    E
   )
 \end{lstlisting}
 \noindent
@@ -613,7 +609,7 @@ Pro menší velikost grafu budeme ale pravidla zjednodušeně znázorňovat takt
 Pro příklad postupné derivace mějme řetězec $s$:
 
 \begin{lstlisting}
-  aaabccc
+  a * a + a
 \end{lstlisting}
 
 \noindent
@@ -622,11 +618,12 @@ tak abychom získali řetězec $s$
 (v komentáři jsou uvedena pravidla, která byla použita):
 
 \begin{lstlisting}[mathescape]
-     S
-    aSc                   //S $\rightarrow$ aSc
-   aaScc                  //S $\rightarrow$ aSc
-  aaaSccc                 //S $\rightarrow$ aSc
-  aaabccc                 //S $\rightarrow$ b
+   E
+  E*E                   //E $\rightarrow$ E*E
+  a*E                   //E $\rightarrow$ a
+  a*E+E                 //E $\rightarrow$ E+E
+  a*a+E                 //E $\rightarrow$ a
+  a*a+a                 //E $\rightarrow$ a
 \end{lstlisting}
 
 \noindent
@@ -669,7 +666,290 @@ Pro větší názornost ukažme ještě stejný strom s přiřazenými symboly k
   \end{enumerate}
 \end{defn}
 
+\subsection{Nedeterminismus}
+
+U příkladu z minulé sekce (\ref{subsec:derivationTree}) si můžeme všimnout,
+že při konstrukci derivačního stromu máme pro jeden řetězec možnost sestrojit
+2 stromy:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics{fig/TwoDerivationTrees.pdf}
+\end{figure}
+
+Vidíme, že generovaný řetězec je stejný, ale stromy jsou odlišné.
+Takováto gramatika je označována jako nedeterministická a způsobuje problémy při
+zpracování, protože v rozhodné chvíli nevíme, které pravidlo použít.\\
+
+Protože determinismus je při implementaci zásadní, rozdělujeme Bezkontextové gramatiky
+na deterministické a nedeterministické (podobně i zásobníkové automaty).\\
+
+
+\subsection{Zásobníkové automaty}
+
+Zásobníkový automat rozšiřuje \term{Konečný automat} o zásobník, kam lze
+ukládat symboly (terminály i neterminály).\\
+
+Pro rozhodnutí, jaké pravidlo použít,
+využívá vedle vstupního symbolu a stavu i symbol na vrcholu zásobníku. V rámci vykonání
+přechodu lze zároveň manipulovat se zásobníkem.\\
+
+Vraťme se opět k příkladu \ref{exmp:brackets} a všiměme si stavů
+vyjadřujících zanoření. Značili jsme je jako počet uzavíracích závorek,
+které jsou ještě potřeba, aby byl výraz platný. Pokud jsme narazili na
+otevírací závorku, přešli jsme do stavu "o jedna více závorek", v případě uzavírací
+do "o jedna méně závorek". Přechody mezi stavy jsou znázorněny na
+následujícím jednoduchém řetězci:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics{fig/bracketsAutomat.pdf}
+\end{figure}
+
+Vidíme, že přidávání a odebírání závorek nám může připomínat zásobník.
+A takto podobně opravdu zásobníkový automat funguje.\\
+
+\begin{defn}
+  (Zásobníkový automat) \cite[str. 18]{Koutny}\\
+  Zásobníkový automat je sedmice $M = (Q, \Sigma, \Gamma, R, q_0, Z_0, F)$, kde:
+  \begin{itemize}
+    \item $Q$ je konečná množina stavů
+    \item $\Sigma$ je vstupní abeceda
+    \item $\Gamma$ je konečná abeceda zásobníku
+    \item $R \subseteq (\Gamma \times Q \times (\Sigma \cup \{\varepsilon\} ))
+    \times (\Gamma^* \cup Q)$ je konečná množina binárních relací (pravidel)
+    \item $Q_0 \in Q$ je počáteční stav
+    \item $Z_0 \in \Gamma$ popisuje počáteční symboly na zásobníku
+    \item $F \subseteq Q$ je množina konečných stavů
+  \end{itemize}
+\end{defn}
+
+\noindent
+Pravidla $R$ zásobníkového automatu je ve tvaru $(q_1, a, z_1) \rightarrow (q_2, \gamma)$, kde:
+
+\begin{itemize}
+  \item $q_1$ je výchozí stav
+  \item $a$ je symbol na vstupu
+  \item $z_1$ je symbol na vrcholu zásobníku
+  \item $q_2$ je výstupní stav
+  \item $\gamma$ je řetězec, který se má vložit na zásobník
+\end{itemize}
+
+Zásobníkovým automatem lze zpracovávat Deterministické bezkontextové jazyky.
+V případě nedeterministických musíme nějak blíže specifikovat, který z možných
+stromů chceme.\\
+
+\section{Zpracování bezkontextových jazyků}
+
+Při zpracování bezkontextového jazyka je hlavní problematikou
+sestavování konfigurace zasobníkového automatu pro danou gramatiku.
+Musíme totiž gramatická (přepisovací) pravidla zanést do konfigurace
+automatu tak, aby bylo vždy jasné, které použít.\\
+
+Při návrhu syntaktického analyzátoru se vždy objeví otázka, zdali je lepší
+při konstrukci derivačního stromu postupovat od kořene (shora dolů) nebo od
+zkoumaného řetězce (zdola nahoru). Odpověď na tuto otázku není jednoznačná,
+což je vidět i na široce používaných analyzátorech programovacích jazyků,
+kdy se tato technika liší projekt od projektu.\\
+
+V případě tohoto projektu je tomu nejinak, a proto v této části budeme rozebírat
+obě alternativy, aby byly zřejmé jejich výhody i nevýhody.
+
+\subsection{Syntaktická analýza shora dolů}
+
+Nejpoužívanějším zástupcem této skupiny je LL syntaktická analýza, která analyzuje
+vstup zleva doprava a konstruuje nejlevější derivaci. Tato syntaktická analýza
+umožňuje zpracovávat pouze LL gramatiky,
+které jsou podmnožinou deterministických bezkontextových gramatik.
+Pro mnoho použití není však toto omezení zásadní.\\
+
+
+Ukažme si, jak může vypadat zpracování řetězce \texttt{'(())'} bezkontextovou
+gramatikou $G$ (z kapitoly \ref{subsec:contextFreeGrammars}) pomocí LL syntaktické analýzy.
+Vlevo je znázorněný zásobník (s vrcholem)
+a šipky nám indikují, v jaké části řetězce se právě nacházíme.
+Speciální znak '\$' nám značí konec vstupu.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.6]{fig/bracketsCFAutomat.pdf}
+\end{figure}
+
+Při zpracování postupujeme podle daného algoritmu LL syntaktické analýzy, nejdříve jej ukážeme na
+tomto příkladu. Před zahájením algoritmu vložíme na zásobník symbol '\$',
+který označuje konec souboru a počáteční symbol 'S'. Nyní ukažme pár prvních kroků (číslování odpovídá obrázku):
+
+\begin{enumerate}
+  \item Na zásobníku je neterminál 'S' - na základě vstupu '(' použijeme pravidlo 1 a nahradíme S za pravou stranu pravidla
+  \item Na zásobníku je terminál '(' a shoduje se se vstupním symbolem - můžeme jej odstranit
+  \item Na zásobníku je neterminál 'E' a na vstupu opět '(', použijeme pravidlo 2
+  \item Na zásobníku je terminál '(' a shoduje se se vstupem - odstraníme
+  \item Na zásobníku je neterminál 'E' a na vstupu ')' - použijeme pravidlo 3, což nám odstraní E ze zásobníku
+  \item ...
+\end{enumerate}
+
+Které pravidlo použít rozhodujeme v tomto případě intuitivně, v případě implementace
+však potřebujeme jasnou odpověď. K tomu slouží tzv. LL tabulka, která nám na základě
+vstupního symbolu a symbolu na zásobníku určí pravidlo, které se má použít.
+Následující algoritmy slouží k její konstrukci.\\
+
+\noindent
+Množina $Empty(X)$ nám říká, jestli lze symbol $X$ odstranit:\\
+\begin{algorithm}[H]
+  \caption{$Empty(X)$}
+  \KwIn{Gramatika $G = (N, \Sigma, P, S)$}
+  \KwOut{$Empty(X)$ pro každý symbol $X \in N \cup \Sigma$ }
+
+  \BlankLine
+  \Begin{
+    $Empty(a) := \emptyset$ pro každé $a \in \Sigma$\;
+    \ForAll{$A \in N$}{
+      \uIf{$A \rightarrow \varepsilon \in P$}{
+        $Empty(A)$ := $\{\varepsilon\}$\;
+      }
+      \Else{
+        $Empty(A)$ := $\emptyset$\;
+      }
+    }
+
+    \Repeat{žádná z množin Empty nezměněna} {
+      \If{$A \rightarrow X_1 X_2 ... X_n \in P$ a $Empty(X_i) = {\varepsilon}$
+              pro všechna $i = 1, ... ,n$}{
+        $Empty(A)$ := $\{\varepsilon\}$\;
+      }
+    }
+  }
+\end{algorithm}
+\vspace{0.5cm}
+
+\noindent
+Množina $First(X)$ nám říká, které terminální symboly se mohou nacházet
+na začátku symbolu $X$:\\
+\begin{algorithm}[H]
+  \caption{$First(X)$}
+  \KwIn{Gramatika $G = (N, \Sigma, P, S)$}
+  \KwOut{$First(X)$ pro každý symbol $X \in N \cup \Sigma$ }
+
+  \BlankLine
+  \Begin{
+    $first(a) := \{a\}$\ pro každé $a \in \Sigma$\;
+    $first(A) := \emptyset$ pro každé $A \in N$\;
+
+    \Repeat{žádná z množin $First$ nezměněna} {
+      \If{$A \rightarrow X_1 X_2 ... X_{k-1}X_k ... X_n \in P$}{
+        $First(A)$ := $First(A) \cup First(X_1)$\;
+        \If{$Empty(X_i) = \{\varepsilon\}$
+            pro $i = 1, ..., k-1$ kde $k \leq n$}{
+          $First(A)$ := $First(A) \cup First(X_k)$\;
+        }
+      }
+    }
+  }
+\end{algorithm}
+\vspace{0.5cm}
+
+\noindent
+Množina $Empty(X_1X_2 ... X_n)$ nám říká, jestli lze řetězec
+$X_1X_2 ... X_n$ odstranit:\\
+\begin{algorithm}[H]
+  \caption{$Empty(X_1X_2 ... X_n)$}
+  \KwIn{Gramatika $G = (N, \Sigma, P, S)$; $Empty(X)$
+        pro každé $X \in N \cup T$; $x = X_1X_2 ... X_n$,
+        kde $x \in (N \cup T)^+$}
+  \KwOut{$Empty(X_1X_2 ... X_n)$}
+
+  \BlankLine
+  \Begin{
+    \uIf{$Empty(X_i) = \{\varepsilon\}$ pro každé $i = 1, ..., n$}{
+      $Empty(X_1X_2 ... X_n)$ := $\{\varepsilon\}$\;
+    }
+    \Else{
+      $Empty(X_1X_2 ... X_n)$ := $\emptyset$\;
+    }
+  }
+\end{algorithm}
+\vspace{0.5cm}
+
+\noindent
+Množina $First(X_1X_2 ... X_n)$ nám říká, které terminální symboly
+se mohou nacházet na začátku řetězce $X_1X_2 ... X_n$:\\
+\begin{algorithm}[H]
+  \caption{$First(X_1X_2 ... X_n)$}
+  \KwIn{Gramatika $G = (N, \Sigma, P, S)$; $First(X)$ a $Empty(X)$
+        pro každé $X \in N \cup T$; $x = X_1X_2 ... X_n$,
+        kde $x \in (N \cup T)^+$}
+  \KwOut{$First(X_1X_2 ... X_n)$}
+
+  \BlankLine
+  \Begin{
+    $First(X_1X_2 ... X_n)$ := $First(X_1)$\;
+
+    \Repeat{množina $First(X_1X_2 ... X_{k-1}X_k ... X_n)$ nezměněna} {
+      \If{$Empty(X_i) = \{\varepsilon\}$
+          pro $i = 1, ..., k-1$ kde $k \leq n$}{
+        $First(X_1X_2 ... X_n)$ := $First(X_1X_2 ... X_n) \cup First(X_k)$\;
+      }
+    }
+  }
+\end{algorithm}
+\vspace{0.5cm}
+
+\noindent
+Množina $Follow(X)$ říká, které terminální symboly se mohou nacházet
+za symbolem $X$:\\
+\begin{algorithm}[H]
+  \caption{$Follow(X)$}
+  \KwIn{Gramatika $G = (N, \Sigma, P, S)$}
+  \KwOut{$Follow(A)$ pro každý symbol $A \in N$}
+
+  \BlankLine
+  \Begin{
+    $Follow(S) := \{\$\}$\;
+
+    \Repeat{žádná z množin $Follow$ nezměněna} {
+      \If{$A \rightarrow xBy \in P$}{
+        \If{$y \neq \varepsilon$}{
+          $Follow(B)$ := $Follow(B) \cup First(y)$\;
+        }
+        \If{$Empty(y) = \{\varepsilon\}$
+            pro $i = 1, ..., k-1$ kde $k \leq n$}{
+          $Follow(B)$ := $Follow(B) \cup Follow(A)$\;
+        }
+      }
+    }
+  }
+\end{algorithm}
+\vspace{0.5cm}
+
+\noindent
+Množina $Predict(A \rightarrow x)$ říká, které terminální mohou být
+na vstupu pro pravidlo $A \rightarrow x$:\\
+\begin{defn}
+  (Množina $Predict(A \rightarrow x)$)\\
+  Nechť $G = (N, \Sigma, P, S)$ je Bezkontextová gramatika.
+  Pro každé $A \rightarrow x \in P$ definujeme množinu
+  $Predict(A \rightarrow x \in P)$ takto:\\
+
+  \noindent
+  Pokud $Empty(x) = \{\varepsilon\}$ potom:\\
+    \indent
+    $Predict(A \rightarrow x \in P) = First(x) \cup Follow(A)$\\
+
+  \noindent
+  Jinak pokud $Empty(x) = \emptyset$ potom:\\
+    \indent
+    $Predict(A \rightarrow x \in P) = First(x)$
+\end{defn}
+\vspace{0.5cm}
+
+
+
+
+
+\subsection{Syntaktická analýza zdola nahoru}
+
 \chapter{Zpracování jazyků řízených stromy}
+\label{ch:processingTreeLanguages}
 
 \section{Omezení úrovní derivačního stromu}
 
@@ -764,25 +1044,6 @@ ověřovat příslušnost řetězce do dané gramatiky řízené stromem.
   proto tento řetězec nepatří do jazyka $L$.
 \end{exmp}
 
-\section{Syntaktická analýza}
-V předchozích kapitolách jsme se vždy zabývali pouze tím, jak pracovat s derivačním stromem,
-ale ne jakým způsobem ho sestavit pro daný řetězec a gramatiku.
-Metody řešící tento problém jsou již podrobně prozkoumané a obecně známé,
-proto není tolik vysvětlován jejich princip, ale spíše jejich vlastnosti, mající
-vliv na podobu derivačního stromu.\\
-
-Při návrhu syntaktického analyzátoru se vždy objeví otázka, zdali je lepší
-při konstrukci derivačního stromu postupovat od kořene (shora dolů) nebo od
-zkoumaného řetězce (zdola nahoru). Odpověď na tuto otázku není jednoznačná,
-což je vidět i na široce používaných analyzátorech programovacích jazyků,
-kdy se tato technika liší projekt od projektu.\\
-
-V případě tohoto projektu je tomu nejinak, a proto v této části budeme rozebírat
-obě alternativy, aby byly zřejmé jejich výhody i nevýhody.
-
-\subsection{Shora dolů}
-
-\subsection{Zdola nahoru}
 \chapter{Implementace}
 
 %=========================================================================

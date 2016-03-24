@@ -1,6 +1,6 @@
 """Automat."""
-import copy
-import state
+from copy import deepcopy
+from state import State
 
 # -- coding: utf-8 --
 __author__ = 'stepan'
@@ -22,7 +22,7 @@ class Automat:
     def addState(self, name):
         """Add state, without duplicites."""
         if name not in self._states:
-            self._states[name] = state.State()
+            self._states[name] = State()
 
     def addRule(self, state, char, target):
         """
@@ -82,7 +82,7 @@ class Automat:
         # stack of e transitions, init with current state
         Q = {state: False}
         # stack of previous iteration
-        Qbefore = copy.deepcopy(Q)
+        Qbefore = deepcopy(Q)
         while True:
             # iterate over states from previous iteration
             for st in Qbefore:
@@ -100,7 +100,7 @@ class Automat:
             if len(Qbefore) == len(Q):
                 break
             else:
-                Qbefore = copy.deepcopy(Q)
+                Qbefore = deepcopy(Q)
         return Q
 
     def dropERules(self):
@@ -123,9 +123,11 @@ class Automat:
         Qnew = {}
         Qnew[self._start] = True
         aut = Automat()
-        aut._alphabet = copy.deepcopy(self._alphabet)
+        aut._alphabet = deepcopy(self._alphabet)
         aut._start = self._start
         aut.addState(self._start)
+        if self.isTerm(self._start):
+            aut.setTerminating(self._start)
 
         while True:
             # get first state from queue
@@ -186,7 +188,7 @@ class Automat:
                     raise ValueError("Character '" + char +
                                      "' is not acceptable", 1)
 
-        return self.isTerm()
+        return self.isTerm(state)
 
     def isTerm(self, state):
         """Indicate if state is terminating."""
@@ -212,6 +214,27 @@ class Automat:
     def getAlphabet(self):
         """Get alphabet."""
         return self._alphabet
+
+    def join(self, other):
+        """Join two automats."""
+        # copy symbols
+        for symbol in other._alphabet:
+            self.addAlpha(symbol)
+
+        # copy states
+        for state in other._states:
+            self.addState(state)
+            if other._states[state].isTerm():
+                self.setTerminating(state)
+
+        for state in other._states:
+            symbolsRules = other._states[state].getAllRules()
+            for symbol in symbolsRules:
+                for state2 in symbolsRules[symbol]:
+                    self.addRule(state, symbol, state2)
+
+        # connect start states
+        self.addRule(self._start, '', other._start)
 
     def __str__(self):
         """Convert automat to standard string."""
