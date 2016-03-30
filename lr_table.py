@@ -4,6 +4,7 @@ from rule import Rule
 from operation import Operation
 from virtual_tree import VirtualTree
 from eff import EFF
+from debug_print import debug_print
 
 # -- coding: utf-8 --
 __author__ = 'stepan'
@@ -62,11 +63,12 @@ class Item:
 
     def __str__(self):
         """To string."""
-        s = str(self.state)
+        s = ""
         if self.operation == Operation.shift:
             s += "s"
         else:
             s += "r"
+        s += str(self.state)
         return s
 
     def __eq__(self, other):
@@ -326,7 +328,9 @@ class LRTable:
         token = getToken()
         rulesArr = []
         while True:
-            # print(" ".join([str(item) for item in stack]))
+            debug_print(state,
+                        "".join([str(item) for item in reversed(stack)]))
+
             if token not in self.grammar.terminals and token != '':
                 # input symbol is not in grammar alphabet
                 raise ValueError("Symbol '" + token +
@@ -377,6 +381,8 @@ class LRTable:
                 # add record of rule applying to rules array
                 rulesArr.append(rule)
 
+        debug_print()
+
         tree = VirtualTree(self.grammar.start)
         # tree.setDotRecord(True)
         # apply rule in reversed order - from top to bottom
@@ -397,5 +403,6 @@ class LRTable:
                     s += str(row[symbol]) + "\t"
                 else:
                     s += "\t"
-            s += "\n"
+            if i != len(self.lrtable) - 1:
+                s += "\n"
         return s

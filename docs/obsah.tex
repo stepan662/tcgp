@@ -121,10 +121,10 @@ Tato operace se také nazývá \term{derivace}.
 Řetězec upravujeme podle pravidel tak dlouho, až se v něm nacházejí pouze neterminály.
 
 \begin{figure}[H]
-  \label{img:rewriteRule}
   \centering
   \includegraphics{fig/rewriteRule.pdf}
   \caption{Příklad derivace podle pravidla}
+  \label{img:rewriteRule}
 \end{figure}
 
 \subsubsection*{Ekvivalence gramatik}
@@ -235,7 +235,7 @@ stavu.
 
 \begin{exmp}
   Mějme konečný automat M1:
-  \begin{lstlisting}[mathescape, escapeinside={(*}{*)}]
+  \begin{lstlisting}
   M1 = (
     {s, q, f},        (* // množina stavů *)
     {a, b, c},        (* // abeceda *)
@@ -291,7 +291,7 @@ Tento konečný automat lze také zobrazit pomocí následujícího grafu:
 Uveďme další příklad, který už nebude tak jednoduchý:
 \begin{exmp}
   Mějme konečný automat M2:
-  \begin{lstlisting}[mathescape, escapeinside={(*}{*)}]
+  \begin{lstlisting}
   M2 = (
     {s, q1, q2, p1, p2, f1, f2},
     {a, b, c, d},
@@ -336,8 +336,7 @@ Uveďme další příklad, který už nebude tak jednoduchý:
   může totiž dojít k tomu, že se program bude větvit opakovaně
   a zpracování může dojít až k exponencionální složitosti.
   Např. programovací jazyky bývají navrženy tak, aby šly zpracovávat deterministicky,
-  protože rychlost překladu je velmi důležitým faktorem pro jejich nasazení.\\
-
+  protože rychlost překladu je velmi důležitým faktorem pro jejich nasazení.
 
 \end{exmp}
 
@@ -387,7 +386,7 @@ V tomto konkrétním případě jsme si pomohli intuicí, uveďme ale obecné al
     $\varepsilon$-uzávěr$(E)$ := $E$\;
     \Repeat{$\varepsilon$-uzávěr$(E)$ nebyl změněn}{
       $\varepsilon$-uzávěr$(E)$ := $\varepsilon$-uzávěr$(E)$ $\cup$ $\{p| q \rightarrow p
-        \in R$ a $q \in \varepsilon$-uzávěr$(E)\}$
+        \in R$ \And $q \in \varepsilon$-uzávěr$(E)\}$
     }
   }
 \end{algorithm}
@@ -405,7 +404,7 @@ V tomto konkrétním případě jsme si pomohli intuicí, uveďme ale obecné al
     $\Sigma_O$ := $\Sigma_I$\;
     $s_O$ := $s_I$\;
     $F_O := \{q| q \in Q_I, \varepsilon$-uzávěr$(q) \cap F_I \neq \emptyset\}$\;
-    $R_O := \{qa \rightarrow p | q \in Q_I, a \in \Sigma_I, oa \rightarrow p
+    $R_O := \{qa \rightarrow p | q \in Q_I, \And \in \Sigma_I, oa \rightarrow p
       \in R_I$ pro všechna $o \in \varepsilon$-uzávěr$(q)$ v $I\}$
   }
 \end{algorithm}
@@ -552,7 +551,7 @@ přidáním speciálního počátečního pravidla:
 Nyní tedy budeme začínat od symbolu S. Označme si tuto gramatiku jako
 $G$ a vyjádřeme ji formálně:
 
-\begin{lstlisting}[mathescape, escapeinside={(*}{*)}]
+\begin{lstlisting}
   G = (
     {S, E},           (* // množina neterminálů *)
     {(, )},           (* // množina terminálů *)
@@ -576,7 +575,7 @@ jestli lze z počátečního symbolu,
 postupnou derivací (aplikací pravidel gramatiky) získat daný řetězec.
 Mějme například gramatiku:
 
-\begin{lstlisting}[mathescape]
+\begin{lstlisting}
   G = (
     {E},
     {*, +, a},
@@ -617,13 +616,14 @@ Nyní zkusíme postupně aplikovat pravidla na počáteční symbol,
 tak abychom získali řetězec $s$
 (v komentáři jsou uvedena pravidla, která byla použita):
 
-\begin{lstlisting}[mathescape]
+\begin{lstlisting}
    E
-  E*E                   //E $\rightarrow$ E*E
-  a*E                   //E $\rightarrow$ a
-  a*E+E                 //E $\rightarrow$ E+E
-  a*a+E                 //E $\rightarrow$ a
-  a*a+a                 //E $\rightarrow$ a
+  E*E                   // E $\rightarrow$ E*E(*\footnote{Zde bychom mohli použít
+    i pravidlo $E \rightarrow E + E$ a dostali bychom odlišný strom (viz. Sekce \ref{subec:nondeterminsm})}*)
+  a*E                   // E $\rightarrow$ a
+  a*E+E                 // E $\rightarrow$ E+E
+  a*a+E                 // E $\rightarrow$ a
+  a*a+a                 // E $\rightarrow$ a
 \end{lstlisting}
 
 \noindent
@@ -667,6 +667,7 @@ Pro větší názornost ukažme ještě stejný strom s přiřazenými symboly k
 \end{defn}
 
 \subsection{Nedeterminismus}
+\label{subec:nondeterminsm}
 
 U příkladu z minulé sekce (\ref{subsec:derivationTree}) si můžeme všimnout,
 že při konstrukci derivačního stromu máme pro jeden řetězec možnost sestrojit
@@ -706,8 +707,9 @@ následujícím jednoduchém řetězci:
   \includegraphics{fig/bracketsAutomat.pdf}
 \end{figure}
 
-Vidíme, že přidávání a odebírání závorek nám může připomínat zásobník.
-A takto podobně opravdu zásobníkový automat funguje.\\
+Přidávání a odebírání závorek nám může připomínat zásobník.
+Zásobníkový automat dokáže tyto stavy vyjádřit zásobníkem a potom
+není nutné všechny tyto stavy definovat.\\
 
 \begin{defn}
   (Zásobníkový automat) \cite[str. 18]{Koutny}\\
@@ -718,7 +720,7 @@ A takto podobně opravdu zásobníkový automat funguje.\\
     \item $\Gamma$ je konečná abeceda zásobníku
     \item $R \subseteq (\Gamma \times Q \times (\Sigma \cup \{\varepsilon\} ))
     \times (\Gamma^* \cup Q)$ je konečná množina binárních relací (pravidel)
-    \item $Q_0 \in Q$ je počáteční stav
+    \item $q_0 \in Q$ je počáteční stav
     \item $Z_0 \in \Gamma$ popisuje počáteční symboly na zásobníku
     \item $F \subseteq Q$ je množina konečných stavů
   \end{itemize}
@@ -763,33 +765,7 @@ umožňuje zpracovávat pouze LL gramatiky,
 které jsou podmnožinou deterministických bezkontextových gramatik.
 Pro mnoho použití není však toto omezení zásadní.\\
 
-
-Ukažme si, jak může vypadat zpracování řetězce \texttt{'(())'} bezkontextovou
-gramatikou $G$ (z kapitoly \ref{subsec:contextFreeGrammars}) pomocí LL syntaktické analýzy.
-Vlevo je znázorněný zásobník (s vrcholem)
-a šipky nám indikují, v jaké části řetězce se právě nacházíme.
-Speciální znak '\$' nám značí konec vstupu.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale=0.6]{fig/bracketsCFAutomat.pdf}
-\end{figure}
-
-Při zpracování postupujeme podle daného algoritmu LL syntaktické analýzy, nejdříve jej ukážeme na
-tomto příkladu. Před zahájením algoritmu vložíme na zásobník symbol '\$',
-který označuje konec souboru a počáteční symbol 'S'. Nyní ukažme pár prvních kroků (číslování odpovídá obrázku):
-
-\begin{enumerate}
-  \item Na zásobníku je neterminál 'S' - na základě vstupu '(' použijeme pravidlo 1 a nahradíme S za pravou stranu pravidla
-  \item Na zásobníku je terminál '(' a shoduje se se vstupním symbolem - můžeme jej odstranit
-  \item Na zásobníku je neterminál 'E' a na vstupu opět '(', použijeme pravidlo 2
-  \item Na zásobníku je terminál '(' a shoduje se se vstupem - odstraníme
-  \item Na zásobníku je neterminál 'E' a na vstupu ')' - použijeme pravidlo 3, což nám odstraní E ze zásobníku
-  \item ...
-\end{enumerate}
-
-Které pravidlo použít rozhodujeme v tomto případě intuitivně, v případě implementace
-však potřebujeme jasnou odpověď. K tomu slouží tzv. LL tabulka, která nám na základě
+Které pravidlo použít slouží tzv. LL tabulka, která nám na základě
 vstupního symbolu a symbolu na zásobníku určí pravidlo, které se má použít.
 Následující algoritmy slouží k její konstrukci.\\
 
@@ -813,7 +789,7 @@ Množina $Empty(X)$ nám říká, jestli lze symbol $X$ odstranit:\\
     }
 
     \Repeat{žádná z množin Empty nezměněna} {
-      \If{$A \rightarrow X_1 X_2 ... X_n \in P$ a $Empty(X_i) = {\varepsilon}$
+      \If{$A \rightarrow X_1 X_2 ... X_n \in P$ \And   $Empty(X_i) = {\varepsilon}$
               pro všechna $i = 1, ... ,n$}{
         $Empty(A)$ := $\{\varepsilon\}$\;
       }
@@ -899,6 +875,7 @@ Množina $Follow(X)$ říká, které terminální symboly se mohou nacházet
 za symbolem $X$:\\
 \begin{algorithm}[H]
   \caption{$Follow(X)$}
+  \label{alg:follow}
   \KwIn{Gramatika $G = (N, \Sigma, P, S)$}
   \KwOut{$Follow(A)$ pro každý symbol $A \in N$}
 
@@ -922,31 +899,403 @@ za symbolem $X$:\\
 \vspace{0.5cm}
 
 \noindent
-Množina $Predict(A \rightarrow x)$ říká, které terminální mohou být
-na vstupu pro pravidlo $A \rightarrow x$:\\
+Množina $Predict(A \rightarrow x)$ říká, které terminální symboly mohou být
+na vstupu pro pravidlo $A \rightarrow x$:
 \begin{defn}
   (Množina $Predict(A \rightarrow x)$)\\
   Nechť $G = (N, \Sigma, P, S)$ je Bezkontextová gramatika.
   Pro každé $A \rightarrow x \in P$ definujeme množinu
-  $Predict(A \rightarrow x \in P)$ takto:\\
-
-  \noindent
-  Pokud $Empty(x) = \{\varepsilon\}$ potom:\\
-    \indent
-    $Predict(A \rightarrow x \in P) = First(x) \cup Follow(A)$\\
-
-  \noindent
-  Jinak pokud $Empty(x) = \emptyset$ potom:\\
-    \indent
+  $Predict(A \rightarrow x \in P)$ takto:
+  \begin{description}
+    \item[Pokud $Empty(x) = \{\varepsilon\}$ potom:]\hfill \\
+    $Predict(A \rightarrow x \in P) = First(x) \cup Follow(A)$
+    \item[Jinak:]\hfill \\
     $Predict(A \rightarrow x \in P) = First(x)$
+  \end{description}
 \end{defn}
 \vspace{0.5cm}
 
+\noindent
+Zbývá už jen naplnit LL tabulku pro funkci $\alpha(A, a)$, která nám pro neterminál
+a terminál vrátí pravidlo, které použít:\\
+\begin{algorithm}[H]
+  \caption{$\alpha(A, a)$}
+  \KwIn{Gramatika $G = (N, \Sigma, P, S)$; $Predict(A \rightarrow x)$, pro každé pravidlo z $P$}
+  \KwOut{$\alpha(A, a)$, pro všechny platné kombinace $(A, a)$}
+
+  \BlankLine
+  \Begin{
+    \ForAll{$A \rightarrow a \in P$} {
+      \ForAll{$b \in Predict(A \rightarrow a)$}{
+        \uIf{$\alpha(A, b)$ není definováno}{
+          $\alpha(A, b) = A \rightarrow a$
+        }
+        \Else{
+          chyba - nejde o LL gramatiku
+        }
+      }
+    }
+  }
+\end{algorithm}
+\vspace{0.5cm}
+
+Chybový stav v posledním algoritmu nám vlastně indikuje nedeterminismus
+v LL tabulce - tedy že pro nějakou kombinaci $A, a$ by v LL tabulce bylo
+více záznamů, takže bychom nevěděli, které pravidlo použít.\\
+
+\begin{exmp}
+Vraťme se nyní ke gramatice $G$
+(z kapitoly \ref{subsec:contextFreeGrammars}):
+
+\begin{lstlisting}
+  G = (
+    {S, E},           (* // množina neterminálů *)
+    {(, )},           (* // množina terminálů *)
+    {                 (* // množina pravidel *)
+      S $\rightarrow$ (E),         (* // pravidlo 1 *)
+      E $\rightarrow$ (E)E,        (* // pravidlo 2 *)
+      E $\rightarrow$ $\varepsilon$             (* // pravidlo 3 *)
+    },
+    S                 (* // počáteční symbol *)
+  )
+\end{lstlisting}
+\noindent
+LL tabulku bychom podle výše uvedených algoritmů sestavili takto:
+\begin{table}[H]
+  \centering
+  \begin{tabular}{| c || c | c | c |}
+    \hline
+      & ( & ) & \$ \\
+    \hhline{|=||=|=|=|}
+    S & 1 &   &    \\
+    \hline
+    E & 2 & 3 &    \\
+    \hline
+  \end{tabular}
+  \caption{LL tabulka gramatiky G s čísly pravidel}
+\end{table}
 
 
+Nyní zkusme zpracovat řetězec \texttt{'(())'} gramatikou $G$
+s pomocí LL tabulky.
+Vlevo je znázorněný zásobník (s vrcholem)
+a šipky ukazují na aktuální vstupní symbol.
+Speciální znak '\$' nám značí konec vstupu.
 
+\begin{figure}[H]
+  \centering
+  \subfloat[Zpracování řetězce]{
+    \includegraphics[scale=0.6]{fig/bracketsCFAutomat.pdf}
+  }
+  \subfloat[Derivační strom]{
+    \hspace{1cm}
+    \includegraphics{fig/bracktesDerivationTree.pdf}
+    \hspace{1cm}
+  }
+\end{figure}
+
+Při zpracování jsme postupovali tak jako zásobníkový automat.
+Před zahájením algoritmu vložíme na zásobník symbol '\$'
+a počáteční symbol 'S'. Vysvětleme podrobně některé kroky (číslování odpovídá obrázku):
+
+\begin{itemize}
+  \item[1.] Na zásobníku je neterminál 'S' - na základě vstupu '(' vybereme
+  z LL tabulky pravidlo 1 a nahradíme S za pravou stranu pravidla
+  \item[2.] Na zásobníku je terminál '(' a shoduje se se vstupním symbolem - můžeme jej odstranit
+  \item[3.] Na zásobníku je neterminál 'E' a na vstupu opět '(', použijeme pravidlo 2
+  \item[4.] Na zásobníku je terminál '(' a shoduje se se vstupem - odstraníme
+  \item[5.] Na zásobníku je neterminál 'E' a na vstupu ')' - použijeme pravidlo 3
+  \item[] ...
+  \item[9.] Na zásobníku je terminál '\$' a shoduje se se vstupem - při tomto znaku skončíme
+\end{itemize}
+\end{exmp}
+
+\noindent
+Při zpracování mohou nastat následující chyby:
+
+\begin{itemize}
+  \item Znak na vstupu není v abecedě
+  \item V LL tabulce není pravidlo pro danou kombinaci neterminálu a terminálu
+  \item Terminály na vstupu a vrcholu zásobníku se neschodují
+\end{itemize}
+
+\noindent
+Všechny tyto případy znamenají, že řetězec nepatří do gramatiky $G$
 
 \subsection{Syntaktická analýza zdola nahoru}
+
+Syntaktická analýza zdola nahoru sestavuje derivační strom odspodu,
+tedy začíná neterminály a postupně se propracuje až k počátečnímu symbolu
+gramatiky.
+
+
+\subsubsection*{LR syntaktická analýza}
+Pro účely této práce se budeme zabývat LR syntaktickou analýzou, jelikož
+parsery tohoto typu mají sílu ekvivalentní s \term{Deterministickým zásobníkovým
+automatem}\cite[str. 155]{MedunaIFJ}, tedy představují nejsilnější nástroj
+v oblasti \term{Deterministických bezkontextových jazyků}.
+LR syntaktická analýza generuje obrácený pravý rozbor.\\
+
+Pro zpracování se opět používá \term{Zásobníkový automat}, který je
+rozšířen o možnost pracovat na vrcholu zásobníku s řetězecem (ne jen s jedním symbolem).
+Toto rozšíření je nutné pro aplikování pravidel - tedy nahrazení řetězce na pravé straně za
+symbol na levé straně pravidla (postupujeme opačně než u LL).\\
+
+Při analýze řetězce dáváme postupně příchozí symboly na zásobník (operace \term{shift})
+a v určité chvíli použijeme pravidlo a nahradíme symboly na vrcholu zásobníku za
+jeho levou stranu (operace \term{reduce}). Kterou operaci v dané chvíli provést
+nám určuje tzv. LR tabulka, jejíž konstrukcí se budeme dále zabývat.\\
+
+\subsubsection*{LR tabulka}
+
+LR tabulka je poněkud složitější, než LL tabulka. Obsahuje 2 části:
+
+\begin{itemize}
+  \item Akční část je definována jako $\alpha(q, a)$ kde $q$ je stav a $a$ je terminál.\\
+  Určuje jakou operaci provést a k tomu informaci
+  do jakého stavu přejít (u op. shift) nebo jaké pravidlo použít (op. reduce), a také speciální
+  ukončovací symbol
+  \item Přechodová část je definována jako $\beta(q, A)$ kde $q$ je stav a $A$ je neterminál.\\
+  Určuje do jakého stavu přejít po aplikaci pravidla.
+\end{itemize}
+
+Stav zde vyjadřuje možnosti, které vyplívají ze znaků naposledy přečtených.
+Pro každý stav existuje množina pravidel, jejichž pravá strana prozatím vyhovuje přečteným symbolům.
+Při znázorňování množin pravidel budeme používat znak '•' znázorňující aktuální pozici v pravidle.\\
+
+\noindent
+Algoritmus $Closure(I)$ je definován pro pravidlo s určenou pozicí a generuje z něj stavovou skupinu:\\
+\begin{algorithm}[H]
+  \caption{$Closure(I)$}
+  \KwIn{Gramatika $G = (N, \Sigma, P, S)$; Položka $I$}
+  \KwOut{$Closure(I)$}
+
+  \BlankLine
+  \Begin{
+    $Closure(I)$ := $\{I\}$\;
+    \Repeat{množina $Closure(I)$ nezměněna}{
+      \If{$A \rightarrow y$•$Bz \in Closure(I)$ \And $B \rightarrow x \in P$} {
+        $Closure(I)$ := $Closure(I) \cup B \rightarrow $ •$x$\;
+      }
+    }
+  }
+\end{algorithm}
+\vspace{0.5cm}
+
+\noindent
+Následující algoritmus vytvoří množinu $\Theta_G$ všech stavových množin pro gramatiku $G$ rozšířenou o
+pravidlo $S' \rightarrow S$, kde $S$ je počáteční symbol:\\
+\begin{algorithm}[H]
+  \caption{$\Theta_G$}
+  \label{alg:groups}
+  \KwIn{Rozšířená gramatika $G = (N, \Sigma, P, S')$}
+  \KwOut{$\Theta_G$}
+
+  \BlankLine
+  \Begin{
+    $\Theta_G$ := $\{Closure(S' \rightarrow $ •$S)\}$\;
+    \ForAll{$I \in \Theta_G$ \And $U \in N \cup \Sigma$}{
+      \If{$\Theta_U(I) \neq \emptyset$} {
+        přidej $\Theta_U(I)$ do $\Theta_G$;
+      }
+    }
+  }
+\end{algorithm}
+\vspace{0.5cm}
+
+\noindent
+Nyní sestrojíme LR tabulku, pomocí SLR algoritmu. Budeme zde potřebovat také
+algoritmus \ref{alg:follow} ($Follow$). Operaci shift znázorňujeme jako $s$,
+reduce jako $r$. Ukončovací symbol označme jako a (accept).\\
+\begin{algorithm}[H]
+  \caption{$SLR$}
+  \KwIn{Rozšířená gramatika $G = (N, \Sigma, P, S')$;
+    $\Theta_G;$ $Follow(A)$ pro všechna $A \in N$}
+  \KwOut{LR tabulka pro $G$ ($\alpha$ = akční č., $\beta$ = přechodová č.)}
+
+  \BlankLine
+  \Begin{
+    \ForAll{$x \in \Theta_G$}{
+      \ForAll{$I \in x$}{
+        \Switch{$I$}{
+          \Case{$I = A \rightarrow y$•$Xz$, kde $X \in N$:}{
+            $\beta[x, X] := \Theta_X(x)$ \tcp*{$\beta$ část}
+          }
+          \Case{$I = A \rightarrow y$•$Xz$, kde $X \in \Sigma$:}{
+            $\alpha[x, X] := s\Theta_X(x)$ \tcp*{operace shift}
+          }
+          \Case{$I = S' \rightarrow S$•:}{
+            $\alpha[x, \$]$ := a  \tcp*{úspěšný konec}
+          }
+          \Case{$A \rightarrow y$• $(A \neq S')$:}{
+            \ForAll{$a \in Follow(A)$}{
+              $\alpha[x, a]$ := $rp$,
+              kde $p$ je číslo pravidla $A \rightarrow y$ \tcp*{reduce}
+            }
+          }
+        }
+      }
+    }
+  }
+\end{algorithm}
+\vspace{0.5cm}
+
+\noindent
+Syntaktická analýza využívající LR tabulku vypadá takto:\\
+\begin{algorithm}[H]
+  \caption{LR syntaktická analýza}
+  \label{alg:lr}
+  \KwIn{LR tabulka pro $G = (N, \Sigma, P, S)$ a řetězec $x \in T^*$}
+  \KwOut{Pravý rozbor $x$, pokud $x \in L(G)$, jinak chyba}
+
+  \BlankLine
+  \Begin{
+    Vlož $\langle\$,q_0\rangle$ na zásobník\;
+    $stav$ := $q_0$\;
+    \Repeat{úspěch \Or chyba}{
+      $a$ = aktuální znak na vstupu\;
+      \Switch{$\alpha[stav, a]$}{
+        \uCase{$sq$:}{
+          push($\langle a, q\rangle$)\;
+          přečti další znak $a$ ze vstupu\;
+          stav := q\;
+        }
+        \uCase{$rp$}{
+          \uIf{$p$: $A \rightarrow X_1X_2 ... X_n \in P$ \And
+            $\langle?,q\rangle\langle X_1, ?\rangle\langle X_2, ?\rangle ... \langle X_n, ?\rangle$
+              je na vrcholu zásobníku}{
+            $stav$ := $\beta[q,A]$\;
+            zaměň na zásobníku $\langle X_1, ?\rangle\langle X_2, ?\rangle ... \langle X_n, ?\rangle$
+              za $\langle A, stav\rangle$\;
+            zapiš $p$ na výstup\;
+          }
+          \Else{
+            chyba
+          }
+        }
+        \uCase{a}{
+          úspěch
+        }
+        \Case{nedefinováno}{
+          chyba
+        }
+      }
+    }
+  }
+\end{algorithm}
+\vspace{0.5cm}
+
+\begin{exmp} Vezměme gramatiku $G$ z kapitoly \ref{subsec:derivationTree}:
+
+
+\begin{lstlisting}
+  G = (
+    {E},
+    {*, +, a},
+    {
+      S' $\rightarrow$ E,               // pravidlo 0 (*(přidané)*)
+      E $\rightarrow$ E*E,              // pravidlo 1
+      E $\rightarrow$ E+E,              // pravidlo 2
+      E $\rightarrow$ a                 // pravidlo 3
+    },
+    E
+  )
+\end{lstlisting}
+
+\noindent
+Stavové skupiny $\Theta_G$ z algoritmu \ref{alg:groups} pro tuto gramatiku vypadají takto:
+\begin{lstlisting}
+  0: S' -> (*•*)E, E -> (*•*)E*E, E -> (*•*)E+E, E -> (*•*)a
+  1: S' -> E(*•*), E -> E(*•*)*E, E -> E(*•*)+E
+  2: E -> a(*•*)
+  3: E -> E*(*•*)E, E -> (*•*)E*E, E -> (*•*)E+E, E -> (*•*)a
+  4: E -> E+(*•*)E, E -> (*•*)E*E, E -> (*•*)E+E, E -> (*•*)a
+  5: E -> E*E(*•*), E -> E(*•*)*E, E -> E(*•*)+E
+  6: E -> E+E(*•*), E -> E(*•*)*E, E -> E(*•*)+E
+\end{lstlisting}
+
+\noindent
+Zde je LR tabulka:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{| c || c | c | c | c || c | c |}
+    \hline
+      & * & + & a & \$& S'& E \\
+    \hhline{|=||=|=|=|=||=|=|}
+    0 &   &   & s1 &   &   & 2 \\
+    \hline
+    1 & r3 & r3 &   & r3 &   &   \\
+    \hline
+    2 & s3 & s4 &   & a &   &   \\
+    \hline
+    3 &   &   & s1 &   &   & 5 \\
+    \hline
+    4 &   &   & s1 &   &   & 6 \\
+    \hline
+    5 & s3 r1 &  s4 r1 & & r1 &   & \\
+    \hline
+    6 & s3 r2 &  s4 r2 & & r2 &   & \\
+    \hline
+  \end{tabular}
+\end{table}
+
+Všimněme si, že v některých polích tabulky máme 2 položky. Tyto případy
+se nazývají \term{shift-reduce} konflikty a jsou projevem toho, že je tato
+gramatika nedeterministická (viz. sekce \ref{subec:nondeterminsm}).
+Výhodou LR gramatiky je to, že ji lze lehce rozšířit o priority operátorů
+a poté za běhu rozhodnout, které pravidlo použít.
+Priority pro tuto gramatiku mohou vypadat následovně:
+
+\begin{lstlisting}
+  left: *
+  left: +
+\end{lstlisting}
+
+V tomto případě má tedy operátor '*' vyšší prioritu a oba operátory jsou vyhodnocovány zleva.
+Za běhu poté porovnáváme příchozí neterminál s posledním operátorem na zásobníku
+a na základě toho rozhodneme jestli provedeme operaci \term{shift} nebo \term{reduce}.
+Ukažme si zpracování řetězce '\texttt{a * a + a}':
+
+\begin{figure}[H]
+  \centering
+  \subfloat[Zpracování řetězce]{
+    \includegraphics[scale=0.6]{fig/exprLRParsing.pdf}
+  }
+  \subfloat[Derivační strom]{
+    \hspace{1cm}
+    \includegraphics{fig/exprDerivationTree.pdf}
+    \hspace{1cm}
+  }
+\end{figure}
+
+Ve výše zobrazeném diagramu postupujeme podle algoritmu \ref{alg:lr},
+vysvětleme některé kroky:
+\begin{itemize}
+  \item[1.] Jsme ve stavu 0 a na vstupu máme 'a' - podle LR tabulky přejdeme do
+  stavu 1 a provedeme operaci \term{shift} (vložíme 'a' na zásobník s aktuálním stavem).
+  \item[2.] Jsme ve stavu 1 a na vstupu máme '*' - podle LR tabulky provedeme
+  operaci \term{reduce} podle pravidla 3 - poslední stav za nahrazovanou částí na
+  zásobníku je 0 a levá strana pravidla je 'E' - podle beta části LR tabulky
+  přejdeme do stavu 2 (vložíme na zásobník i s neterminálem E).
+  \item[3.] Jsme ve stavu 2 a na vstupu máme '*' - \term{shift} 3.
+  \item[4.] Jsme ve stavu 3 a na vstupu máme 'a' - \term{shift} 1.
+  \item[5.] Jsme ve stavu 1 a na vstupu máme '+' - \term{reduce} 3
+   - poslední stav je 3 a levá strana je 'E' - přejdeme do stavu 5.
+  \item[6.] Jsme ve stavu 5 a na vstupu máme '+' - narazili jsme na \term{shift-reduce} konflikt
+  v LR tabulce - poslední operátor na zásobníku je '*', protože má vyšší prioritu,
+  provedeme operaci \term{reduce} 1 - poslední stav je 0 a levá strana je 'E' - přejdeme do stavu 2.
+  \item[] ...
+  \item[11.] Jsme ve stavu 2 a na vstupu máme '\$' - V LR tabulce je \texttt{a}
+  (Accept) - můžeme skončit a řetězec prohlásit za přijatý.
+\end{itemize}
+\end{exmp}
+
+Je vidět, že pomocí LR syntatické analýzy jsme schopni zpracovávat deterministické
+gramatiky a pokud přidáme priority, i některé nedeterministické. Všimněme si jak je
+sestavován derivační strom - jdeme odspodu a vytváříme několik podstromů,
+teprve v posledním kroku je spojíme do jednoho.
+
 
 \chapter{Zpracování jazyků řízených stromy}
 \label{ch:processingTreeLanguages}
@@ -955,9 +1304,7 @@ na vstupu pro pravidlo $A \rightarrow x$:\\
 
 V této části práce je vysvětleno, jak lze omezit derivační stromy a tím zvýšit
 sílu dané gramatiky.
-Teoretická část této sekce vychází převážně z práce Ing. Koutného\cite{Koutny}.\\
-
-\subsection{Definice}
+Teoretická část této kapitoly vychází převážně z práce Ing. Koutného\cite{Koutny}.\\
 
 \begin{defn}
   (Gramatiky řízené stromy) \cite[str. 28]{Koutny}\\
@@ -969,11 +1316,12 @@ Teoretická část této sekce vychází převážně z práce Ing. Koutného\ci
   (Jazyky řízené stromy) \cite[str. 28]{Koutny} \label{jazykyRS}\\
   Nechť $(G, R)$ je gramatika řízená stromem.
   Jazyk generovaný $(G, R)$ je značen jako $L(G, R)$ a definován jako:
+  \vspace{5pt}
   \begin{adjustwidth}{0.5cm}{0.5cm}
     $L(G, R) = \{x: x \in L(G, R)$ a existuje derivační strom $t$ pro
     každé $x$ v $G$ takový, že každé slovo získané konkatenací
     všech symbolů na kterékoliv úrovni $t$ (kromě poslení) zleva doprava,
-    patří do $R \}$.\\
+    patří do $R \}$.
   \end{adjustwidth}
 \end{defn}
 
@@ -995,13 +1343,13 @@ ověřovat příslušnost řetězce do dané gramatiky řízené stromem.
     {S, A, B, C, a, b, c},
     {a, b, c},
     {
-      S -> ABC,
-      A -> aA,
-      A -> a,
-      B -> bB,
-      B -> b,
-      C -> cC,
-      C -> c
+      S $\rightarrow$ ABC,
+      A $\rightarrow$ aA,
+      A $\rightarrow$ a,
+      B $\rightarrow$ bB,
+      B $\rightarrow$ b,
+      C $\rightarrow$ cC,
+      C $\rightarrow$ c
     },
     S
   ),

@@ -189,10 +189,11 @@ class VirtualTree:
     def __str__(self):
         """To string."""
         s = ""
-        for level in self.states:
+        for levelNum, level in enumerate(self.states):
             for symbol in level:
                 s += symbol + " "
-            s += "\n"
+            if levelNum != len(self.states) - 1:
+                s += "\n"
         return s
 
     def strWithBug(self, bug):
@@ -201,7 +202,8 @@ class VirtualTree:
         for levelNum, level in enumerate(self.states):
             for symbol in level:
                 s += symbol + " "
-            s += "\n"
+            if levelNum != len(self.states) - 1:
+                s += "\n"
             if bug[0] == levelNum:
                 s += "^".rjust((bug[1] * 2) + 1) + "\n"
         s += bug[2]

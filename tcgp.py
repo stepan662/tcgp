@@ -8,10 +8,13 @@ tcgp.py
 
 import sys
 from getopt import getopt
+from getopt import GetoptError
 from parser import Parser
 from lr_table import LRTable
 from ll_table import LLTable
 from input_parser import InputParser
+from debug_print import Debug
+from debug_print import debug_print
 
 # -- coding: utf-8 --
 __author__ = 'stepan'
@@ -23,14 +26,13 @@ output = sys.stdout
 grammarIn = False
 grammarInName = ""
 ll = False
-printTree = False
 
 try:
     opts, args = getopt(
         sys.argv[1:],
-        "hlpi:o:g:u:",
-        ["help", "ll", "print", "input=", "output=", "grammar="])
-except getopt.GetoptError as err:
+        "hldi:o:g:u:",
+        ["help", "ll", "debug", "input=", "output=", "grammar="])
+except GetoptError as err:
     print(err)  # will print something like "option -a not recognized"
     sys.exit(2)
 
@@ -39,8 +41,8 @@ except getopt.GetoptError as err:
 for o, a in opts:
     if o in ("-l", "--ll"):
         ll = True
-    elif o in ("-p", "--print"):
-        printTree = True
+    elif o in ("-d", "--debug"):
+        Debug.setDebugMode(True)
     elif o in ("-h", "--help"):
         sys.exit()
     elif o in ("-i", "--input"):
@@ -83,9 +85,12 @@ try:
         table = LLTable(grammar)
     else:
         table = LRTable(grammar, precedence)
+        debug_print(table.groups, '\n')
 except ValueError as e:
     print(e.args[0])
     exit(e.args[1])
+
+debug_print(table, '\n')
 
 # parse input string
 parser = InputParser(input.read())
@@ -96,8 +101,7 @@ try:
         table.analyzeSymbols(parser.getToken, automat)
     else:
         tree = table.analyzeSymbols(parser.getToken)
-        if printTree:
-            print(tree)
+        debug_print(tree, '\n')
         if automat:
             val = tree.checkTree(automat)
             if val is not True:
