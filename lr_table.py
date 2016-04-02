@@ -316,7 +316,7 @@ class LRTable:
                     self.grammar.isTerm(symbol.symbol)):
                 return symbol.symbol
 
-    def analyzeSymbols(self, getToken):
+    def analyzeSymbols(self, getToken, automat):
         """Analyze symbols by ll_table."""
         grammar = self.grammar
         table = self.lrtable
@@ -326,7 +326,7 @@ class LRTable:
 
         state = 0
         token = getToken()
-        rulesArr = []
+        tree = VirtualTree(automat, self.grammar, False)
         while True:
             debug_print(state,
                         "".join([str(item) for item in reversed(stack)]))
@@ -348,13 +348,29 @@ class LRTable:
             if alpha.conflict:
                 # we have two possibilities - there is shift - reduce conflict
                 # decide conflict by precedence table
-                operation = self.precendece.getPrecedence(
-                    self._getFirstPrecedenceSymbol(stack),
-                    token)
-                item = alpha.getItem(operation)
+                if self.precendece is False:
+                    # no precedence, try to solve it by tree conflict
+                    item = alpha.getItem(Operation.reduce)
+                    print("here")
+                    if not tree.applyRule(grammar.rules[item.state]):
+                        print("conflict: reduce failed - shift instead")
+                        # try to reduce virtual tree
+                        # if there is conflict, just shift
+                        item = alpha.getItem(Operation.shift)
+                        tree.pushSymbol(token)
+                else:
+                    operation = self.precendece.getPrecedence(
+                        self._getFirstPrecedenceSymbol(stack),
+                        token)
+                    item = alpha.getItem(operation)
             else:
                 # no conflict, get operation
                 item = alpha.operation
+                if item.operation == Operation.shift:
+                    tree.pushSymbol(token)
+                else:
+                    if not tree.applyRule(grammar.rules[item.state]):
+                        raise ValueError("Tree can't be constructed.", 40)
 
             if item.operation == Operation.shift:
                 # shift - add symbol to stack
@@ -363,6 +379,7 @@ class LRTable:
                 state = item.state
             else:
                 # reduce - apply rule
+
                 rule = grammar.rules[item.state]
                 for s1 in reversed(rule.rightSide):
                     # check, that symbols on stack are same with right side
@@ -378,18 +395,8 @@ class LRTable:
                 state = table[symbolState][rule.leftSide]
                 # add rule left side to stack
                 stack.append(StackItem(rule.leftSide, state))
-                # add record of rule applying to rules array
-                rulesArr.append(rule)
 
         debug_print()
-
-        tree = VirtualTree(self.grammar.start)
-        # tree.setDotRecord(True)
-        # apply rule in reversed order - from top to bottom
-        tree.applyLR(reversed(rulesArr))
-        # check levels of virtual tree
-        tree.finishLR()
-
         return tree
 
     def __str__(self):

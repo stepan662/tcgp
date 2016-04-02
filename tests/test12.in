@@ -13,9 +13,9 @@ grammar = (
   E
 )
 
-precedence = (
-  left: M;
-  left: '*';
-  left: '+';
-  left: '-';
-)
+#precedence = (
+#  left: M;
+#  left: '*';
+#  left: '+';
+#  left: '-';
+#)

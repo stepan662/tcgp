@@ -8,7 +8,15 @@ grammar = (
 A
 )
 
-precedence = (
-  left: A;
-  left: 'a';
+automaton = (
+{s, N, t},
+{
+  s'A' -> N;
+  N'A' -> N;
+  s'a' -> t;
+  t'a' -> t;
+
+},
+s,
+{N, t}
 )

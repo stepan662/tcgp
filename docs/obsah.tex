@@ -742,6 +742,7 @@ V případě nedeterministických musíme nějak blíže specifikovat, který z 
 stromů chceme.\\
 
 \section{Zpracování bezkontextových jazyků}
+\label{sec:CFLanguagesProcessing}
 
 Při zpracování bezkontextového jazyka je hlavní problematikou
 sestavování konfigurace zasobníkového automatu pro danou gramatiku.
@@ -1300,20 +1301,41 @@ teprve v posledním kroku je spojíme do jednoho.
 \chapter{Zpracování jazyků řízených stromy}
 \label{ch:processingTreeLanguages}
 
+Pro dosažení větší síly syntaktického analyzátoru bývají zásobníkové automaty
+rozšiřovány o další funkce (tím se odchylují od původního matemtického modelu).
+Příkladem takové techniky může být již uvedená \term{priorita operátorů}
+tyto rozšíření jsou ovšem často jednoúčelová a nezapadají úplně do konceptu
+formálních jazyků.\\
+
+Tato práce si bere za cíl rozšířit možnosti zásobníkového automatu v
+souladu s dosavadní teorií formálních jazyků - konkrétně omezením derivačního
+stromu.\\
+
 \section{Omezení úrovní derivačního stromu}
 
-V této části práce je vysvětleno, jak lze omezit derivační stromy a tím zvýšit
-sílu dané gramatiky.
-Teoretická část této kapitoly vychází převážně z práce Ing. Koutného\cite{Koutny}.\\
+Ve své práci jsem se rozhodl pro techinku omezování derivačního stromu pomocí
+kontroly jeho úrovní regulárním jazykem.
+Gramatika jazyka řízeného stromem se tedy skládá ze 2 částí a značíme ji jako
+$(G, R)$, kde:
+\begin{itemize}
+  \item $G$ je bezkontextová gramatika, slouží ke konstrukci derivačního stromu
+  pro daný řetězec
+  \item $R$ je kontrolní jazyk (budeme využívat regulární jazyk),
+  slouží pro kontrolu úrovní derivačního stromu
+\end{itemize}
+
+\noindent
+Vyjádřeno formálně:
 
 \begin{defn}
-  (Gramatiky řízené stromy) \cite[str. 28]{Koutny}\\
+  (Gramatiky řízené stromy)\\
   Gramatika řízená stromem je dvojice $(G, R)$, kde $G = (V, T, P, S)$
   je řízená gramatika a $R \subseteq V^*$ kontrolní jazyk.
 \end{defn}
 
 \begin{defn}
-  (Jazyky řízené stromy) \cite[str. 28]{Koutny} \label{jazykyRS}\\
+  \label{defn:treeControlledLanguages}
+  (Jazyky řízené stromy)\\
   Nechť $(G, R)$ je gramatika řízená stromem.
   Jazyk generovaný $(G, R)$ je značen jako $L(G, R)$ a definován jako:
   \vspace{5pt}
@@ -1326,12 +1348,9 @@ Teoretická část této kapitoly vychází převážně z práce Ing. Koutného
 \end{defn}
 
 \noindent
-V této práci se zabýváme především gramatikami bezkontextovými, protože
-je lze relativně snadno zpracovávat a kontrolní jazyk bude regulární.
-Jinými slovy, zabýváme se gramatikami $(G, R)$, kde G je bezkontextová gramatika
-a R je regulární jazyk.
-
-\subsection{Příklady}
+Takto specifikovaný jazyk má vyjadřovací sílu Turingova stroje.\cite{Koutny}
+Ukážeme si ovšem, že pokud se pokusíme sestrojit analyzátor takového jazyka
+narazíme na řadu potíží, které výslednou vyjadřovací sílu citelně sníží.
 
 Pro lepší porozumění následuje podrobný praktický příklad, jak lze
 ověřovat příslušnost řetězce do dané gramatiky řízené stromem.
@@ -1364,7 +1383,7 @@ ověřovat příslušnost řetězce do dané gramatiky řízené stromem.
 
   \noindent
   Nejprve sestavíme derivační strom pro daný řetězec, poté projdeme všechny
-  jeho úrovně (kromě poslední, viz. Definice \ref{jazykyRS}) a
+  jeho úrovně (kromě poslední, viz. Definice \ref{defn:treeControlledLanguages}) a
   ověříme, že patří do kontrolního jazyka $R$.
 
   \begin{figure}[H]
@@ -1391,6 +1410,34 @@ ověřovat příslušnost řetězce do dané gramatiky řízené stromem.
   V tomto případě úroveň 2 derivačního stromu nepatří do kontrolního jazyka $R$,
   proto tento řetězec nepatří do jazyka $L$.
 \end{exmp}
+
+Ukázali jsme si, že samotná kontrola úrovní derivačního stromu není nijak
+komplikovaným problémem. Potřebujeme však nejdříve derivační strom zkonstruovat
+a to jak si ukážeme, bude velkou komplikací této práce.
+
+\section{Sestavení derivačního stromu}
+
+Zásadním problémem při konstrukci derivačního stromu je nedeterminismus,
+který vede k tomu, že máme pro jeden řetězec více derivačních stromů.
+Jelikož kontrola úrovní stromu rozhoduje o příslušnosti řetězce do jazyka,
+mohlo by se stát, že některé derivační stromy by kontrolou prošly a jiné ne.
+V tomto případě bychom museli sestrojit všechny derivační stromy a poté
+u všech zkontrolovat úrovně. Nedeterministické analyzátory jsou ovšem řádově
+pomalejší, než deterministické, proto se držme těch deterministických a
+zkusme prozkoumat jinou možnost a tou je kontrolovat úrovně již při konstrukci
+derivačního stromu.\\
+
+Projděme nyní znovu 2 hlavní metody pro syntaktickou analýzu bezkontextových
+deterministických jazyků (rozebírané v sekci \ref{sec:CFLanguagesProcessing})
+z praktického pohledu a zamysleme se nad tím, jak by se daly k tomuto účelu
+využít.
+
+\subsubsection*{LL syntaktická analýza}
+
+
+
+\subsubsection*{LR syntaktická analýza}
+
 
 \chapter{Implementace}
 

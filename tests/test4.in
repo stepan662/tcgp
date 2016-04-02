@@ -17,6 +17,7 @@ levels = {
   'S';
   'A' 'B' 'C';
   'a' 'A' 'b' 'B' 'c' 'C';
+  'a' 'b' 'c';
 }
 
 #automaton = (

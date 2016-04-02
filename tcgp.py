@@ -100,13 +100,8 @@ try:
     if ll:
         table.analyzeSymbols(parser.getToken, automat)
     else:
-        tree = table.analyzeSymbols(parser.getToken)
+        tree = table.analyzeSymbols(parser.getToken, automat)
         debug_print(tree, '\n')
-        if automat:
-            val = tree.checkTree(automat)
-            if val is not True:
-                print(tree.strWithBug(val))
-                exit(1)
 
 except ValueError as e:
     lineNum = parser.getLine()

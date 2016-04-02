@@ -206,7 +206,7 @@ class Automat:
             if char in self._alphabet:
                 raise ValueError("Character '" + char +
                                  "' can't be accepted in state '" +
-                                 state + "'")
+                                 state + "'", 40)
             else:
                 raise ValueError("Character '" + char +
                                  "' is not acceptable", 1)
