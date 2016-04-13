@@ -68,7 +68,7 @@ precedence = (
 Meaning of shortcuts in syntax of grammar file:
 
 * <id>  - c-like id
-* <str> - string bounded by simple quotes (`'`), quote can escaped by `'`
+* <str> - string bounded by simple quotes (`'`), quote can escaped by `\`
 * <dir> - associativity direction in precedence table, values:
     * `left`      - left associativity
     * `right`     - right associativity
