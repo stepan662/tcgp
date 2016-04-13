@@ -2,7 +2,7 @@
 
 ## Tree controlled grammar parser (TCGP) ##
 
-Tree controlled grammar parser is a part of my Bachelor thesis Parsing Based on Tree-Controled Grammars, Brno University of Technology 2016.
+Tree controlled grammar parser is a part of bachelor thesis: Parsing Based on Tree-Controled Grammars, Brno University of Technology 2016.
 
 Basic usage is for verification, that text string belongs to specified grammar.
 This parser expands common LR parser, so it allows parsing of some non-context free grammars.
