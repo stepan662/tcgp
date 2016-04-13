@@ -4,6 +4,36 @@
 
 For execution use python3.
 
+Usage:
+~~~
+python3 tcgp.py [-h] -g GRAMMAR [-p CHOICE [CHOICE ...]] [-i INPUT] [-o OUTPUT]
+               [-u U]
+
+Tree controlled grammar parser
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -g GRAMMAR, --grammar GRAMMAR
+                        Input grammar file
+  -p CHOICE [CHOICE ...], --print CHOICE [CHOICE ...]
+                        Decide what to print from these CHOICES:
+                         - tree:       final derivation tree
+                         - trees:      derivation tree development
+                         - stack:      continuously print stack of symbols
+                         - rules:      continuously print applied rules
+                         - groups:     lr groups generated from rules
+                         - table:      lr table
+                         - eff:        empty, first and follow sets
+                         - automat:    print final state machine
+                         - precedence: print precedence table
+                         - all:        print all
+  -i INPUT, --input INPUT
+                        Input string file, tokens separated by white space
+  -o OUTPUT, --output OUTPUT
+                        Output file
+~~~
+
+
 ### Grammar file ###
 
 This file specifies tree controlled grammar.
