@@ -53,3 +53,23 @@ automaton = (
   {<id>, <id>, ..., <id>}         # final states         
 )
 ~~~
+
+* `precedence` - define precedence rules for operators priority
+
+~~~
+precedence = (
+  <dir>: [<id>|<str>], [<id>|<str>], ..., [<id>|<str>] ;
+  <dir>: [<id>|<str>], [<id>|<str>], ..., [<id>|<str>] ;
+  ...
+  <dir>: [<id>|<str>], [<id>|<str>], ..., [<id>|<str>] ;
+)
+~~~
+
+Meaning of shortcuts in syntax of grammar file:
+
+* <id>  - c-like id
+* <str> - string bounded by simple quotes (`'`), quote can escaped as `\'`
+* <dir> - associativity direction in precedence table, values:
+  * `left`      - left associativity
+  * `right`     - right associativity
+  * `nonassoc`  - no associativity, considered as error

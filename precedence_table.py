@@ -84,7 +84,7 @@ class PrecedenceTable:
         """To string."""
         symbols = self.table.keys()
         s = "s, a\t" + "\t".join([symb if symb != '' else '$'
-                              for symb in symbols]) + '\n'
+                                 for symb in symbols]) + '\n'
         for symb1 in symbols:
             s += symb1 if symb1 != '' else '$'
             for symb2 in symbols:
