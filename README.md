@@ -31,6 +31,7 @@ optional arguments:
                          - eff:        empty, first and follow sets
                          - automat:    print final state machine
                          - precedence: print precedence table
+                         - grammar:    print input grammar
                          - all:        print all
   -i INPUT, --input INPUT
                         Input string file, tokens separated by white space
