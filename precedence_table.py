@@ -35,11 +35,11 @@ class PrecedenceTable:
         directions = ('left', 'right', 'nonassoc')
         if direction not in directions:
             raise ValueError("Undefined Associative property '" +
-                             direction + "'", 40)
+                             direction + "'", 6)
         for term in terms:
             if term in self.table:
                 raise ValueError("Precedence for '" + term +
-                                 "' is defined twice.", 40)
+                                 "' is defined twice.", 3)
             self.table[term] = PrecItem(Direction(directions.index(direction)),
                                         self.priorityCounter)
 
@@ -49,32 +49,49 @@ class PrecedenceTable:
         """Symbol in precedence table."""
         return symbol in self.table
 
-    def getPrecedence(self, onStack, actual):
+    def getPrecedence(self, stack, actual):
         """Get operation by precedence table."""
+        onStack = self._getFirstPrecedenceSymbol(stack)
+        if onStack is False:
+            return False
         if onStack not in self.table or actual not in self.table:
-            raise ValueError("No precedence rule for symbol '" + onStack +
-                             "' and '" + actual + "'.", 40)
+            return False
+        return self._shiftOrReduce(onStack, actual)
+
+    def _shiftOrReduce(self, onStack, actual):
         onSt = self.table[onStack]
         actu = self.table[actual]
         if onSt.priority == actu.priority:
             if onSt.dir == Direction.right:
                 return Operation.shift
             elif onSt.dir == Direction.left:
-                print("reduce")
                 return Operation.reduce
             else:
                 raise ValueError("Noassoc precedence token '" + onStack +
-                                 "' is on stack.", 40)
+                                 "' is on stack.", 1)
         elif onSt.priority < actu.priority:
             return Operation.reduce
 
         else:
             return Operation.shift
 
+    def _getFirstPrecedenceSymbol(self, stack):
+        for symbol in reversed(stack):
+            if self.isDefined(symbol.symbol):
+                return symbol.symbol
+
     def __str__(self):
         """To string."""
-        s = ""
-        for line in self.table:
-            s += str(line) + ": " + str(self.table[line].priority) + ", " +\
-                             str(self.table[line].dir) + "\n"
+        symbols = self.table.keys()
+        s = "s, a\t" + "\t".join([symb if symb != '' else '$'
+                              for symb in symbols]) + '\n'
+        for symb1 in symbols:
+            s += symb1 if symb1 != '' else '$'
+            for symb2 in symbols:
+                s += '\t'
+                op = self._shiftOrReduce(symb1, symb2)
+                if op is not False:
+                    s += "s" if op == Operation.shift else "r"
+            s += '\n'
+
         return s

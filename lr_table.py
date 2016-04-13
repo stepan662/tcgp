@@ -5,6 +5,7 @@ from operation import Operation
 from virtual_tree import VirtualTree
 from eff import EFF
 from debug_print import debug_print
+from debug_print import Debug
 
 # -- coding: utf-8 --
 __author__ = 'stepan'
@@ -18,7 +19,7 @@ class LRRule:
         self.r = rule
         if marker > len(rule.rightSide):
             raise ValueError("Mark " + marker + " is out of rule " +
-                             str(rule), 40)
+                             str(rule), 99)
         self.marker = marker
 
     def getMarkedSymbol(self):
@@ -37,12 +38,12 @@ class LRRule:
         s = self.r.leftSide + " -> "
         for i, symbol in enumerate(self.r.rightSide):
             if self.marker == i:
-                s += "●"
+                s += "•"
             elif i != 0:
                 s += " "
             s += symbol
         if self.marker == len(self.r.rightSide):
-            s += "●"
+            s += "•"
         return s
 
     def __eq__(self, other):
@@ -81,34 +82,73 @@ class Item:
 
 class TableItem:
     """Table item array of conflicting Items."""
+
+    shiftReduceAllow = False
+    reduceReduceAllow = False
+
+    @classmethod
+    def setConflicts(cls, sr, rr):
+        """Set up allowed conflicts."""
+        cls.shiftReduceAllow = sr
+        cls.reduceReduceAllow = rr
+
     def __init__(self, item):
         """Initialization."""
-        self.operations = [False, False]
-        self.operations[item.operation.value] = item
+        self.reduce = []
+        self.shift = False
+        self.addItem(item)
+        self.isShiftReduce = False
+        self.isReduceReduce = False
 
-        self.operation = item
-        self.conflict = False
+    def getReduce(self):
+        """Get reduce array."""
+        return self.reduce
 
-    def getItem(self, operation):
+    def getItem(self, operation=False):
         """Get item."""
-        return self.operations[operation.value]
-
-    def addItem(self, item):
-        """Add confilcting item."""
-        if self.operations[item.operation.value] is False:
-            # there is conflict shift - reduce conflict
-            self.conflict = True
-            self.operations[item.operation.value] = item
+        if operation is False:
+            if self.shift:
+                return self.shift
+            else:
+                return self.reduce[0]
+        elif operation == Operation.shift:
+            return self.shift
         else:
-            if self.operations[item.operation.value] != item:
-                # there is other conflict - table item is not the same
+            return self.reduce[0]
+
+    def checkConflicts(self):
+        """Check shift-reduce and reduce-reduce conflict."""
+        cls = type(self)
+        if self.shift is not False and len(self.reduce) == 1:
+            self.isShiftReduce = True
+            if not cls.shiftReduceAllow:
+                return False
+
+        if self.shift is False and len(self.reduce) >= 2:
+            self.isReduceReduce = True
+            if not cls.reduceReduceAllow:
                 return False
         return True
+
+    def addItem(self, item):
+        """Add item to table item."""
+        if item.operation == Operation.shift:
+            if self.shift is not False and self.shift != item:
+                # shift-shift conflict
+                return False
+            elif self.shift is False:
+                # shift-reduce or no conflict - ok
+                self.shift = item
+        else:
+            if item not in self.reduce:
+                self.reduce.append(item)
+
+        return self.checkConflicts()
 
     def __str__(self):
         """To string."""
         s = "("
-        s += " ".join([str(op) for op in self.operations if op])
+        s += " ".join([str(op) for op in self.reduce + [self.shift] if op])
         s += ")"
 
         return s
@@ -159,9 +199,7 @@ class LRGroup:
 
     def __str__(self):
         """To string."""
-        s = ", ".join([str(rule) for rule in self.rules])
-        s += "\tT: " + str(self.transitions)
-        return s
+        return ", ".join([str(rule) for rule in self.rules])
 
     def __eq__(self, other):
         """Compare groups by id generated from original rules nad markers."""
@@ -227,11 +265,19 @@ class LRGroups:
 class LRTable:
     """Create LR table from given grammar."""
 
-    def __init__(self, grammar, precedence):
+    def __init__(self, grammar, precedence, automat):
         """Initialization."""
         self.grammar = grammar
+        self.automat = automat
         self.lrtable = []
         self.precendece = precedence
+
+        # setup table item for allowing conflicts
+        # based on what instruments (automat, precedence) are available
+        TableItem.setConflicts(
+            self.automat is not False or self.precendece is not False,
+            self.automat is not False
+        )
 
         additionalRule = Rule('S*', [self.grammar.start])
         self.grammar.rules = [additionalRule] + self.grammar.rules
@@ -243,10 +289,11 @@ class LRTable:
             rule.priority = i
 
         self.groups = LRGroups(grammar, firstRule)
+        debug_print('groups', self.groups, '\n')
         groups = self.groups
-        # print(groups)
 
         self.eff = EFF(grammar)
+        debug_print('eff', self.eff, '\n')
 
         endRule = LRRule(additionalRule, 1)
         lrtable = self.lrtable
@@ -275,6 +322,7 @@ class LRTable:
                     tIt = Item(group.transitions[markedS],
                                Operation.shift)
                     self._addToTable(i, markedS, tIt)
+        debug_print('table', self)
 
     def _addToTable(self, group, symbol, item):
         row = self.lrtable[group]
@@ -283,13 +331,13 @@ class LRTable:
             if type(row[symbol]) == TableItem and type(item) == Item:
                 # probably shift - reduce conflict - no problem now
                 if not row[symbol].addItem(item):
-                    raise ValueError(
-                        str(self) +
-                        "Non shift - reduce conlict in lr table:\n[" +
-                        str(group) + ", " + str(symbol) + "] " +
-                        "can be " + str(row[symbol]) +
-                        " or " +
-                        str(item), 40)
+                    conflict = "Reduce-reduce"\
+                        if row[symbol].isReduceReduce\
+                        else "Shift-reduce"
+                    debug_print('table', self)
+                    raise ValueError(conflict + " conflict in lr table on " +
+                                     "position [" +
+                                     str(group) + ", " + str(symbol) + "]", 4)
 
             elif row[symbol] != item:
                 # two numbers can't be on same place in table
@@ -297,7 +345,7 @@ class LRTable:
                                  str(group) + ", " + str(symbol) + "] " +
                                  "can be " + str(row[symbol]) +
                                  " or " +
-                                 str(item), 40)
+                                 str(item), 4)
         else:
             # no conflict
             if type(item) == Item:
@@ -307,19 +355,11 @@ class LRTable:
                 # simple number
                 row[symbol] = item
 
-    def _getFirstPrecedenceSymbol(self, stack):
-        for symbol in reversed(stack):
-            if symbol.symbol == '':
-                raise ValueError("No precedence symbol on stack.", 40)
-
-            if (self.precendece.isDefined(symbol.symbol) or
-                    self.grammar.isTerm(symbol.symbol)):
-                return symbol.symbol
-
-    def analyzeSymbols(self, getToken, automat):
+    def analyzeSymbols(self, getToken):
         """Analyze symbols by ll_table."""
         grammar = self.grammar
         table = self.lrtable
+        automat = self.automat
 
         # put end symbol and state 0 on stack
         stack = [StackItem('', 0)]
@@ -327,82 +367,170 @@ class LRTable:
         state = 0
         token = getToken()
         tree = VirtualTree(automat, self.grammar, False)
-        while True:
-            debug_print(state,
-                        "".join([str(item) for item in reversed(stack)]))
+        err = False
+        self.exit_code = 1
+        try:
+            while True:
+                if Debug.isActivated('stack'):
+                    debug_print('stack', state,
+                                "".join([str(item) for item in stack]))
 
-            if token not in self.grammar.terminals and token != '':
-                # input symbol is not in grammar alphabet
-                raise ValueError("Symbol '" + token +
-                                 "' is not in grammar alphabet.", 40)
-            if token not in table[state]:
-                # no rule for this symbol and state
-                raise ValueError("No rule for token '" + token +
-                                 "' in state " + str(state), 40)
-            # get item from table
-            alpha = table[state][token]
-            if alpha == -1:
-                # we are at the end
-                break
+                if token not in self.grammar.terminals and token != '':
+                    # input symbol is not in grammar alphabet
+                    # no matter what this string doesn't bellow to grammar
+                    self.exit_code = 1
+                    raise ValueError("Symbol '" + token +
+                                     "' is not in grammar alphabet.")
+                if token not in table[state]:
+                    # no rule for this symbol and state
+                    raise ValueError("No rule for token '" + token +
+                                     "' in state " + str(state))
+                # get item from table
+                alpha = table[state][token]
+                if alpha == -1:
+                    # we are at the end
+                    break
 
-            if alpha.conflict:
-                # we have two possibilities - there is shift - reduce conflict
-                # decide conflict by precedence table
-                if self.precendece is False:
-                    # no precedence, try to solve it by tree conflict
-                    item = alpha.getItem(Operation.reduce)
-                    print("here")
-                    if not tree.applyRule(grammar.rules[item.state]):
-                        print("conflict: reduce failed - shift instead")
-                        # try to reduce virtual tree
-                        # if there is conflict, just shift
-                        item = alpha.getItem(Operation.shift)
-                        tree.pushSymbol(token)
-                else:
-                    operation = self.precendece.getPrecedence(
-                        self._getFirstPrecedenceSymbol(stack),
-                        token)
-                    item = alpha.getItem(operation)
-            else:
-                # no conflict, get operation
-                item = alpha.operation
+                # get item (solve conflicts)
+                item = self._getItem(
+                    stack, alpha, state, token, tree)
+
                 if item.operation == Operation.shift:
+                    # shift - add symbol to stack
+                    stack.append(StackItem(token, item.state))
+                    token = getToken()
+                    state = item.state
+                else:
+                    # reduce - apply rule
+                    rule = grammar.rules[item.state]
+                    for s1 in reversed(rule.rightSide):
+                        # check, that symbols on stack are same with right side
+                        # of the rule
+                        pSymbol = stack.pop()
+                        if pSymbol.symbol != s1:
+                            raise ValueError("Expecting '" + str(s1) +
+                                             "', got '" + str(pSymbol) +
+                                             "' from rule " + str(rule))
+                    # get state of last symbol on stack
+                    symbolState = stack[-1].state
+                    # get new state from beta table
+                    state = table[symbolState][rule.leftSide]
+                    # add rule left side to stack
+                    stack.append(StackItem(rule.leftSide, state))
+                debug_print('trees', tree, '\n')
+
+            tree.checkTree()
+        except ValueError as e:
+            err = ValueError(e.args[0], self.exit_code)
+
+        if err:
+            debug_print('tree', tree)
+            raise err
+
+        return tree
+
+    def _getItem(self, stack, alpha, state, token, tree):
+        grammar = self.grammar
+        item = False
+        if alpha.isShiftReduce:
+            # shift-reduce conflict
+            if self.precendece is not False:
+                # try to decide conflict by precedence table
+                operation = self.precendece.getPrecedence(
+                    stack, token)
+                if operation is not False:
+                    item = alpha.getItem(operation)
+                    if operation == Operation.reduce:
+                        if not tree.applyRule(grammar.rules[item.state]):
+                            raise\
+                                ValueError("Rule " +
+                                           str(grammar.rules[item.state]) +
+                                           " can't be used, because " +
+                                           "of tree conflict.")
+
+                        debug_print('rules', grammar.rules[item.state])
+                    else:
+                        tree.pushSymbol(token)
+                        debug_print('rules', "shift", token)
+
+            if item is False and self.automat is not False:
+                # no precedence help, try to solve it by tree conflict
+                item = alpha.getItem(Operation.reduce)
+                states = tree.tryApplyRule(grammar.rules[item.state])
+                if states is False:
+                    # if there is conflict, just shift
+                    debug_print('rules', "try",
+                                grammar.rules[item.state],
+                                "no - shift", token)
+                    item = alpha.getItem(Operation.shift)
                     tree.pushSymbol(token)
                 else:
-                    if not tree.applyRule(grammar.rules[item.state]):
-                        raise ValueError("Tree can't be constructed.", 40)
+                    debug_print('rules', "try",
+                                grammar.rules[item.state],
+                                "success")
+                    # we are just guessing - if there
+                    # gonna be fail in future that doesn't
+                    # mean, that string can't be in grammar
+                    self.exit_code = 2
+                    tree.applyRule(grammar.rules[item.state], states)
+            elif item is False:
+                # we don't know what to do - shift-reduce conflict
+                self.exit_code = 2
+                raise ValueError("Unhandled shift-reduce " +
+                                 "conflict in lr table on position [" +
+                                 str(state) + "," + token + "], ")
 
-            if item.operation == Operation.shift:
-                # shift - add symbol to stack
-                stack.append(StackItem(token, item.state))
-                token = getToken()
-                state = item.state
+        elif alpha.isReduceReduce:
+            # reduce-reduce conflict
+            possibleRules = []
+            for it in alpha.getReduce():
+                rule = grammar.rules[it.state]
+                states = tree.tryApplyRule(rule)
+                if states is not False:
+                    possibleRules.append((it, rule, states))
+
+            if len(possibleRules) > 1:
+                # multiple options
+                # we don't know what rule use - it is possible
+                # that some way leads to success
+                self.exit_code = 2
+                options = "\n".join([str(pos[1])
+                                     for pos in possibleRules])
+                raise ValueError("Unhandled reduce-reduce " +
+                                 "conflict in lr table on position [" +
+                                 str(state) + "," + token + "], " +
+                                 "got theese options:\n" + options)
+            elif len(possibleRules) == 1:
+                # got only one option
+                pos = possibleRules[0]
+                tree.applyRule(pos[1], pos[2])
+                item = pos[0]
             else:
-                # reduce - apply rule
-
-                rule = grammar.rules[item.state]
-                for s1 in reversed(rule.rightSide):
-                    # check, that symbols on stack are same with right side
-                    # of the rule
-                    pSymbol = stack.pop()
-                    if pSymbol.symbol != s1:
-                        raise ValueError("Expecting '" + str(s1) +
-                                         "', got '" + str(pSymbol) +
-                                         "' from rule " + str(rule))
-                # get state of last symbol on stack
-                symbolState = stack[-1].state
-                # get new state from beta table
-                state = table[symbolState][rule.leftSide]
-                # add rule left side to stack
-                stack.append(StackItem(rule.leftSide, state))
-
-        debug_print()
-        return tree
+                raise ValueError("No rule fits to tree for " +
+                                 "reduce-reduce conflict in lr " +
+                                 "table, on position [" +
+                                 str(state) + "," + token + "]")
+        else:
+            # no conflict, get operation
+            item = alpha.getItem()
+            if item.operation == Operation.shift:
+                tree.pushSymbol(token)
+                debug_print('rules', "shift", token)
+            else:
+                if not tree.applyRule(grammar.rules[item.state]):
+                    raise ValueError("Rule " +
+                                     str(grammar.rules[item.state]) +
+                                     " can't be used, because " +
+                                     "of tree conflict.")
+                else:
+                    debug_print('rules', grammar.rules[item.state])
+        return item
 
     def __str__(self):
         """To string."""
         allSymbols = self.grammar.terminals + [''] + self.grammar.nonterminals
-        s = "\t".join(["#"] + allSymbols) + "\n"
+        s = "\t".join([symbol if symbol != '' else '$'
+                       for symbol in ["#"] + allSymbols]) + "\n"
         for i, row in enumerate(self.lrtable):
             s += str(i) + "\t"
             for symbol in allSymbols:

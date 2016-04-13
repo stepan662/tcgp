@@ -119,3 +119,15 @@ class EFF:
     def follow(self, symbol):
         """Get follow of symbol."""
         return self._ptable[symbol].follow
+
+    def __str__(self):
+        """To string."""
+        s = ""
+        s += "\tempty\tfirst\tfollow\n"
+        for symb in self._ptable:
+            row = self._ptable[symb]
+            s += symb + "\t" + str(row.empty) + "\t"
+            s += "{" + ", ".join(symb for symb in row.first) + "}\t"
+            s += "{" + ", ".join(symb if symb != '' else '$'
+                                 for symb in row.follow) + "}\n"
+        return s

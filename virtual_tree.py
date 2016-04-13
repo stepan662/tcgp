@@ -1,4 +1,3 @@
-import ipdb
 """Virtual tree."""
 
 # -- coding: utf-8 --
@@ -9,7 +8,7 @@ class SymbTreeIterator:
     """Symbol tree iterator."""
 
     def __init__(self, symb):
-        """Init."""
+        """Initialization."""
         self.symb = symb
 
     def __next__(self):
@@ -120,92 +119,113 @@ class VirtualTree:
         self.grammar = grammar
         if not ll:
             self.ll = False
-            self.symbols = []
+            self.stack = []
             self.autStates = []
         else:
             self.ll = True
 
-    def applyRule(self, rule):
-        """Apply rule to tree."""
-        print("reduce", rule)
-        sNew = SymbolTree(rule.leftSide)
+    def _ruleSymbols(self, rule):
         # take symbols, that are in rule, from stack
         if len(rule.rightSide) > 0:
-            children = self.symbols[-len(rule.rightSide):]
+            children = self.stack[-len(rule.rightSide):]
         else:
             children = []
-        check = False
+        return children
 
-        if len(self.symbols) == len(rule.rightSide) and self.aut:
-            # we are working with leftmost tree, we gonna check
-            check = True
-            if not self.tryMerge(children[1:]):
-                # children can't be merged
-                print("check failed")
-                return False
-            print("check ok")
+    def applyRule(self, rule, autStates=False):
+        """Apply rule to tree."""
+        sNew = SymbolTree(rule.leftSide)
+        # take symbols, that are in rule, from stack
+        children = self._ruleSymbols(rule)
+        treeIndex = len(self.stack) - len(rule.rightSide)
+
+        if self.aut:
+            if autStates is False:
+                if self.aut is not False:
+                    autStates = self.tryApplyRule(rule)
+                    if autStates is False:
+                        return False
+
+            self.autStates = self.autStates[:treeIndex]
+            self.autStates.append(autStates)
 
         sNew.children = self.mergeTrees(children)
-        if check:
-            # new nonterminal must be checked by automat
-            # and state added to states
-            newState = self.aut.applyCharToState(
-                rule.leftSide, self.aut.getStart())
-            self.autStates = [newState] + self.autStates
 
         if len(rule.rightSide) > 0:
-            self.symbols = self.symbols[:-len(rule.rightSide)]
+            # remove symbols from stack
+            self.stack = self.stack[:-len(rule.rightSide)]
 
-        self.symbols.append(sNew)
-        print(self)
+        self.stack.append(sNew)
         return True
 
     def pushSymbol(self, symbol):
         """Push new symbol."""
-        print("shift", symbol)
-        if len(self.symbols) == 0 and self.aut:
-            # first push must add first state into automat states
-            newState = self.aut.applyCharToState(symbol, self.aut.getStart())
-            self.autStates.append(newState)
-        self.symbols.append(SymbolTree(symbol))
-        print(self)
+        if self.aut:
+            if len(self.stack) == 0 and self.aut:
+                startSymbol = self.aut.getStart()
+            else:
+                startSymbol = False
 
-    def tryMerge(self, trees):
+            newState = self.aut.applyCharToState(symbol, startSymbol)
+            self.autStates.append([newState])
+            if newState is False:
+                raise ValueError("Pushed symbol '" + symbol + "' is not " +
+                                 "accepted by automat.", 1)
+
+        self.stack.append(SymbolTree(symbol))
+
+    def tryApplyRule(self, rule):
         """Try to merge trees."""
         # copy automat states
-        print(trees)
-        autStates = list(self.autStates)
+
+        if not self.aut:
+            raise ValueError("Can't check tree, when there is no automat.", 99)
+
+        treeIndex = len(self.stack) - len(rule.rightSide)
+
+        firstState = False
+
+        if treeIndex == 0:
+            # we are working with leftmost tree
+            firstState = self.aut.getStart()
+
+        trees = self._ruleSymbols(rule)[1:]
+        if treeIndex == len(self.stack):
+            # epsilon rule
+            autStates = []
+        else:
+            autStates = list(self.autStates[treeIndex])
         # check levels by automat
         for child in trees:
             levels = child.getFirstSymbols()
             for i, symbol in enumerate(levels):
                 while i >= len(autStates):
-                    autStates.append(self.aut.getStart())
-                # s = str(i) + ": " + autStates[i]
+                    autStates.append(firstState)
+                # s = str(i) + ": " + str(autStates[i])
                 while symbol:
                     # s += "'" + symbol.str + "' -> "
-                    try:
-                        autStates[i] =\
-                            self.aut.applyCharToState(
-                                symbol.str, autStates[i])
-                    except ValueError:
+                    autStates[i] =\
+                        self.aut.applyCharToState(
+                            symbol.str, autStates[i])
+                    if autStates[i] is False:
                         return False
-                    # s += autStates[i]
+                    # s += str(autStates[i])
                     symbol = symbol.next
                 # print(autStates)
                 # print(s)
         # success
         # new autStates are ok
-        self.autStates = autStates
-        return True
+        newState = self.aut.applyCharToState(rule.leftSide, firstState)
+        if newState is False:
+            return False
+        autStates = [newState] + autStates
+        return autStates
 
     def mergeTrees(self, children):
         """Connect children trees."""
         if not children:
             # empty array
             return []
-
-        print(children)
 
         myChildren = []
         myChildren.append(children[0])
@@ -226,14 +246,28 @@ class VirtualTree:
                 lastSymbols[i] = symbol.getLastOnLevel()
         return myChildren
 
+    def checkTree(self):
+        """Check if all levels states are in terminating state."""
+        if self.aut and self.autStates:
+            for i, state in enumerate(self.autStates[0]):
+                if not self.aut.isTerm(state):
+                    raise ValueError('Level ' + str(i) +
+                                     ' is not in final state.', 1)
+        return True
+
     def __str__(self):
         """To string."""
-        s = ""
-        for symbol in self.symbols:
-            levels, w = symbol.toLevels()
-            # s += str(levels)
-            s += "\n".join([level for level in levels]) + '\n\n'
-        return s
+        levels = []
+        lastW = 0
+        for symbol in self.stack:
+            subLevels, w = symbol.toLevels()
+            for i, subLev in enumerate(subLevels):
+                if i >= len(levels):
+                    levels.append("")
+                levels[i] = levels[i].ljust(lastW) + subLev
+            lastW += w + 2
+
+        return "\n".join([level for level in levels])
 
     def strWithBug(self, bug):
         """To string with printed bug from check tree function."""

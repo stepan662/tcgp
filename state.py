@@ -6,6 +6,19 @@ import copy
 __author__ = 'stepan'
 
 
+class GuessState:
+    """State as string with original state."""
+
+    def __init__(self, str, orig):
+        """Initialization."""
+        self.str = str
+        self.orig = orig
+
+    def __hash__(self):
+        """Hash function."""
+        return hash(self.str)
+
+
 class State:
     """
     Represent one state.

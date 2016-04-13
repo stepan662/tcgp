@@ -14,6 +14,7 @@ class Automat:
         self._states = {}
         self._alphabet = {}
         self._start = False
+        self._dict = {}
 
     def addAlpha(self, char):
         """Add character into alphabet."""
@@ -33,11 +34,11 @@ class Automat:
         try:
             st = self._states[state]
         except:
-            raise ValueError("Undefined state '" + state + "'", 41)
+            raise ValueError("Undefined state '" + state + "'", 5)
         try:
             self._states[target]
         except:
-            raise ValueError("Undefined state '" + target + "'", 41)
+            raise ValueError("Undefined state '" + target + "'", 5)
 
         if char == '':
             st.addRule(char, target)
@@ -45,8 +46,20 @@ class Automat:
             try:
                 self._alphabet[char]
             except:
-                raise ValueError("Undefined character '" + char + "'", 41)
+                raise ValueError("Undefined character '" + char + "'", 5)
             st.addRule(char, target)
+
+    def generateDict(self):
+        """Generate dictionary for unknown start state."""
+        self._dict = {}
+        for symbol in self._alphabet:
+            self._dict[symbol] = set()
+
+        for stName in self._states:
+            state = self._states[stName]
+            for symbol in state._rules:
+                newStates = state._rules[symbol]
+                self._dict[symbol].update(newStates)
 
     def setStart(self, name):
         """
@@ -60,9 +73,9 @@ class Automat:
                 self._start = name
             except:
                 raise ValueError("Setting start to undefined state'" +
-                                 name + "'", 41)
+                                 name + "'", 5)
         else:
-            raise ValueError("Double setting start state", 41)
+            raise ValueError("Double setting start state", 5)
 
     def getStart(self):
         """"Get start state."""
@@ -73,7 +86,7 @@ class Automat:
         try:
             state = self._states[name]
         except:
-            raise ValueError("Undefined terminating state '" + name + "'", 41)
+            raise ValueError("Undefined terminating state '" + name + "'", 5)
 
         state.setTerm(True)
 
@@ -192,6 +205,13 @@ class Automat:
 
     def isTerm(self, state):
         """Indicate if state is terminating."""
+        if isinstance(state, type(set())):
+            # state is set of states - there is more possible states
+            # lets try all of them
+            for st in state:
+                if self._states[st].isTerm():
+                    return True
+            return False
         if self._states[state].isTerm():
             return True
         else:
@@ -199,17 +219,26 @@ class Automat:
 
     def applyCharToState(self, char, state):
         """Make one step with given char and state."""
-        rules = self._states[state].getRules(char)
-        if len(rules) == 1:
-            return rules[0]
+        if state is False:
+            # we don't know in which state we are - take all possible
+            return self._dict[char]
+        elif isinstance(state, type(set())):
+            # state is set of states - there is more possible states
+            # lets try all of them
+            newStates = set()
+            for st in state:
+                newState = self.applyCharToState(char, st)
+                if newState is not False:
+                    newStates.add(newState)
+            if len(newStates) == 0:
+                return False
+            return newStates
         else:
-            if char in self._alphabet:
-                raise ValueError("Character '" + char +
-                                 "' can't be accepted in state '" +
-                                 state + "'", 40)
+            rules = self._states[state].getRules(char)
+            if len(rules) == 1:
+                return rules[0]
             else:
-                raise ValueError("Character '" + char +
-                                 "' is not acceptable", 1)
+                return False
 
     def getAlphabet(self):
         """Get alphabet."""

@@ -53,14 +53,21 @@
 \usepackage{amsmath}
 \usepackage{changepage}
 \usepackage{lipsum}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{courier}
+\usepackage{tikz}
+\usepackage{calc}
+
 \usepackage[vlined, ruled, czech, linesnumbered]{algorithm2e}
 \usepackage[caption = false]{subfig}
 
 
 \newcommand{\term}[1]{\textit{#1}}
+\newcommand{\symb}[1]{\hspace{0.5mm}\tikz[overlay]\node[fill=gray!10, minimum height=1.2em , draw=gray!20, inner sep=1.5pt, anchor=text, rectangle, rounded corners=1mm]{\texttt{#1}};\phantom{\texttt{#1}}\hspace{0.5mm}}
 
-\SetKw{And}{a}
-\SetKw{Or}{nebo}
+\SetKw{And}{and}
+\SetKw{Or}{or}
 
 \theoremstyle{plain}
 \newtheorem{thm}{Theorem}[chapter] % reset theorem numbering for each chapter

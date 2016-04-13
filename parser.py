@@ -61,7 +61,7 @@ class Parser:
             if keyword == 'grammar':
                 if self.grammar is not False:
                     raise ValueError("Grammar is defined twice in this file.",
-                                     40)
+                                     3)
 
                 # new empty grammar
                 self.grammar = grammar.Grammar()
@@ -107,9 +107,9 @@ class Parser:
             elif keyword == 'automaton':
                 if self.grammar is False:
                     raise ValueError("Automaton must " +
-                                     " be defined after grammar.", 40)
+                                     " be defined after grammar.", 3)
                 if self.automaton is not False:
-                    raise ValueError("Automaton is defined twice.", 40)
+                    raise ValueError("Automaton is defined twice.", 3)
                 self.automaton = True
 
                 # new empty automat
@@ -144,7 +144,7 @@ class Parser:
                 self._tShould(token, [','])
                 token = self._getToken()
                 if token.type != 'id':
-                    raise ValueError("Missing start state", 40)
+                    raise ValueError("Missing automat start state", 3)
                 else:
                     aut.setStart(token.string)
 
@@ -167,9 +167,9 @@ class Parser:
             elif keyword == 'precedence':
                 if self.grammar is False:
                     raise ValueError("Precedence must be defined after" +
-                                     " grammar.", 40)
+                                     " grammar.", 3)
                 if self.prec is not False:
-                    raise ValueError("Precedence is defined twice.", 40)
+                    raise ValueError("Precedence is defined twice.", 3)
 
                 self.prec = PrecedenceTable()
                 token = self._getToken()
@@ -180,9 +180,9 @@ class Parser:
             elif keyword == 'levels':
                 if self.grammar is False:
                     raise ValueError("Levels must be defined after" +
-                                     " grammar.", 40)
+                                     " grammar.", 3)
                 if self.levels is not False:
-                    raise ValueError("Levels are defined twice.", 40)
+                    raise ValueError("Levels are defined twice.", 3)
                 self.levels = True
 
                 token = self._getToken()
@@ -229,7 +229,9 @@ class Parser:
                     self.aut.join(aut)
 
             else:
-                raise ValueError("Undefined keyword '" + keyword + "'", 40)
+                raise ValueError("Undefined keyword '" + keyword + "'", 3)
+        if self.grammar is False:
+            raise ValueError("No grammar specified in grammar input file.", 3)
 
     def getGrammar(self):
         """Return created grammar."""
@@ -282,13 +284,13 @@ class Parser:
             if token.type == 'str':
                 if not self.grammar.isTerm(token.string):
                     raise ValueError("Nonterminal '" + token.string +
-                                     "' musn't be bounded by ''", 40)
+                                     "' musn't be bounded by ''", 3)
                 symbols.append(token.string)
                 token = self._getToken()
             elif token.type == 'id':
                 if self.grammar.isTerm(token.string):
                     raise ValueError("Terminal '" + token.string +
-                                     "' must be bounded by ''", 40)
+                                     "' must be bounded by ''", 3)
                 self.grammar.isTerm(token.string)
                 symbols.append(token.string)
                 token = self._getToken()
@@ -372,15 +374,15 @@ class Parser:
 
         while True:
             token = self._getToken()
-            self._tShould(token, ['str', 'id'])
+            self._tShould(token, ['str', 'id', '$'])
             if token.type == 'str':
                 if not self.grammar.isTerm(token.string):
                     raise ValueError("Nonterminal '" + token.string +
-                                     "' musn't be bounded by ''", 40)
-            else:
+                                     "' musn't be bounded by ''", 3)
+            elif token.type == 'id':
                 if self.grammar.isTerm(token.string):
                     raise ValueError("Terminal '" + token.string +
-                                     "' must be bounded by ''", 40)
+                                     "' must be bounded by ''", 3)
             rightSide.append(token.string)
 
             token = self._getToken()
@@ -404,9 +406,8 @@ class Parser:
         tokStr = "token type '" + token.type + "'"
         if token.type == '':
             tokStr = 'end of file'
-        raise ValueError("Syntax error: unexpected " +
-                         tokStr +
-                         ", expecting " + types.__str__(), 40)
+        raise ValueError("Unexpected " + tokStr +
+                         ", expecting one of " + types.__str__(), 3)
 
     def _getToken(self):
         """Load next token."""
@@ -430,6 +431,8 @@ class Parser:
                     state = 'string'
                 elif ch == '{':
                     return Token('{', '')
+                elif ch == '$':
+                    return Token('$', '')
                 elif ch == '}':
                     return Token('}', '')
                 elif ch == ';':
@@ -448,14 +451,14 @@ class Parser:
                     str += ch
                     state = 'id'
                 else:
-                    raise ValueError("Unexpected character '" + ch + "'", 40)
+                    raise ValueError("Unexpected character '" + ch + "'", 3)
 
             # expecting second char of arrow (>)
             elif state == 'arrow':
                 if ch == '>':
                     return Token('->', '')
                 else:
-                    raise ValueError("Unexpected character '" + ch + "'", 40)
+                    raise ValueError("Unexpected character '" + ch + "'", 3)
 
             # expecting string chars, breaked by apostrof
             elif state == 'string':

@@ -20,10 +20,10 @@ class Grammar:
         """Add non-terminal."""
         if name == '':
             raise ValueError("Invalid terminal symbol '" + name +
-                             "'", 40)
+                             "'", 3)
         if name in self.terminals:
             raise ValueError("Symbol '" + name +
-                             "' is already in terminals", 40)
+                             "' is already in terminals", 3)
         if name not in self.nonterminals:
             self.nonterminals.append(name)
 
@@ -31,10 +31,10 @@ class Grammar:
         """Add terminal symbol."""
         if name == '':
             raise ValueError("Invalid non-terminal symbol'" + name +
-                             "'", 40)
+                             "'", 3)
         if name in self.nonterminals:
             raise ValueError("Symbol '" + name +
-                             "' is already in non-terminals", 40)
+                             "' is already in non-terminals", 3)
         if name not in self.terminals:
             self.terminals.append(name)
 
@@ -42,7 +42,7 @@ class Grammar:
         """Add rule to symbol."""
         if self.isTerm(leftSide):
             # left side must be non-terminal
-            raise ValueError("Left side of rule can't be terminal", 40)
+            raise ValueError("Left side of rule can't be terminal", 3)
         for symbol in rightSide:
             # checks if symbol is in grammar
             self.isTerm(symbol)
@@ -56,7 +56,7 @@ class Grammar:
             self.start = name
         else:
             raise ValueError("Start symbol '" + name +
-                             "' can't be terminal.", 40)
+                             "' can't be terminal.", 3)
 
     def isTerm(self, name):
         """Decide if symbol is terminal or not."""
@@ -66,7 +66,7 @@ class Grammar:
             return False
         else:
             raise ValueError("Symbol '" + name +
-                             "' is not in grammar alphabet", 40)
+                             "' is not in grammar alphabet", 3)
 
     def __str__(self):
         """To string."""

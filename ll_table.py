@@ -60,14 +60,15 @@ class LLTable:
                 terminal = symbol
                 row = self._table[nonterminal]
                 if terminal not in row:
-                    row[terminal] = rule
+                    row[terminal] = [grammar.rules.index(rule)]
                 else:
-                    raise ValueError("This is not ll grammar, " +
-                                     "confict rules:\n(" + str(i) + ") " +
-                                     str(rule) + "\n" + "(" +
-                                     str(grammar.rules.index(row[terminal])) +
-                                     ") " +
-                                     str(row[terminal]), 40)
+                    row[terminal].append(grammar.rules.index(rule))
+                    # raise ValueError("This is not ll grammar, " +
+                    #                  "confict rules:\n(" + str(i) + ") " +
+                    #                  str(rule) + "\n" + "(" +
+                    #                  str(grammar.rules.index(row[terminal]))+
+                    #                  ") " +
+                    #                  str(row[terminal]), 40)
 
     def getRule(self, nonterminal, terminal):
         """Get rule from ll table."""
@@ -173,7 +174,7 @@ class LLTable:
             row = self._table[nonterm]
             for term in self._grammar.terminals + ['']:
                 if term in row:
-                    s += str(self._grammar.rules.index(row[term]))
+                    s += str(row[term])
                 s += "\t"
             s += "\n"
         return s
