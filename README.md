@@ -13,6 +13,9 @@ Mandatory part is controlled grammar, which syntax is following:
 ```
 grammar = (
  {<id>, <id>, ..., <id>},          # nonterminals
- {<str>, <str>, ..., <str>}        # terminals
+ {<str>, <str>, ..., <str>},       # terminals
+ {
+  
+ }
 )
 ```
