@@ -12,7 +12,6 @@ For execution use python3.
 Usage:
 ~~~
 python3 tcgp.py [-h] -g GRAMMAR [-p CHOICE [CHOICE ...]] [-i INPUT] [-o OUTPUT]
-               [-u U]
 
 Tree controlled grammar parser
 
