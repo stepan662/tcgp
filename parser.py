@@ -469,11 +469,11 @@ class Parser:
 
             # apostrof in the midle of the string
             elif state == 'gotApostrof':
-                if ch != "'":
+                if ch not in ("'", "\\"):
                     self._ungetChar()
                     return Token('str', str)
                 else:
-                    str += "'"
+                    str += ch
                     state = 'string'
 
             # expecting "c like" id

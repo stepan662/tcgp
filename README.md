@@ -2,7 +2,7 @@
 
 ## Tree controlled grammar parser (TCGP) ##
 
-For running use python3.
+For execution use python3.
 
 ### Grammar file ###
 
@@ -19,7 +19,7 @@ grammar = (
     <id> -> [<id>|<str>]* ;
     <id> -> [<id>|<str>]* ;
     ...
-    <id> -> [<id>|<str>]* ;   
+    <id> -> [<id>|<str>]* ;
   },
   <id>                             # start symbol
 )
