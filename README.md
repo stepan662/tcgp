@@ -115,7 +115,7 @@ Meaning of shortcuts in syntax of grammar file:
 
 ### Input string ###
 
-String is expected to contain grammar terminals.
+Input string is expected to contain grammar terminals.
 White chars are ignored (or used as separators).
 Terminals don't have to be separated by white chars,
 but there can be bad interpretation, if there are multiple
