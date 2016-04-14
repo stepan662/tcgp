@@ -109,6 +109,15 @@ Meaning of shortcuts in syntax of grammar file:
     * `right`     - right associativity
     * `nonassoc`  - no associativity, considered as error
 
+
+### Input string ###
+
+String is expected to contain grammar terminals.
+Terminals doesn't have to be separated by space,
+but there can be bad interpretation, if there are multiple
+ways how to interpret string (e.g. `a` and `aa`).
+
+
 ### Return codes and errors ###
 
 Depending on input, application returns one of these exit codes:
