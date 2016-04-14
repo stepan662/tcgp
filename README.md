@@ -113,11 +113,11 @@ Meaning of shortcuts in syntax of grammar file:
 
 Depending on input, application returns one of these exit codes:
 
-* 0: Input string belongs to input grammar
-* 1: `NOT_IN_GRAMMAR` - Input string doesn't belong to input grammar
-* 2: `NONDETERM_ERROR`
-* 3: `GRAMMAR_PARSE_ERROR`
-* 4: `LR_TABLE_ERROR`
-* 5: `FINITE_AUTOMAT_ERROR`
-* 10: `ARGUMENTS_ERROR`
-* 99: `INTERNAL_ERROR`
+* 0:  Input string belongs to input grammar.
+* 1:  `NOT_IN_GRAMMAR` - Input string doesn't belong to input grammar.
+* 2:  `NONDETERM_ERROR` - Nondeterministic step has been applied and then we ran into error. It is not clear, if string belongs to grammar. This problem is described closely in Bc. thesis.
+* 3:  `GRAMMAR_PARSE_ERROR` - Syntax or logical error in input grammar file.
+* 4:  `LR_TABLE_ERROR` - Conflict or other problem in LR table. You can print LR table by `-p table` to see the problem.
+* 5:  `FINITE_AUTOMAT_ERROR` - Logical error in user defined Finite automat.
+* 10: `ARGUMENTS_ERROR` - Arguments error.
+* 99: `INTERNAL_ERROR` - Other internal error.
