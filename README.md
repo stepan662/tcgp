@@ -108,3 +108,11 @@ Meaning of shortcuts in syntax of grammar file:
     * `left`      - left associativity
     * `right`     - right associativity
     * `nonassoc`  - no associativity, considered as error
+
+### Return codes and errors ###
+
+Depending on input, application returns one of these exit codes:
+
+* 0 - Input string belongs to input grammar
+* 1 - `INPUT STRING NOT IN GRAMMAR` Input string doesn't belong to input grammar
+* 2 - 
