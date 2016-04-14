@@ -4,7 +4,43 @@
 
 \chapter{Úvod}
 
+Bezkontextové jazyky jsou široce využívány pro zpracování formálních jazyků.
+Jelikož někdy síla zavedeného syntaktickýckého analyzátoru nestačí, přistupuje
+se k různým úpravám a vylepšením.
+Tyto úpravy mohou být buď jednoúčelové, nebo univerzálnějšího typu, kdy
+se snažíme celkové zvýšit vyjadřovací sílu zpracovávatelných gramatik,
+při zachování determinismu a také co nejnižší asymptotické složitosti
+zpracování řetězce.\\
+
+Tato práce pojednává o zpracování \term{Gramatik řízených stromy}.
+Takové gramatiky se skládají ze dvou jazyků - řídicího a kontrolního.
+Řídicí jazyk budeme definovat pomocí \term{Bezkontextové gramatiky} a
+slouží k sestavení derivačního stromu pomocí již zavedených postupů
+(LR parser).
+Kontrolní jazyk definujeme \term{Konečným automatem} a poslouží k
+omezení derivačního stromu. Cílem je zvýšit vyjadřovací sílu
+syntaktického analyzátoru, tak abychom byli schopni zpracovávat co
+nejvíce jazyků, které nelze definovat (deterministickými) bezkontextovými
+gramatikami.\\
+
+Pro realizaci tohoto úkoly bylo nutné podrobně nastudovat problematiku
+\term{Regulárních} a \term{Bezkontextových jazyků}, čímž se zabýváme
+v kapitolách \ref{chap:Definitions} a \ref{chap:FormalLangs}. Uvedené
+poznatky vychází převážně z knihy Prof. Alexandra Meduny \cite{MedunaIFJ}.\\
+
+Hlavní částí práce je kapitola \ref{chap:TreeLangs}, kde jsou podrobně rozebrány
+možnosti modifikace stávajících metod (LL a LR). Na těchto poznatcích je
+založena experimentální metoda
+průběžné kontroly stromu, jež dovoluje zpracovávat i některé nedeterministické
+řídicí gramatiky. Tato část je založena na práci Ing. Jiřího Koutného
+\cite{Koutny}.\\
+
+V poslední kapitole je stručně popsána implementace syntaktického analyzátoru,
+který využívá poznatky získané v předchozích kapitolách.
+
+
 \chapter{Definice a pojmy}
+\label{chap:Definitions}
 
 Tato práce předpokládá, že je čtenář seznámen s \term{Teorií grafů} a
 se základy \term{Teorie formálních jazyků} (viz. \cite{MedunaIFJ}).
@@ -64,6 +100,7 @@ Uvedeny jsou jen definice, jež jsou zásadní pro pozdější výklad.
 \end{defn}
 
 \chapter{Formální jazyky}
+\label{chap:FormalLangs}
 
 Teorie formálních jazyků formalizuje pojmy spojené s jazyky
 (přirozenými, programovacími, matematickými, ...), abychom se mohli zabývat
@@ -757,7 +794,7 @@ obě alternativy, aby byly zřejmé jejich výhody i nevýhody.
 
 Nejpoužívanějším zástupcem této skupiny je \term{LL syntaktická analýza}, která analyzuje
 vstup zleva doprava a konstruuje nejlevější derivaci. Tato syntaktická analýza
-umožňuje zpracovávat pouze LL gramatiky,
+umožňuje zpracovávat pouze \term{LL gramatiky},
 které jsou podmnožinou deterministických bezkontextových gramatik.\\
 
 Které pravidlo použít slouží \term{LL tabulka}, která nám na základě
@@ -1270,24 +1307,24 @@ Ukažme si zpracování řetězce \symb{a * a + a}:
 
 Ve výše zobrazeném diagramu postupujeme podle algoritmu \ref{alg:lr},
 vysvětleme některé kroky:
-\begin{itemize}
-  \item[1.] Jsme ve stavu 0 a na vstupu máme \symb{a} - podle LR tabulky přejdeme do
-  stavu 1 a provedeme operaci \term{shift} (vložíme \symb{a} na zásobník s aktuálním stavem).
-  \item[2.] Jsme ve stavu 1 a na vstupu máme \symb{*} - podle LR tabulky provedeme
-  operaci \term{reduce} podle pravidla 3 - poslední stav za nahrazovanou částí na
-  zásobníku je 0 a levá strana pravidla je \symb{E} - podle beta části LR tabulky
-  přejdeme do stavu 2 (vložíme na zásobník i s neterminálem \symb{E}).
-  \item[3.] Jsme ve stavu 2 a na vstupu máme \symb{*} - \term{shift} 3.
-  \item[4.] Jsme ve stavu 3 a na vstupu máme \symb{a} - \term{shift} 1.
-  \item[5.] Jsme ve stavu 1 a na vstupu máme \symb{+} - \term{reduce} 3
-   - poslední stav je 3 a levá strana je \symb{E} - přejdeme do stavu 5.
-  \item[6.] Jsme ve stavu 5 a na vstupu máme \symb{+} - narazili jsme na \term{shift-reduce} konflikt
-  v LR tabulce - poslední operátor na zásobníku je \symb{*}, protože má vyšší prioritu,
-  provedeme operaci \term{reduce} 1 - poslední stav je 0 a levá strana je \symb{E} - přejdeme do stavu 2.
-  \item[] ...
-  \item[11.] Jsme ve stavu 2 a na vstupu máme \symb{\$} - V LR tabulce je \symb{a}
-  (Accept) - můžeme skončit a řetězec prohlásit za přijatý.
-\end{itemize}
+  \begin{itemize}
+    \item[1.] Jsme ve stavu 0 a na vstupu máme \symb{a} - podle LR tabulky přejdeme do
+    stavu 1 a provedeme operaci \term{shift} (vložíme \symb{a} na zásobník s aktuálním stavem).
+    \item[2.] Jsme ve stavu 1 a na vstupu máme \symb{*} - podle LR tabulky provedeme
+    operaci \term{reduce} podle pravidla 3 - poslední stav za nahrazovanou částí na
+    zásobníku je 0 a levá strana pravidla je \symb{E} - podle beta části LR tabulky
+    přejdeme do stavu 2 (vložíme na zásobník i s neterminálem \symb{E}).
+    \item[3.] Jsme ve stavu 2 a na vstupu máme \symb{*} - \term{shift} 3.
+    \item[4.] Jsme ve stavu 3 a na vstupu máme \symb{a} - \term{shift} 1.
+    \item[5.] Jsme ve stavu 1 a na vstupu máme \symb{+} - \term{reduce} 3
+     - poslední stav je 3 a levá strana je \symb{E} - přejdeme do stavu 5.
+    \item[6.] Jsme ve stavu 5 a na vstupu máme \symb{+} - narazili jsme na \term{shift-reduce} konflikt
+    v LR tabulce - poslední operátor na zásobníku je \symb{*}, protože má vyšší prioritu,
+    provedeme operaci \term{reduce} 1 - poslední stav je 0 a levá strana je \symb{E} - přejdeme do stavu 2.
+    \item[] ...
+    \item[11.] Jsme ve stavu 2 a na vstupu máme \symb{\$} - V LR tabulce je \symb{a}
+    (Accept) - můžeme skončit a řetězec prohlásit za přijatý.
+  \end{itemize}
 \end{exmp}
 
 Je vidět, že pomocí LR syntatické analýzy jsme schopni zpracovávat deterministické
@@ -1297,7 +1334,7 @@ teprve v posledním kroku je spojíme do jednoho.
 
 
 \chapter{Zpracování jazyků řízených stromy}
-\label{ch:processingTreeLanguages}
+\label{chap:TreeLangs}
 
 Pro dosažení větší síly syntaktického analyzátoru bývají zásobníkové automaty
 rozšiřovány o další funkce (tím se odchylují od původního matematického modelu).
@@ -1699,7 +1736,9 @@ jazyka patří.\\
 
 V případě modelu konečného automatu (který pro kontrolu úrovní budeme používat),
 lze tuto operaci provést tak, že místo jednoho stavu automatu budeme udržovat
-množinu stavů (ve kterých bychom se mohli nacházet).\\
+množinu stavů (ve kterých bychom se mohli nacházet). Takže vlastně zkusíme
+vyjít ze všech stavů automatu a ověříme, že na konci řetězce alespoň z jednoho
+přechody odpovídaly vstupu.\\
 
 \begin{algorithm}[H]
   \caption{Podřetězec pomocí konečného automatu.}
@@ -1737,12 +1776,19 @@ u výše uvedeného příkladu ale tento přístup zásadně pomůže:
   \caption{Rozpoznaný konflikt v pravém podstromě.}
 \end{figure}
 
-Touto technikou samozřejmě nelze zpracovávat jakoukoliv gramatiku.
-Obecně problém nastáva tehdy, když se o konfliktu ve stromě rozhoduje
-v době, kdy se ještě neprojeví. Takový konflikt je poté sice rozpoznán,
-ale nelze jej už vyřešit bez navracení.
+\subsubsection*{Reduce-reduce konflikty}
+
+Podobným způsobem lze řešit také některé reduce-reduce konflikty.
+V těchto případech se dokonce můžeme chovat deterministicky,
+jelikož lze vyzkoušet všechna pravidla a pokračovat pouze v případě,
+že vyhovuje právě jedno. V jiných případech rovnou skončíme chybou.
 
 \subsubsection*{Závěr}
+
+Průběžnou kontrolou úrovní samozřejmě nelze zpracovávat jakoukoliv gramatiku.
+Obecně problém nastáva tehdy, když se o konfliktu ve stromě rozhoduje
+v době, kdy se ještě neprojeví. Takový konflikt je poté sice rozpoznán,
+ale nelze jej už vyřešit bez navracení.\\
 
 LR syntaktická analýza již v základu dokáže zpracovávat větší množství
 bezkontextových gramatik. Ukázali jsme si, že kontrola úrovní je zde
@@ -1752,6 +1798,7 @@ LR syntaktická analýza se ukazuje jako nejvhodnější pro zpracování
 gramatik řízených stromy a je využita v praktické části toho projektu.
 
 \chapter{Implementace}
+\label{chap:Implementation}
 
 \subsubsection*{Výběr programovacího jazyka}
 
@@ -1770,14 +1817,14 @@ jako konzolová aplikace, ovládá se tedy výhradně přes příkazový řádek
 \subsubsection*{Vstupní parametry}
 
 Aplikace přijímá parametry ve standardním UNIXovém formátu, jejich přesný
-formát je uveden v nápovědě (argument \texttt{--help}).\\
+formát je uveden v souboru \symb{readme.md}.\\
 
 Jediným povinným argumentem je vstupní gramatika, jež je načtena z
 externího souboru. Hlavní součástí tohoto souboru je řídicí bezkontextová gramatika,
 volitelně poté můžeme přidat kontrolní jazyk
 (ve formě výčtu řetězců nebo konečného automatu).
 Volitelně zde lze definovat také priority operátorů.
-Formát tohoto souboru je detailně specifikován v souboru readme.\\
+Formát tohoto souboru je detailně specifikován v souboru \symb{readme.md}.\\
 
 Dále je nutné programu předat vstupní řetězec. Volitelným argumentem je
 možné aplikaci předat název externího souboru. Pokud není specifikován
@@ -1795,13 +1842,14 @@ použitých pravidel atp.\\
 Pokud specifikujeme pouze řídicí gramatiku, aplikace se chová jako
 standardní LR syntaktický analyzátor a hlásí chyby při konfliktech LR tabulce.
 V případě že přidáme priority operátorů, jsou povoleny \term{shift-reduce}
-konflikty v LR tabulce. Pokud specifikujeme i kontrolní jazyk, jsou povoleny
-\term{shift-reduce} i \term{reduce-reduce}. Tyto konflikty jsou poté
-řešeny až za běhu a to tímto způsobem:
+konflikty v LR tabulce. Pokud specifikujeme i kontrolní jazyk aktivuje se
+průběžná kontrola úrovní a jsou povoleny \term{shift-reduce} i
+\term{reduce-reduce} konflikty. Tyto konflikty jsou poté
+řešeny za běhu tímto způsobem:
 
 \begin{itemize}
   \item Nejprve zkusíme vyřešti problém pomocí priority operátorů.
-    Pokud není priorita specifikována aktuální operátory nebo se jedná o
+    Pokud není priorita specifikována pro aktuální operátory nebo se jedná o
     reduce-reduce konflikt, přecházíme na další krok.
 
   \item Pokusíme se konflikt vyřešit pomocí průběžné kontroly úrovní:
@@ -1825,7 +1873,7 @@ argumentů atp.\\
 V případě, že vše proběhlo v pořádku a řetězec patří do gramatiky je návratový
 kód \texttt{0}. Při chybě návratový kód odpovídá chybě a je také vytištěn krátký
 popis chyby. Pokud se jedná o chybu ve vstupu, je připojena také informace o
-řádku a pozici v souboru. Podrobný popis návratových kódů je v souboru readme.\\
+řádku a pozici v souboru. Podrobný popis návratových kódů je v souboru \symb{readme.md}.\\
 
 Speciálním případem je chyba nedeterministického zpracování, která nastává
 v případě, že pro danou situaci neexistuje pravidlo, ale v minulosti
@@ -1833,7 +1881,14 @@ bylo využito nedeterministického postupu, takže nejsme schopni určit, jestli
 řetězec do jazyka patří, či nikoliv. Tento problém je vysvětlen v sekci
 \ref{subsection:LR}.
 
+\subsubsection*{Vývoj a testování}
 
+Vývoj probíhal v iteracích, kdy byla vždy navržena a implementována část
+projektu (např. jeden modul), přidány nové testy, zaměřující se na
+tuto část, a poté byla celá aplikace důkladně otestována.\\
 
+Pro účely testování byla postupně navržena automaticky spustitelná sada testů
+typu black box, kdy testujeme krajní a složité případy jednotlivých modulů
+i celkovou funkčnost.
 
 %=========================================================================
