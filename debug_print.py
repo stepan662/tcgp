@@ -6,13 +6,13 @@ import sys
 __author__ = 'stepan'
 
 err_messages = {
-    '1': 'INPUT STRING NOT IN GRAMMAR',
-    '2': 'NONDETERMINISTIC PROCESSING ERROR',
-    '3': 'GRAMMAR PARSE ERROR',
-    '4': 'LR TABLE ERROR',
-    '5': 'FINITE AUTOMAT ERROR',
-    '10': 'PROGRAM ARGUMENTS ERROR',
-    '99': 'INTERNAL ERROR'
+    '1': 'NOT_IN_GRAMMAR',
+    '2': 'NONDETERM_ERROR',
+    '3': 'GRAMMAR_PARSE_ERROR',
+    '4': 'LR_TABLE_ERROR',
+    '5': 'FINITE_AUTOMAT_ERROR',
+    '10': 'ARGUMENTS_ERROR',
+    '99': 'INTERNAL_ERROR'
 }
 
 

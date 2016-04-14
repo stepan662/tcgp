@@ -51,7 +51,8 @@ def main():
                       action='store',
                       metavar='CHOICE',
                       choices=['tree', 'trees', 'stack', 'rules', 'groups',
-                               'table', 'eff', 'automat', 'precedence', 'all'],
+                               'table', 'eff', 'automat', 'precedence',
+                               'grammar', 'all'],
                       help="Decide what to print from these CHOICES:\n" +
                       " - tree:       final derivation tree\n" +
                       " - trees:      derivation tree development\n" +
@@ -62,6 +63,7 @@ def main():
                       " - eff:        empty, first and follow sets\n" +
                       " - automat:    print final state machine\n" +
                       " - precedence: print precedence table\n" +
+                      " - grammar:    print input grammar\n" +
                       " - all:        print all\n"
                       )
     argp.add_argument('-i', '--input',
@@ -112,6 +114,7 @@ def main():
 
     # get grammar, automat and precednece table from parser
     grammar = grammarParser.getGrammar()
+    debug_print('grammar', grammar, '\n')
     automat = grammarParser.getAutomat()
     precedence = grammarParser.getPrecedence()
 

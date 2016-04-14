@@ -18,3 +18,10 @@ class Rule:
         s = self.leftSide + " -> "
         s += " ".join([symbol for symbol in self.rightSide])
         return s
+
+    def toStringDiff(self, isTerm):
+        """To string."""
+        s = self.leftSide + " -> "
+        s += " ".join(["'" + symbol + "'" if isTerm(symbol) else symbol
+                       for symbol in self.rightSide])
+        return s

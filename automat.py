@@ -272,7 +272,7 @@ class Automat:
         states = sorted(self._states.items(), key=lambda t: t[0])
         alphabet = sorted(self._alphabet.items(), key=lambda t: t[0])
 
-        ret += "{"
+        ret += "  {"
         i = 0
 
         for st in states:
@@ -281,7 +281,7 @@ class Automat:
             ret += st[0]
             i += 1
 
-        ret += "},\n{"
+        ret += "},\n  {"
         i = 0
 
         for char in alphabet:
@@ -296,7 +296,7 @@ class Automat:
             ret += "'" + ch + "'"
             i += 1
 
-        ret += "},\n{"
+        ret += "},\n  {\n"
         i = 0
 
         for st in states:
@@ -305,23 +305,18 @@ class Automat:
             for key in keys:
                 rules = sorted(key[1])
                 for rule in rules:
-                    if i != 0:
-                        ret += ",\n"
-                    else:
-                        ret += "\n"
-
                     if key[0] == "'":
-                        k = "''"
+                        k = "\\'"
                     else:
                         k = key[0]
 
-                    ret += st[0] + " '" + k + "' -> " + rule
+                    ret += "    " + st[0] + " '" + k + "' -> " + rule + ";\n"
                     i += 1
 
-        ret += "\n},\n"
+        ret += "  },\n  "
         ret += self._start + ",\n"
 
-        ret += "{"
+        ret += "  {"
         i = 0
         for st in states:
             if st[1].isTerm():

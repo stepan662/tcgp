@@ -70,15 +70,15 @@ class Grammar:
 
     def __str__(self):
         """To string."""
-        s = "(\n{"
+        s = "(\n  {"
         s += ", ".join([nonterm for nonterm in self.nonterminals])
-        s += "},\n{"
-        s += ", ".join([term for term in self.terminals])
-        s += "},\n{\n"
+        s += "},\n  {"
+        s += ", ".join(["'" + term + "'" for term in self.terminals])
+        s += "},\n  {\n"
         for rule in self.rules:
-            s += str(rule) + "\n"
-        s += "},\n"
-        s += str(self.start) + "\n)\n"
+            s += "    " + rule.toStringDiff(self.isTerm) + ";\n"
+        s += "  },\n"
+        s += "  " + str(self.start) + "\n)\n"
         return s
 
 #    def _getNewNontermName(self, name):

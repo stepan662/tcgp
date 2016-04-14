@@ -67,7 +67,7 @@ class PrecedenceTable:
             elif onSt.dir == Direction.left:
                 return Operation.reduce
             else:
-                raise ValueError("Noassoc precedence token '" + onStack +
+                raise ValueError("Nonassoc precedence token '" + onStack +
                                  "' is on stack.", 1)
         elif onSt.priority < actu.priority:
             return Operation.reduce
@@ -89,9 +89,12 @@ class PrecedenceTable:
             s += symb1 if symb1 != '' else '$'
             for symb2 in symbols:
                 s += '\t'
-                op = self._shiftOrReduce(symb1, symb2)
-                if op is not False:
-                    s += "s" if op == Operation.shift else "r"
+                try:
+                    op = self._shiftOrReduce(symb1, symb2)
+                    if op is not False:
+                        s += "s" if op == Operation.shift else "r"
+                except ValueError:
+                    s += "!"
             s += '\n'
 
         return s
