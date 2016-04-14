@@ -139,6 +139,7 @@ Práce je chráněna autorským zákonem a její užití bez udělení oprávně
 %Parametry
 \define@key{projinfo}{title.cs}{\global\def\@title@CS{#1}}
 \define@key{projinfo}{title.en}{\global\def\@title@EN{#1}}
+\define@key{projinfo}{title.csnl}{\global\def\@title@CSNL{#1}}
 \define@key{projinfo}{department}{\set@department{#1}}
 \define@key{projinfo}{project}{\set@project{#1}}
 \define@key{projinfo}{year}{\def\@year{#1}}
@@ -215,7 +216,7 @@ Práce je chráněna autorským zákonem a její užití bez udělení oprávně
 
 \vfill
 
-\mkuctxt{18}{\@title} %Nazev prace v jazyce v jakem je napsana
+\mkuctxt{18}{\@title@CSNL} %Nazev prace v jazyce v jakem je napsana
 
 \vfill
 
@@ -267,7 +268,7 @@ Práce je chráněna autorským zákonem a její užití bez udělení oprávně
 %-----------------------------------------------------------------------------
 \newcommand\makedeclaration{
 \thispagestyle{empty}%
-\mktxt@b{18}{\@title}
+\mktxt@b{18}{\@title@CSNL}
 
 \vspace{10mm}
 \mktxt@b{16}{\@tdecl@CS}
@@ -325,7 +326,7 @@ Práce je chráněna autorským zákonem a její užití bez udělení oprávně
 
 \vfill
 
-\mkuctxt{18}{\@title@CS}
+\mkuctxt{18}{\@title@CSNL}
 \mkuctxt{10}{\@title@EN}
 
 \vfill

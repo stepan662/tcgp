@@ -43,7 +43,7 @@ def main():
                       action='store',
                       required=True,
                       type=argparse.FileType('r'),
-                      help='Input grammar file'
+                      help='Input grammar file, syntax details in readme.md'
                       )
     argp.add_argument('-p', '--print',
                       default=False,
@@ -71,13 +71,13 @@ def main():
                       default=sys.stdin,
                       action='store',
                       type=argparse.FileType('r'),
-                      help='Input string file, tokens separated by white space'
+                      help='Input string file, <stdin> if not present'
                       )
     argp.add_argument('-o', '--output',
                       default=sys.stdout,
                       action='store',
                       type=argparse.FileType('w'),
-                      help='Output file'
+                      help='Output file, <stdout> if not present'
                       )
     argp.add_argument('-u')
 

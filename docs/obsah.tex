@@ -26,7 +26,7 @@ gramatikami.\\
 Pro realizaci tohoto úkoly bylo nutné podrobně nastudovat problematiku
 \term{Regulárních} a \term{Bezkontextových jazyků}, čímž se zabýváme
 v kapitolách \ref{chap:Definitions} a \ref{chap:FormalLangs}. Uvedené
-poznatky vychází převážně z knihy Prof. Alexandra Meduny \cite{MedunaIFJ}.\\
+poznatky vychází převážně z knihy prof. Alexandra Meduny \cite{MedunaIFJ}.\\
 
 Hlavní částí práce je kapitola \ref{chap:TreeLangs}, kde jsou podrobně rozebrány
 možnosti modifikace stávajících metod (LL a LR). Na těchto poznatcích je
@@ -243,7 +243,7 @@ také proto se jimi budeme hlouběji zabývat.
 
 \subsection{Konečné automaty}
 Každý Regulární jazyk lze zpracovávat konečným automatem a každý konečný automat
-lze vyjádřit regulárním jazykem.\\
+lze vyjádřit regulárním jazykem. \cite{MedunaIFJ}\\
 
 
 \begin{defn} (Konečný automat)\\
@@ -1453,7 +1453,8 @@ Zásadním problémem při konstrukci derivačního stromu je nedeterminismus,
 který vede k tomu, že máme pro jeden řetězec více derivačních stromů.
 Jelikož kontrola úrovní stromu rozhoduje o příslušnosti řetězce do jazyka,
 mohlo by se stát, že některé derivační stromy by kontrolou prošly a jiné ne.
-V tomto případě bychom museli sestrojit všechny derivační stromy a poté
+V tomto případě bychom museli sestrojit všechny derivační stromy (pomocí
+nedeterministického syntaktického analyzátoru) a poté
 u všech zkontrolovat úrovně. Nedeterministické analyzátory jsou ovšem řádově
 pomalejší, než deterministické, proto se držme těch deterministických a
 zkusme prozkoumat jinou možnost a tou je kontrolovat úrovně již při konstrukci
@@ -1516,7 +1517,7 @@ jednoduše přidat stavy přijímající jakoukoliv posloupnost terminálů a
 zkontrolovat úrovně všechny. Tato technika bude dále využívána (i u LR SA).\\
 
 Nyní zkusme prozkoumat, jak bychom mohli těchto vlastností využít, pro
-vyřešní konfliktů v ll tabulce. Ukažme si to na následující gramatice:
+vyřešní konfliktů v \term{LL tabulce}. Ukažme si to na následující gramatice:
 \begin{exmp}
   \label{exmp:aa}
   \begin{lstlisting}
@@ -1795,7 +1796,7 @@ bezkontextových gramatik. Ukázali jsme si, že kontrola úrovní je zde
 sice složitější, při správném přístupu však mohou přinést poměrně výrazné
 rozšíření vyjadřovací síly syntaktického analyzátoru.
 LR syntaktická analýza se ukazuje jako nejvhodnější pro zpracování
-gramatik řízených stromy a je využita v praktické části toho projektu.
+gramatik řízených stromy a je využita v praktické části tohoto projektu.
 
 \chapter{Implementace}
 \label{chap:Implementation}
@@ -1890,5 +1891,7 @@ tuto část, a poté byla celá aplikace důkladně otestována.\\
 Pro účely testování byla postupně navržena automaticky spustitelná sada testů
 typu black box, kdy testujeme krajní a složité případy jednotlivých modulů
 i celkovou funkčnost.
+
+\chapter{Závěr}
 
 %=========================================================================
