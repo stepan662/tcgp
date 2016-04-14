@@ -113,6 +113,11 @@ Meaning of shortcuts in syntax of grammar file:
 
 Depending on input, application returns one of these exit codes:
 
-* 0 - Input string belongs to input grammar
-* 1 - `INPUT STRING NOT IN GRAMMAR` Input string doesn't belong to input grammar
-* 2 - 
+* 0: Input string belongs to input grammar
+* 1: `NOT_IN_GRAMMAR` - Input string doesn't belong to input grammar
+* 2: `NONDETERM_ERROR`
+* 3: `GRAMMAR_PARSE_ERROR`
+* 4: `LR_TABLE_ERROR`
+* 5: `FINITE_AUTOMAT_ERROR`
+* 10: `ARGUMENTS_ERROR`
+* 99: `INTERNAL_ERROR`
