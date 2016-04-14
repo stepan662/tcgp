@@ -116,7 +116,7 @@ String is expected to contain grammar terminals.
 White chars are ignored (or used as separators).
 Terminals doesn't have to be separated by white chars,
 but there can be bad interpretation, if there are multiple
-ways how to interpret string (e.g. `a` and `aa`).
+ways how to interpret string (e.g. two terminals `a` and `aa`).
 
 
 ### Return codes and errors ###
