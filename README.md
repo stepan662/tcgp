@@ -31,11 +31,13 @@ optional arguments:
                          - automat:    print final state machine
                          - precedence: print precedence table
                          - grammar:    print input grammar
+                         - scanner:    print input scanner automat
                          - all:        print all
   -i INPUT, --input INPUT
-                        Input string file, tokens separated by white space
+                        Input string file, <stdin> if not present
   -o OUTPUT, --output OUTPUT
-                        Output file
+                        Output file, <stdout> if not present
+
 ~~~
 
 
