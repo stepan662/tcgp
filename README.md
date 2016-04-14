@@ -43,8 +43,8 @@ optional arguments:
 
 This file specifies tree controlled grammar.
 
-Mandatory part is controlled grammar, which syntax is following,
-this part must be defined first:
+Mandatory part is controlled grammar, which syntax is following.
+This part must be defined first:
 
 ~~~
 grammar = (
