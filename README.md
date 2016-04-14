@@ -95,10 +95,10 @@ automaton = (
 
 ~~~
 precedence = (
-  <dir>: [<id>|<str>], [<id>|<str>], ..., [<id>|<str>] ;
-  <dir>: [<id>|<str>], [<id>|<str>], ..., [<id>|<str>] ;
+  <dir>: [<id>|<str>|$], [<id>|<str>|$], ..., [<id>|<str>|$] ;
+  <dir>: [<id>|<str>|$], [<id>|<str>|$], ..., [<id>|<str>|$] ;
   ...
-  <dir>: [<id>|<str>], [<id>|<str>], ..., [<id>|<str>] ;
+  <dir>: [<id>|<str>|$], [<id>|<str>|$], ..., [<id>|<str>|$] ;
 )
 ~~~
 
@@ -110,6 +110,7 @@ Meaning of shortcuts in syntax of grammar file:
     * `left`      - left associativity
     * `right`     - right associativity
     * `nonassoc`  - no associativity, considered as error
+* `$` - represents end of file
 
 
 ### Input string ###
