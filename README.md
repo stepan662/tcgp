@@ -31,11 +31,13 @@ optional arguments:
                          - automat:    print final state machine
                          - precedence: print precedence table
                          - grammar:    print input grammar
+                         - scanner:    print input scanner automat
                          - all:        print all
   -i INPUT, --input INPUT
-                        Input string file, tokens separated by white space
+                        Input string file, <stdin> if not present
   -o OUTPUT, --output OUTPUT
-                        Output file
+                        Output file, <stdout> if not present
+
 ~~~
 
 
@@ -93,10 +95,10 @@ automaton = (
 
 ~~~
 precedence = (
-  <dir>: [<id>|<str>], [<id>|<str>], ..., [<id>|<str>] ;
-  <dir>: [<id>|<str>], [<id>|<str>], ..., [<id>|<str>] ;
+  <dir>: [<id>|<str>|$], [<id>|<str>|$], ..., [<id>|<str>|$] ;
+  <dir>: [<id>|<str>|$], [<id>|<str>|$], ..., [<id>|<str>|$] ;
   ...
-  <dir>: [<id>|<str>], [<id>|<str>], ..., [<id>|<str>] ;
+  <dir>: [<id>|<str>|$], [<id>|<str>|$], ..., [<id>|<str>|$] ;
 )
 ~~~
 
@@ -108,6 +110,17 @@ Meaning of shortcuts in syntax of grammar file:
     * `left`      - left associativity
     * `right`     - right associativity
     * `nonassoc`  - no associativity, considered as error
+* `$` - represents end of file
+
+
+### Input string ###
+
+Input string is expected to contain grammar terminals.
+White chars are ignored (or used as separators).
+Terminals don't have to be separated by white chars,
+but there can be bad interpretation, if there are multiple
+ways how to interpret string (e.g. two terminals `a` and `aa`).
+
 
 ### Return codes and errors ###
 
@@ -117,7 +130,7 @@ Depending on input, application returns one of these exit codes:
 * 1:  `NOT_IN_GRAMMAR` - Input string doesn't belong to input grammar.
 * 2:  `NONDETERM_ERROR` - Nondeterministic step has been applied and then we ran into error. It is not clear, if string belongs to grammar. This problem is described closely in Bc. thesis.
 * 3:  `GRAMMAR_PARSE_ERROR` - Syntax or logical error in input grammar file.
-* 4:  `LR_TABLE_ERROR` - Conflict or other problem in LR table. You can print LR table by `-p table` to see the problem.
+* 4:  `LR_TABLE_ERROR` - Conflict or other problem in LR table.
 * 5:  `FINITE_AUTOMAT_ERROR` - Logical error in user defined Finite automat.
 * 10: `ARGUMENTS_ERROR` - Arguments error.
 * 99: `INTERNAL_ERROR` - Other internal error.
