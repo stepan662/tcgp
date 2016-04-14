@@ -1,72 +1,121 @@
 """Parse grammar and finite state automat from file."""
 
+from automat import Automat
+
 # -- coding: utf-8 --
 __author__ = 'stepan'
-
-
-class Symbol:
-    """Symbol with line and position."""
-    def __init__(self, str, line, position):
-        """Initialization."""
-        self.str = str
-        self.line = line
-        self.position = position
-
-    def add(self, char):
-        """Add char to string of symbol."""
-        self.str += char
 
 
 class InputParser:
     """Parser of input file."""
 
-    def __init__(self, input):
-        """Initialization."""
-        state = 'out'
-        symbol = False
-        self.arr = []
-        self.line = 1
-        self.position = 0
-        lineNum = 1
-        charNum = 0
-        for char in input:
-            if char == '\n':
-                lineNum += 1
-                charNum = 0
-            else:
-                charNum += 1
+    def __init__(self, input, terminals):
+        """Start parsing."""
+        self.str = input
+        self.index = 0
+        self._line = 1
+        self._pos = 0
+        self._charLine = 1
+        self._charPos = 0
+        self._finals = {}
 
-            if state == 'out':
-                if not char.isspace():
-                    symbol = Symbol(char, lineNum, charNum)
-                    state = 'in'
+        self.aut = Automat()
+        start = '*S'
+        self.aut.addState(start)
+        self.aut.setStart(start)
+        for w, symb in enumerate(terminals):
+            lastState = start
+            for c, char in enumerate(symb):
+                newState = str(w) + "-" + str(c)
+                if not self.aut.isAlpha(char):
+                    self.aut.addAlpha(char)
+                self.aut.addState(newState)
+                self.aut.addRule(lastState, char, newState)
+                lastState = newState
+            self.aut.setTerminating(lastState)
+            self._finals[lastState] = symb
 
-            elif state == 'in':
-                if not char.isspace():
-                    symbol.add(char)
-                else:
-                    self.arr.append(symbol)
-                    state = 'out'
-
-        self.arr.append(Symbol('', lineNum, charNum + 1))
-
-    def getToken(self):
-        """Finite state machine parser."""
-        if len(self.arr) == 1:
-            symbol = self.arr[0]
-        else:
-            symbol = self.arr.pop(0)
-        self.line = symbol.line
-        self.position = symbol.position
-        return symbol.str
+        self.aut.dropERules()
+        self.aut.determinate()
 
     def getLine(self):
-        """Get line of last symbol."""
-        return self.line
+        """Get last token line."""
+        return self._line
 
     def getPos(self):
-        """Get position of last symbol."""
-        if self.position == 0:
+        """Get last token position."""
+        if self._pos == 0:
             return 1
+        return self._pos
+
+    def getToken(self):
+        """Load next token."""
+        ch = self._getChar()
+        self._line = self._charLine
+        self._pos = self._charPos
+        state = 'begin'
+        s = ''
+        startState = self.aut.getStart()
+        while ch is not False:
+            # skip white chars
+            if state == 'begin':
+                self._line = self._charLine
+                self._pos = self._charPos
+                if ch.isspace():
+                    state = 'begin'
+                else:
+                    state = self.aut.applyCharToState(ch, startState)
+                    if state is False:
+                        raise ValueError("Input string error on character '" +
+                                         ch + "'.", 1)
+                    s += ch
+            else:
+                tmp = self.aut.applyCharToState(ch, state)
+                if tmp is False:
+                    self._ungetChar()
+                    finals = state.split("|")
+                    strs = []
+                    for final in finals:
+                        if final in self._finals:
+                            strs.append(self._finals[final])
+                    if len(strs) == 1:
+                        return strs[0]
+                    elif len(strs) == 0:
+                        raise ValueError("Symbol '" + s + "' is not "
+                                         "in terminals.", 1)
+                s += ch
+                state = tmp
+
+            ch = self._getChar()
+
+        # return empty token after reading whole file
+        return ''
+
+    def _ungetChar(self):
+        """Unget one character."""
+        if self.index > 0:
+            self.index -= 1
+            if self.str[self.index] == '\n':
+                # line counter
+                self._charLine -= 1
+                self._charPos = self._lastCharPos
+            else:
+                self._charPos -= 1
         else:
-            return self.position
+            raise ValueError("Nothing to unget", 40)
+
+    def _getChar(self):
+        """Load one character from input."""
+        if self.index < len(self.str):
+            ch = self.str[self.index]
+            if ch == '\n':
+                # line counter
+                self._charLine += 1
+                self._lastCharPos = self._charPos
+                self._charPos = 0
+            else:
+                self._charPos += 1
+            self.index += 1
+            return ch
+        else:
+            return False

@@ -52,7 +52,7 @@ def main():
                       metavar='CHOICE',
                       choices=['tree', 'trees', 'stack', 'rules', 'groups',
                                'table', 'eff', 'automat', 'precedence',
-                               'grammar', 'all'],
+                               'grammar', 'scanner', 'all'],
                       help="Decide what to print from these CHOICES:\n" +
                       " - tree:       final derivation tree\n" +
                       " - trees:      derivation tree development\n" +
@@ -64,6 +64,7 @@ def main():
                       " - automat:    print final state machine\n" +
                       " - precedence: print precedence table\n" +
                       " - grammar:    print input grammar\n" +
+                      " - scanner:    print input scanner automat\n" +
                       " - all:        print all\n"
                       )
     argp.add_argument('-i', '--input',
@@ -154,17 +155,19 @@ def main():
         err_print(e.args[1], e.args[0])
 
     # parse input string
-    parser = InputParser(args.input.read())
+    scanner = InputParser(args.input.read(), grammar.terminals)
+
+    debug_print('scanner', scanner.aut, '\n')
 
     # analyze input symbols
     try:
-        tree = table.analyzeSymbols(parser.getToken)
+        tree = table.analyzeSymbols(scanner.getToken)
         debug_print('tree', tree, '\n')
 
     except ValueError as e:
         # error in input string
-        lineNum = parser.getLine()
-        charPos = parser.getPos()
+        lineNum = scanner.getLine()
+        charPos = scanner.getPos()
         closeFiles(opened_files)
         err_print(e.args[1], e.args[0] +
                   "\n(file: '" + args.input.name + "', line: " +

@@ -462,19 +462,17 @@ class Parser:
 
             # expecting string chars, breaked by apostrof
             elif state == 'string':
-                if ch != "'":
-                    str += ch
-                else:
-                    state = 'gotApostrof'
-
-            # apostrof in the midle of the string
-            elif state == 'gotApostrof':
-                if ch not in ("'", "\\"):
-                    self._ungetChar()
+                if ch == "\\":
+                    state = 'gotSlash'
+                elif ch == "'":
                     return Token('str', str)
                 else:
                     str += ch
-                    state = 'string'
+
+            # apostrof in the midle of the string
+            elif state == 'gotSlash':
+                str += ch
+                state = 'string'
 
             # expecting "c like" id
             elif state == 'id':

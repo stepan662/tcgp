@@ -145,7 +145,7 @@ class Automat:
         while True:
             # get first state from queue
             state, value = Qnew.popitem()
-            origStates = state.split("_")
+            origStates = state.split("|")
             origRules = {}
             for origState in origStates:
                 # iterate through states, which is this composed from
@@ -161,7 +161,7 @@ class Automat:
             for char in origRules:
                 targets = origRules[char]
                 # create new state name
-                newState = '_'.join(sorted(targets))
+                newState = '|'.join(sorted(targets))
                 if newState not in aut._states:
                     # add new state to automat and to stack
                     # if it's not there
@@ -244,6 +244,10 @@ class Automat:
         """Get alphabet."""
         return self._alphabet
 
+    def isAlpha(self, char):
+        """Character is in alphabet."""
+        return char in self._alphabet
+
     def join(self, other):
         """Join two automats."""
         # copy symbols
@@ -288,10 +292,7 @@ class Automat:
             if i != 0:
                 ret += ", "
 
-            if char[0] == "'":
-                ch = "''"
-            else:
-                ch = char[0]
+            ch = char[0]
 
             ret += "'" + ch + "'"
             i += 1
@@ -305,10 +306,7 @@ class Automat:
             for key in keys:
                 rules = sorted(key[1])
                 for rule in rules:
-                    if key[0] == "'":
-                        k = "\\'"
-                    else:
-                        k = key[0]
+                    k = key[0]
 
                     ret += "    " + st[0] + " '" + k + "' -> " + rule + ";\n"
                     i += 1
