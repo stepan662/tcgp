@@ -8,7 +8,7 @@ Bezkontextové jazyky jsou široce využívány pro zpracování formálních ja
 Jelikož někdy síla zavedeného syntaktickýckého analyzátoru nestačí, přistupuje
 se k různým úpravám a vylepšením.
 Tyto úpravy mohou být buď jednoúčelové, nebo univerzálnějšího typu, kdy
-se snažíme celkové zvýšit vyjadřovací sílu zpracovávatelných gramatik,
+se snažíme celkové zvýšit vyjadřovací syntaktického analyzátoru,
 při zachování determinismu a také co nejnižší asymptotické složitosti
 zpracování řetězce.\\
 
@@ -1447,7 +1447,7 @@ Ukázali jsme si, že samotná kontrola úrovní derivačního stromu není nija
 velkým problémem. Potřebujeme však nejdříve derivační strom zkonstruovat,
 na což se zaměříme v další sekci.
 
-\section{Sestavení derivačního stromu}
+\subsubsection*{Sestavení derivačního stromu}
 
 Zásadním problémem při konstrukci derivačního stromu je nedeterminismus,
 který vede k tomu, že máme pro jeden řetězec více derivačních stromů.
@@ -1460,12 +1460,12 @@ pomalejší, než deterministické, proto se držme těch deterministických a
 zkusme prozkoumat jinou možnost a tou je kontrolovat úrovně již při konstrukci
 derivačního stromu.\\
 
-Projděme nyní znovu 2 hlavní metody pro syntaktickou analýzu bezkontextových
+V dalších sekcích projdeme znovu 2 hlavní metody pro syntaktickou analýzu bezkontextových
 deterministických jazyků (rozebírané v sekci \ref{sec:CFLanguagesProcessing})
-z praktického pohledu a zamysleme se nad tím, jak by se daly k tomuto účelu
+z praktického pohledu a zamyslíme se nad tím, jak by se daly k tomuto účelu
 využít.
 
-\subsection{LL syntaktická analýza}
+\section{LL syntaktická analýza}
 
 Výhodou LL analýzy je intuitivní konstrukce derivačního stromu shora a zleva,
 při tomto postupu je výhodné, že vždy máme nejlevěší část stromu, pokud tedy
@@ -1586,7 +1586,7 @@ Problém LL syntaktické analýzy tkví v tom, že při aplikaci pravidla máme 
 dispozici pouze velmi malou část stromu vytvořeného pravidlem a je tedy velmi
 pravděpodobné, že nebudeme schopni určit, jestli je pravidlo správné.\\
 
-\subsubsection*{Závěr}
+\subsection*{Závěr}
 
 Ukázali jsme si, že výhodou LL syntaktické analýzy je možnost kontrolovat
 bez problému úrovně stromu již při jeho konstrukci.
@@ -1596,7 +1596,7 @@ Navíc LL syntaktická analýza má již v základu menší vyjadřovací sílu,
 LR syntaktická analýza, proto se pro zpracování gramatik řízených stromy
 nejeví jako přílš vhodná.
 
-\subsection{LR syntaktická analýza}
+\section{LR syntaktická analýza}
 \label{subsection:LR}
 LR syntaktická analýza dokáže deterministicky zpracovávat více jazyků
 než LL a nabízí také jednoduché rozšíření o prioritu operátorů,
@@ -1619,7 +1619,7 @@ Pokud chceme kontrolovat úrovně za běhu, lze to jednoduše provádět pouze
 u nejlevějšího aktuálního podstromu.
 Vidíme, že tímto způsobem odhalíme chybu v úrovních až v posledním kroku (12).\\
 
-\subsubsection{Zpracování nedeterministické řídicí gramatiky}
+\subsection{Zpracování nedeterministické řídicí gramatiky}
 
 \begin{exmp}
   Vezměme gramatiku z příkladu \ref{exmp:aa}. LR tabulka pro tuto gramatiku
@@ -1701,6 +1701,9 @@ Vidíme, že tímto způsobem odhalíme chybu v úrovních až v posledním krok
   Sestrojili jsme jediný správný strom, který vyhovuje kontrole úrovní.
 \end{exmp}
 
+\subsection{Nedeterministické kroky}
+\label{subsec:nondetSteps}
+
 Vraťme se ještě ke kroku, kdy se rozhodujeme mezi operacemi \term{shift} a
 \term{reduce} podle kontroly úrovní. V tu chvíli vlastně zkusíme provést
 \term{reduce} a pokud dojde ke konfliktu v úrovních, provedeme \term{shift}.
@@ -1715,7 +1718,8 @@ a např. u výše uvedené gramatiky problém není.
 Musíme ale tyto situace rozlišovat, tedy v případech, kdy víme jistě,
 že řetězec patří nebo nepatří do gramatiky, a kdy to jistě nevíme.\\
 
-\subsection*{Průběžná kontrola úrovní všech stromů}
+\subsection{Průběžná kontrola úrovní všech stromů}
+\label{subsec:contLevCheck}
 
 U výše uvedeného příkladu jsme ověřovali úrovně jen u nejlevějšího
 podstromu. Protože byl řetězec krátký, nepůsobilo to problémy.
@@ -1743,7 +1747,7 @@ přechody odpovídaly vstupu.\\
 
 \begin{algorithm}[H]
   \caption{Podřetězec pomocí konečného automatu.}
-  \label{alg:lr}
+  \label{alg:substr}
   \KwIn{Konečný automat $M = (Q, \Sigma, R, s, F)$, vstupní řetězec $a$}
   \KwOut{Úspěch nebo Chyba}
 
@@ -1777,14 +1781,23 @@ u výše uvedeného příkladu ale tento přístup zásadně pomůže:
   \caption{Rozpoznaný konflikt v pravém podstromě.}
 \end{figure}
 
-\subsubsection*{Reduce-reduce konflikty}
+\subsection{Reduce-reduce konflikty}
+\label{subsec:reduceReduce}
 
 Podobným způsobem lze řešit také některé reduce-reduce konflikty.
 V těchto případech se dokonce můžeme chovat deterministicky,
 jelikož lze vyzkoušet všechna pravidla a pokračovat pouze v případě,
 že vyhovuje právě jedno. V jiných případech rovnou skončíme chybou.
 
-\subsubsection*{Závěr}
+\subsection{Rychlost algoritmu}
+\label{subsec:speed}
+
+Jelikož při řešení konfliktů musíme kontrolovat úrovně derivačního stromu,
+zvyšuje se celková asymptotická složitost algoritmu. Při řešení konfliktů
+má na výkon vliv i velikost automatu kontrolního jazyka, jelikož u pravých
+podstromů musíme procházet velkou část těchto stavů.
+
+\subsection*{Závěr}
 
 Průběžnou kontrolou úrovní samozřejmě nelze zpracovávat jakoukoliv gramatiku.
 Obecně problém nastáva tehdy, když se o konfliktu ve stromě rozhoduje
@@ -1794,9 +1807,11 @@ ale nelze jej už vyřešit bez navracení.\\
 LR syntaktická analýza již v základu dokáže zpracovávat větší množství
 bezkontextových gramatik. Ukázali jsme si, že kontrola úrovní je zde
 sice složitější, při správném přístupu však mohou přinést poměrně výrazné
-rozšíření vyjadřovací síly syntaktického analyzátoru.
+rozšíření vyjadřovací síly. Výsledná vyjadřovací síla je vyšší než u
+\term{deterministických bezkontextových jazyků} a nižší oproti \term{rekurzivně
+vyčíslitelným jazykům}.
 LR syntaktická analýza se ukazuje jako nejvhodnější pro zpracování
-gramatik řízených stromy a je využita v praktické části tohoto projektu.
+gramatik řízených stromy a je využita v praktické části tohoto projektu.\\
 
 \chapter{Implementace}
 \label{chap:Implementation}
@@ -1818,14 +1833,14 @@ jako konzolová aplikace, ovládá se tedy výhradně přes příkazový řádek
 \subsubsection*{Vstupní parametry}
 
 Aplikace přijímá parametry ve standardním UNIXovém formátu, jejich přesný
-formát je uveden v souboru \symb{readme.md}.\\
+formát je uveden v souboru \texttt{README}.\\
 
 Jediným povinným argumentem je vstupní gramatika, jež je načtena z
 externího souboru. Hlavní součástí tohoto souboru je řídicí bezkontextová gramatika,
 volitelně poté můžeme přidat kontrolní jazyk
 (ve formě výčtu řetězců nebo konečného automatu).
 Volitelně zde lze definovat také priority operátorů.
-Formát tohoto souboru je detailně specifikován v souboru \symb{readme.md}.\\
+Formát tohoto souboru je detailně specifikován v souboru \texttt{README}.\\
 
 Dále je nutné programu předat vstupní řetězec. Volitelným argumentem je
 možné aplikaci předat název externího souboru. Pokud není specifikován
@@ -1858,7 +1873,7 @@ průběžná kontrola úrovní a jsou povoleny \term{shift-reduce} i
     \item V případě \term{shift-reduce} konfliktu se pokusíme vyloučit operaci
       \term{reduce}. Pokud je to možné, provedeme \term{shift}, jinak
       provedeme \term{reduce} a zapamatujeme si, že bylo jednáno
-      nedeterministicky (viz. sekce \ref{subsection:LR}), což se projeví při pozdější chybě.
+      nedeterministicky (viz. sekce \ref{subsec:nondetSteps}), což se projeví při pozdější chybě.
     \item Pokud jde o \term{reduce-reduce} konflikt vyzkoušíme všechny možnosti
       pokračujeme pouze pokud lze použít právě jedno pravidlo. Jinak končíme
       chybou.
@@ -1874,13 +1889,13 @@ argumentů atp.\\
 V případě, že vše proběhlo v pořádku a řetězec patří do gramatiky je návratový
 kód \texttt{0}. Při chybě návratový kód odpovídá chybě a je také vytištěn krátký
 popis chyby. Pokud se jedná o chybu ve vstupu, je připojena také informace o
-řádku a pozici v souboru. Podrobný popis návratových kódů je v souboru \symb{readme.md}.\\
+řádku a pozici v souboru. Podrobný popis návratových kódů je v souboru \texttt{README}.\\
 
 Speciálním případem je chyba nedeterministického zpracování, která nastává
 v případě, že pro danou situaci neexistuje pravidlo, ale v minulosti
 bylo využito nedeterministického postupu, takže nejsme schopni určit, jestli
 řetězec do jazyka patří, či nikoliv. Tento problém je vysvětlen v sekci
-\ref{subsection:LR}.
+\ref{subsec:nondetSteps}.
 
 \subsubsection*{Vývoj a testování}
 
@@ -1893,5 +1908,42 @@ typu black box, kdy testujeme krajní a složité případy jednotlivých modul�
 i celkovou funkčnost.
 
 \chapter{Závěr}
+
+Tato práce se zaměřila na vývoj syntaktického analyzátoru zpracovávající
+\term{gramatiky řízené stromy}. Přestože tyto gramatiky mají teoreticky vyjadřovací
+sílu \term{neomezených gramatik}. Při praktickém nasazení jsme narazili na mnoho
+potíží, které vyjadřovací sílu snižují.\\
+
+Tyto problémy souvisí hlavně s nedeterminismem a jsou částečně řešitelné pomocí
+průběžné kontroly derivačního stromu (sekce \ref{subsection:LR}).
+Zjistili jsme, že nejvhodnější je při zpracování vycházet z LR syntaktického
+analyzátoru, který je modifikovaný o průběžnou kontrolu úrovní derivačního stromu.
+Ukázali jsme si, že tato technika umožňuje částečně řešit \term{shift-reduce} i
+\term{reduce-reduce} konflikty v LR tabulce.\\
+
+Implementační část vychází z těchto poznatků a představuje syntaktický analyzátor
+umožňující zpracovávání velké části \term{jazyků řízených stromy}. Podařilo se
+dosáhnout vyjadřovací síly vyšší, než u \term{bezkontextových jazyků},
+a nižší oproti \term{rekurzivně spočetným jazykům}.
+Pomocí syntaktického analyzátoru se podařilo zpracovávat i tyto
+výše demonstrované gramatiky, které nepatří do gramatik
+bezkontextových \cite[str. 29]{Koutny}:
+\[ a^nb^nc^n \]
+\[ W\#W \]
+\[ a^{2^n} \]
+\subsubsection*{Budoucí vývoj}
+
+Zde prezentovaný přístup pro zpracování \term{gramatik řízených stromy} by
+bylo možné na několika místech vylepšit. Například kontrola pravých stromů
+(sekce \ref{subsec:contLevCheck}) je řešena dosti jednoduše a jistě by ji bylo možné
+vylepšit a např. na základě aktuálního stavu zásobníkového automatu vyloučit některé
+řetězce, které se v této části stromu nemohou nacházet.
+Vylepšení tohoto typu by mělo za následek jak rychlejší zpracování, tak zvýšení síly
+syntaktického analyzátoru, jelikož bychom byli schopni odhalit více konfliktů
+hned při aplikování pravidla.\\
+
+Implementovaná aplikace slouží hlavně pro demonstrační účely, ale prezentované
+algoritmy by bylo možné využít např. pro specifické konstrukce v programovacím
+jazyce, jež nelze vyjádřit bezkontextovým jazykem.
 
 %=========================================================================

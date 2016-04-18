@@ -59,7 +59,7 @@
 \usepackage{tikz}
 \usepackage{calc}
 
-\usepackage[vlined, ruled, czech, linesnumbered]{algorithm2e}
+\usepackage[vlined, ruled, czech, linesnumbered, resetcount, algochapter]{algorithm2e}
 \usepackage[caption = false]{subfig}
 
 
@@ -69,13 +69,10 @@
 \SetKw{And}{and}
 \SetKw{Or}{or}
 
-\theoremstyle{plain}
-\newtheorem{thm}{Theorem}[chapter] % reset theorem numbering for each chapter
 
 \theoremstyle{definition}
-\newtheorem{gram}[thm]{Gramatika}
-\declaretheorem[name=Definice,numberwithin=thm,qed={\lower0.3ex\hbox{$\blacktriangle$}}]{defn}
-\declaretheorem[name=Příklad,numberwithin=thm,qed={\lower0.3ex\hbox{$\blacksquare$}}]{exmp}
+\declaretheorem[name=Definice,numberwithin=section,qed={\lower0.3ex\hbox{$\blacktriangle$}}]{defn}
+\declaretheorem[name=Příklad,numberwithin=section,qed={\lower0.3ex\hbox{$\blacksquare$}}]{exmp}
 
 % =======================================================================
 % balíček "hyperref" vytváří klikací odkazy v pdf, pokud tedy použijeme pdflatex
@@ -120,10 +117,19 @@
   %bud pomoci nasledujicich parametru nebo pomoci vyhrazenych maker (viz dale)
   %===========================================================================
   %Klicova slova
-  keywords.cs={Klíčová slova v českém jazyce.}, %klicova slova v ceskem jazyce
-  keywords.en={Klíčová slova v anglickém jazyce.}, %klicova slova v anglickem jazyce
+  keywords.cs={gramatiky řízené stromy, syntaktická analýza}, %klicova slova v ceskem jazyce
+  keywords.en={tree controlled grammars, syntactic analysis}, %klicova slova v anglickem jazyce
   %Abstract
-  abstract.cs={Výtah (abstrakt) práce v českém jazyce.}, % abstrakt v ceskem jazyce
+  abstract.cs={
+    Cílem této práce je navrhnout a implementovat syntaktický analyzátor
+    gramatik jejichž derivační strom je omezen pomocí kontroly úrovní.
+    Na základě nastudovaných zdrojů je prezentován
+    rozbor problematiky a navrženo nejvhodnější řešení, které je poté využito
+    pro samotnou implementaci. Největším přínosem práce je systém
+    průběžné kontroly derivačního stromu již při jeho konstrukci,
+    což umožňuje deterministické zpracování některých nedeterministických
+    gramatik.
+  }, % abstrakt v ceskem jazyce
   abstract.en={Výtah (abstrakt) práce v anglickém jazyce.}, % abstrakt v anglickem jazyce
   %Prohlaseni
   declaration={Prohlašuji, že jsem tuto bakalářskou práci vypracoval samostatně pod vedením profesora RNDr. Alexandra Meduny, CSc. Uvedl jsem všechny literární prameny a publikace, ze kterých jsem čerpal.},
