@@ -77,8 +77,9 @@ class PrecedenceTable:
 
     def _getFirstPrecedenceSymbol(self, stack):
         for symbol in reversed(stack):
-            if self.isDefined(symbol.symbol):
-                return symbol.symbol
+            if self.isDefined(symbol):
+                return symbol
+        return False
 
     def __str__(self):
         """To string."""

@@ -138,8 +138,6 @@ def main():
         automat.dropERules()
         automat.determinate()
 
-        # generate dictionary for jumping for checking substrings
-        automat.generateDict()
         debug_print('automat', automat)
 
     # lltable = ll_table.LLTable(grammar)

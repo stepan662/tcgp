@@ -1,3 +1,4 @@
+% !TEX program = pdflatex
 % !TEX root = ./projekt.tex
 %=========================================================================
 % (c) Michal Bidlo, Bohuslav Křena, 2008
@@ -1837,15 +1838,18 @@ formát je uveden v souboru \texttt{README}.\\
 
 Jediným povinným argumentem je vstupní gramatika, jež je načtena z
 externího souboru. Hlavní součástí tohoto souboru je řídicí bezkontextová gramatika,
-volitelně poté můžeme přidat kontrolní jazyk
-(ve formě výčtu řetězců nebo konečného automatu).
+volitelně poté můžeme přidat kontrolní jazyk ve formě konečného automatu nebo
+výčtu řetězců (ty jsou také převedeny na konečný automat). Konečný
+automat je v aplikaci determinizován.
 Volitelně zde lze definovat také priority operátorů.
 Formát tohoto souboru je detailně specifikován v souboru \texttt{README}.\\
 
 Dále je nutné programu předat vstupní řetězec. Volitelným argumentem je
 možné aplikaci předat název externího souboru. Pokud není specifikován
-je čten ze standardního vstupu. Podobně je možné přesměrovat i standardní
-výstup.\\
+je čten ze standardního vstupu. Tento vstupní řetězec je parsován konečným
+automatem, který přijímá terminální symboly gramatiky.
+Pokud lze vstupní symboly interpretovat pouze jedním způsobem, není nutné
+je oddělovat mezerami (ty jsou ignorovány).\\
 
 Aplikace umožňuje detailně zvolit jaké informace má tisknout
 při zpracování jazyka a zpracování řetězce. Ve výchozím stavu
@@ -1906,6 +1910,27 @@ tuto část, a poté byla celá aplikace důkladně otestována.\\
 Pro účely testování byla postupně navržena automaticky spustitelná sada testů
 typu black box, kdy testujeme krajní a složité případy jednotlivých modulů
 i celkovou funkčnost.
+
+\subsubsection*{Výkon}
+
+LR parser je v základní podobě schopen zpracovávat vstup v lineárním čase $O(n)$
+Samotná kontrola úrovní zvýší asymptotickou složitost na $O(n \cdot log(n))$, při
+předpokladu, že nenarazíme na žádný konflikt (nejlepší případ).
+Při řešení konfliktů jsme však nuceni zkoušet spojování podstromů,
+u pravých podstromů ještě pracujeme se složitým procházením mnoha stavů automatu.
+Výsledná nejhorší složitost by se tedy blížila $O(n \cdot log(n) \cdot m)$,
+kde $n$ je délka vstupního řetězce a $m$ velikost konečného automatu.
+
+Při návrhu a implementaci byl však kladen důraz hlavně na čitelnost a
+rozšiřitelnost kódu a proto nebylo přistupováno k mnoha optimalizacím.
+Výsledný výkon bude o něco horší.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=.7]{fig/Application.pdf}
+  \caption{Zjednodušený diagram tříd.}
+\end{figure}
+
 
 \chapter{Závěr}
 

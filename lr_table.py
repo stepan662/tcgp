@@ -2,7 +2,7 @@
 
 from rule import Rule
 from operation import Operation
-from virtual_tree import VirtualTree
+from tree import Tree
 from eff import EFF
 from debug_print import debug_print
 from debug_print import Debug
@@ -116,9 +116,19 @@ class TableItem:
         else:
             return self.reduce[0]
 
+    def setOperation(self, operation):
+        """Set operation, in case of conflict."""
+        if operation == Operation.reduce:
+            self.shift = False
+        else:
+            self.reduce = []
+        self.checkConflicts()
+
     def checkConflicts(self):
         """Check shift-reduce and reduce-reduce conflict."""
         cls = type(self)
+        self.isReduceReduce = False
+        self.isShiftReduce = False
         if self.shift is not False and len(self.reduce) == 1:
             self.isShiftReduce = True
             if not cls.shiftReduceAllow:
@@ -322,6 +332,26 @@ class LRTable:
                     tIt = Item(group.transitions[markedS],
                                Operation.shift)
                     self._addToTable(i, markedS, tIt)
+        if self.precendece:
+            for i, row in enumerate(lrtable):
+                for symbol in row:
+                    item = row[symbol]
+                    if isinstance(item, TableItem) and item.isShiftReduce and\
+                            not item.isReduceReduce:
+                        rule = self.grammar.rules[
+                            item.getItem(Operation.reduce).state]
+                        op = self.precendece.getPrecedence(
+                            rule.rightSide, symbol)
+                        # print(rule, symbol, op)
+                        if op:
+                            item.setOperation(op)
+                        elif self.automat is False:
+                            debug_print('table', self)
+                            raise ValueError("Conflict in LR table " +
+                                             "on position [" +
+                                             str(i) + ", " + str(symbol) +
+                                             "] can't be handled be " +
+                                             "precendece table", 4)
         debug_print('table', self)
 
     def _addToTable(self, group, symbol, item):
@@ -366,7 +396,7 @@ class LRTable:
 
         state = 0
         token = getToken()
-        tree = VirtualTree(automat, self.grammar, False)
+        tree = Tree(automat, self.grammar)
         err = False
         self.exit_code = 1
         try:
@@ -434,26 +464,7 @@ class LRTable:
         item = False
         if alpha.isShiftReduce:
             # shift-reduce conflict
-            if self.precendece is not False:
-                # try to decide conflict by precedence table
-                operation = self.precendece.getPrecedence(
-                    stack, token)
-                if operation is not False:
-                    item = alpha.getItem(operation)
-                    if operation == Operation.reduce:
-                        if not tree.applyRule(grammar.rules[item.state]):
-                            raise\
-                                ValueError("Rule " +
-                                           str(grammar.rules[item.state]) +
-                                           " can't be used, because " +
-                                           "of tree conflict.")
-
-                        debug_print('rules', grammar.rules[item.state])
-                    else:
-                        tree.pushSymbol(token)
-                        debug_print('rules', "shift", token)
-
-            if item is False and self.automat is not False:
+            if self.automat is not False:
                 # no precedence help, try to solve it by tree conflict
                 item = alpha.getItem(Operation.reduce)
                 states = tree.tryApplyRule(grammar.rules[item.state])

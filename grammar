@@ -1,0 +1,23 @@
+grammar = (
+  {E},
+  {'+', '*', '(', ')', 'id'},
+  {
+    E -> E '+' E;
+    E -> E '*' E;
+    E -> '(' E ')';
+    E -> 'id';
+  },
+  E
+)
+
+precedence = (
+  left: '*';
+  left: '+';
+)
+
+automaton = (
+  {A},
+  {},
+  A,
+  {}
+)

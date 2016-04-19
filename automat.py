@@ -14,7 +14,6 @@ class Automat:
         self._states = {}
         self._alphabet = {}
         self._start = False
-        self._dict = {}
 
     def addAlpha(self, char):
         """Add character into alphabet."""
@@ -48,18 +47,6 @@ class Automat:
             except:
                 raise ValueError("Undefined character '" + char + "'", 5)
             st.addRule(char, target)
-
-    def generateDict(self):
-        """Generate dictionary for unknown start state."""
-        self._dict = {}
-        for symbol in self._alphabet:
-            self._dict[symbol] = set()
-
-        for stName in self._states:
-            state = self._states[stName]
-            for symbol in state._rules:
-                newStates = state._rules[symbol]
-                self._dict[symbol].update(newStates)
 
     def setStart(self, name):
         """
@@ -219,26 +206,11 @@ class Automat:
 
     def applyCharToState(self, char, state):
         """Make one step with given char and state."""
-        if state is False:
-            # we don't know in which state we are - take all possible
-            return self._dict[char]
-        elif isinstance(state, type(set())):
-            # state is set of states - there is more possible states
-            # lets try all of them
-            newStates = set()
-            for st in state:
-                newState = self.applyCharToState(char, st)
-                if newState is not False:
-                    newStates.add(newState)
-            if len(newStates) == 0:
-                return False
-            return newStates
+        rules = self._states[state].getRules(char)
+        if len(rules) == 1:
+            return rules[0]
         else:
-            rules = self._states[state].getRules(char)
-            if len(rules) == 1:
-                return rules[0]
-            else:
-                return False
+            return False
 
     def getAlphabet(self):
         """Get alphabet."""

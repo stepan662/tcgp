@@ -111,18 +111,16 @@ class SymbolTree(str):
         return self.str
 
 
-class VirtualTree:
+class Tree:
     """Composing of virtual tree from original rules."""
-    def __init__(self, aut, grammar, ll):
+    def __init__(self, aut, grammar):
         """Initialization."""
         self.aut = aut
         self.grammar = grammar
-        if not ll:
-            self.ll = False
-            self.stack = []
-            self.autStates = []
-        else:
-            self.ll = True
+        self.stack = []
+        self.autStates = []
+        if self.aut:
+            self._generateDict()
 
     def _ruleSymbols(self, rule):
         # take symbols, that are in rule, from stack
@@ -166,7 +164,7 @@ class VirtualTree:
             else:
                 startSymbol = False
 
-            newState = self.aut.applyCharToState(symbol, startSymbol)
+            newState = self.applyCharToState(symbol, startSymbol)
             self.autStates.append([newState])
             if newState is False:
                 raise ValueError("Pushed symbol '" + symbol + "' is not " +
@@ -205,7 +203,7 @@ class VirtualTree:
                 while symbol:
                     # s += "'" + symbol.str + "' -> "
                     autStates[i] =\
-                        self.aut.applyCharToState(
+                        self.applyCharToState(
                             symbol.str, autStates[i])
                     if autStates[i] is False:
                         return False
@@ -215,11 +213,42 @@ class VirtualTree:
                 # print(s)
         # success
         # new autStates are ok
-        newState = self.aut.applyCharToState(rule.leftSide, firstState)
+        newState = self.applyCharToState(rule.leftSide, firstState)
         if newState is False:
             return False
         autStates = [newState] + autStates
         return autStates
+
+    def applyCharToState(self, char, state):
+        """Apply char to state(s) by automaton."""
+        if state is False:
+            # we don't know in which state we are - take all possible
+            return self._dict[char]
+        elif isinstance(state, type(set())):
+            # state is set of states - there is more possible states
+            # lets try all of them
+            newStates = set()
+            for st in state:
+                newState = self.aut.applyCharToState(char, st)
+                if newState is not False:
+                    newStates.add(newState)
+            if len(newStates) == 0:
+                return False
+            return newStates
+        else:
+            return self.aut.applyCharToState(char, state)
+
+    def _generateDict(self):
+        """Generate dictionary for unknown start state."""
+        self._dict = {}
+        for symbol in self.aut._alphabet:
+            self._dict[symbol] = set()
+
+        for stName in self.aut._states:
+            state = self.aut._states[stName]
+            for symbol in state._rules:
+                newStates = state._rules[symbol]
+                self._dict[symbol].update(newStates)
 
     def mergeTrees(self, children):
         """Connect children trees."""
