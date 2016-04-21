@@ -24,7 +24,7 @@ syntaktického analyzátoru, tak abychom byli schopni zpracovávat co
 nejvíce jazyků, které nelze definovat (deterministickými) bezkontextovými
 gramatikami.\\
 
-Pro realizaci tohoto úkoly bylo nutné podrobně nastudovat problematiku
+Pro realizaci tohoto úkolu bylo nutné podrobně nastudovat problematiku
 \term{Regulárních} a \term{Bezkontextových jazyků}, čímž se zabýváme
 v kapitolách \ref{chap:Definitions} a \ref{chap:FormalLangs}. Uvedené
 poznatky vychází převážně z knihy prof. Alexandra Meduny \cite{MedunaIFJ}.\\
@@ -958,12 +958,12 @@ a terminál vrátí pravidlo, které použít:\\
 
   \BlankLine
   \Begin{
-    \ForAll{$A \rightarrow a \in P$} {
+    \ForAll{$p: A \rightarrow a \in P$} {
       \ForAll{$b \in Predict(A \rightarrow a)$}{
         \uIf{$\alpha(A, b)$ není definováno}{
-          $\alpha(A, b) = A \rightarrow a$
+          $\alpha(A, b)$ := $p$
         }
-        \Else{
+        \ElseIf{$p \neq \alpha(A, b)$}{
           chyba - nejde o LL gramatiku
         }
       }
@@ -1281,7 +1281,7 @@ Všimněme si, že v některých polích tabulky máme 2 položky. Tyto případ
 se nazývají \term{shift-reduce} konflikty a jsou projevem toho, že je tato
 gramatika nedeterministická (viz. sekce \ref{subec:nondeterminsm}).
 Výhodou LR gramatiky je to, že ji lze lehce rozšířit o priority operátorů
-a poté za běhu rozhodnout, které pravidlo použít.
+a podle nich rozhodnout, jestli provést operace \term{shift} nebo \term{reduce}.
 Priority pro tuto gramatiku mohou vypadat následovně:
 
 \begin{lstlisting}
