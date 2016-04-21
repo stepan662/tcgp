@@ -2,7 +2,8 @@
 
 ## Tree controlled grammar parser (TCGP) ##
 
-Tree controlled grammar parser is a part of bachelor thesis: Parsing Based on Tree-Controled Grammars, Brno University of Technology 2016.
+Tree controlled grammar parser is a part of bachelor thesis: Parsing Based
+on Tree-Controled Grammars, Brno University of Technology 2016.
 
 Basic usage is for verification, that text string belongs to specified grammar.
 This parser expands common LR parser, so it allows parsing of some non-context free grammars.
@@ -109,7 +110,6 @@ Meaning of shortcuts in syntax of grammar file:
 * `<dir>` - associativity direction in precedence table, values:
     * `left`      - left associativity
     * `right`     - right associativity
-    * `nonassoc`  - no associativity, considered as error
 * `$` - represents end of file
 
 
@@ -128,7 +128,8 @@ Depending on input, application returns one of these exit codes:
 
 * 0:  Input string belongs to input grammar.
 * 1:  `NOT_IN_GRAMMAR` - Input string doesn't belong to input grammar.
-* 2:  `NONDETERM_ERROR` - Nondeterministic step has been applied and then we ran into error. It is not clear, if string belongs to grammar. This problem is described closely in Bc. thesis.
+* 2:  `NONDETERM_ERROR` - Nondeterministic step has been applied and then we ran into error.
+It is not clear, if string belongs to grammar. This problem is described closely in Bc. thesis.
 * 3:  `GRAMMAR_PARSE_ERROR` - Syntax or logical error in input grammar file.
 * 4:  `LR_TABLE_ERROR` - Conflict or other problem in LR table.
 * 5:  `FINITE_AUTOMAT_ERROR` - Logical error in user defined Finite automat.

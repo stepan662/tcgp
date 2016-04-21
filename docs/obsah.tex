@@ -6,7 +6,7 @@
 \chapter{Úvod}
 
 Bezkontextové jazyky jsou široce využívány pro zpracování formálních jazyků.
-Jelikož někdy síla zavedeného syntaktickýckého analyzátoru nestačí, přistupuje
+Jelikož někdy síla zavedeného syntaktického analyzátoru nestačí, přistupuje
 se k různým úpravám a vylepšením.
 Tyto úpravy mohou být buď jednoúčelové, nebo univerzálnějšího typu, kdy
 se snažíme celkové zvýšit vyjadřovací syntaktického analyzátoru,
@@ -84,7 +84,7 @@ Uvedeny jsou jen definice, jež jsou zásadní pro pozdější výklad.
       v $G$, pro $k \geq 1$.
 
     \item \term{Hranice} stromu $G$, hranice($G$),
-      je posloupnost listů $G$ řazených zleva do prava.
+      je posloupnost listů $G$ řazených zleva doprava.
 
     \item \term{Hloubka} stromu $G$, hloubka($G$), je délka nejdelší cesty v $G$;
       jestliže platí hloubka($G$)$ = 1$, potom je $G$ elementární strom.
@@ -149,7 +149,7 @@ Pokud se zabýváme nekonečnými jazyky, nemůžeme je vyjádřit jednoduchým 
 \term{Přepisovací pravidlo} je složeno ze dvou řetězců $(\alpha, \beta)$,
 složených z terminálů a neterminálů, přičemž $\alpha$ obsahuje alespoň jeden \term{neterminál}.
 Zapisují se jako $\alpha \rightarrow \beta$.\\
-Pravidla se aplikují od počátčního symbolu, kdy postupně přepisujeme řetězec tak že nahradíme
+Pravidla se aplikují od počátečního symbolu, kdy postupně přepisujeme řetězec tak že nahradíme
 jakoukoliv část řetězce, která se nachází na levé straně některého pravidla za pravou stranu tohoto pravidla.
 Tato operace se také nazývá \term{derivace}.
 Řetězec upravujeme podle pravidel tak dlouho, až se v něm nacházejí pouze \term{terminály}.
@@ -277,7 +277,7 @@ jelikož obsahuje pouze informaci o aktuálním stavu.
       qb $\rightarrow$ q,
       qc $\rightarrow$ f
     },
-    s,                (* // počateční stav *)
+    s,                (* // počáteční stav *)
     {f}               (* // množina ukončujících stavů *)
   )
   \end{lstlisting}
@@ -444,7 +444,7 @@ V tomto konkrétním případě jsme si pomohli intuicí, uveďme ale obecné al
 
 \begin{algorithm}[H]
   \caption{Odstranění nedeterminismu}
-  \KwIn{Končný automat bez $\varepsilon$-přechodů $M = (Q, \Sigma, R, s, F)$}
+  \KwIn{Konečný automat bez $\varepsilon$-přechodů $M = (Q, \Sigma, R, s, F)$}
   \KwOut{Deterministický KA: $D = (Q_D, \Sigma, R_D, s_D, F_D)$ ekvivalentní s $M$}
 
   \BlankLine
@@ -530,7 +530,7 @@ nebudou využívány a proto zde nejsou více rozebírány.\\
   Problémem \term{konečného automatu} je, že může obsahovat pouze konečný
   počet stavů, jelikož každý musíme nejprve definovat.
   Zde tedy vidíme příklad jazyka, který nejde zpracovávat Konečným automatem
-  a z toho vyplívá, že není ani Regulárním jazykem.
+  a z toho vyplývá, že není ani Regulárním jazykem.
   Řekněme si rovnou, že bezkontextové jazyky tento problém řeší a k tomuto
   příkladu se ještě vrátíme.
 
@@ -576,7 +576,7 @@ Stačí přidat do výrazu další rekurzi:
 \[E \rightarrow (E)E\]
 Všimněme si ještě, že začínáme od symbolu $E$, který lze vymazat pomocí
 $\varepsilon$-pravidla, přijímáme tedy i prázdný řetězec. Pokud bychom chtěli
-vyjádřit, že celý výraz musí být alespoň v jedněch závrokách lze to udělat
+vyjádřit, že celý výraz musí být alespoň v jedněch závorkách lze to udělat
 přidáním speciálního počátečního pravidla:
 \[S \rightarrow (E)\]
 Nyní tedy budeme začínat od symbolu S. Označme si tuto gramatiku jako
@@ -691,7 +691,7 @@ Pro větší názornost ukažme ještě stejný strom s přiřazenými symboly k
                 A & \Rightarrow^* uBv [\rho] \nonumber\\
                   & \Rightarrow \hphantom{*} uzv [l] \nonumber
             \end{align}
-            je získán nahrazením ($|u|+1$)-tého listu v $d$, $B$, stromem pravidla odpovídajícho $l$, $B\langle z\rangle$
+            je získán nahrazením ($|u|+1$)-tého listu v $d$, $B$, stromem pravidla odpovídajícího $l$, $B\langle z\rangle$
     \end{enumerate}
     \item Derivační strom v $G$ je jakékoliv $t$, pro které existuje derivace odpovídající $t$ (viz 2.).
   \end{enumerate}
@@ -727,7 +727,7 @@ Pro rozhodnutí, jaké pravidlo použít,
 využívá vedle vstupního symbolu a stavu i symbol na vrcholu zásobníku. V rámci vykonání
 přechodu lze zároveň manipulovat se zásobníkem.\\
 
-Vraťme se opět k příkladu \ref{exmp:brackets} a všiměme si stavů
+Vraťme se opět k příkladu \ref{exmp:brackets} a všimněme si stavů
 vyjadřujících zanoření. Značili jsme je jako počet uzavíracích závorek,
 které jsou ještě potřeba, aby byl výraz platný. Pokud jsme narazili na
 otevírací závorku, přešli jsme do stavu \uv{o jedna více závorek}, v případě uzavírací
@@ -778,7 +778,7 @@ stromů chceme.\\
 \label{sec:CFLanguagesProcessing}
 
 Při zpracování bezkontextového jazyka je hlavní problematikou
-sestavování konfigurace zasobníkového automatu pro danou gramatiku.
+sestavování konfigurace zásobníkového automatu pro danou gramatiku.
 Musíme totiž gramatická (přepisovací) pravidla zanést do konfigurace
 automatu tak, aby bylo vždy jasné, které použít.\\
 
@@ -1071,7 +1071,7 @@ v oblasti \term{Deterministických bezkontextových jazyků}.
 LR syntaktická analýza generuje obrácený pravý rozbor.\\
 
 Pro zpracování se opět používá \term{Zásobníkový automat}, který je
-rozšířen o možnost pracovat na vrcholu zásobníku s řetězecem (ne jen s jedním symbolem).
+rozšířen o možnost pracovat na vrcholu zásobníku s řetězcem (ne jen s jedním symbolem).
 Toto rozšíření je nutné pro aplikování pravidel - tedy nahrazení řetězce na pravé straně za
 symbol na levé straně pravidla (postupujeme opačně než u LL).\\
 
@@ -1093,7 +1093,7 @@ nám určuje tzv. LR tabulka, jejíž konstrukcí se budeme dále zabývat.\\
   Určuje do jakého stavu přejít po aplikaci pravidla.
 \end{itemize}
 
-Stav zde vyjadřuje možnosti, které vyplívají ze znaků naposledy přečtených.
+Stav zde vyjadřuje možnosti, které vyplývají ze znaků naposledy přečtených.
 Pro každý stav existuje množina pravidel, jejichž pravá strana prozatím vyhovuje přečteným symbolům.
 Při znázorňování množin pravidel budeme používat znak \symb{•} znázorňující aktuální pozici v pravidle.\\
 
@@ -1290,10 +1290,39 @@ Priority pro tuto gramatiku mohou vypadat následovně:
 \end{lstlisting}
 
 V tomto případě má tedy operátor  \symb{*} vyšší prioritu a oba operátory jsou vyhodnocovány zleva.
-Za běhu poté porovnáváme příchozí neterminál s posledním operátorem na zásobníku
-a na základě toho rozhodneme jestli provedeme operaci \term{shift} nebo \term{reduce}.
-Ukažme si zpracování řetězce \symb{a * a + a}:
+Ještě před zpracováním řetězce můžeme tedy vyřešit konflikty v LR tabulce tak,
+že porovnáme prioritu operátoru v \term{reduce} pravidle a vstupního symbolu
+a podle priorit nastavíme buď \term{shift} (vyšší priorita vstupního symbolu nebo pravá asociativita)
+nebo \term{reduce} (nižší priorita vstupního symbolu nebo levá asociativita).
+Tabulka po vyřešení konfliktů vypadá takto:
 
+\begin{table}[H]
+  \catcode`\-=12
+  \centering
+  \begin{tabular}{| c || c | c | c | c || c | c |}
+    \hline
+    \multirow{2}{*}{} & \multicolumn{4}{c||}{$\alpha$}& \multicolumn{2}{c|}{$\beta$} \\
+    \cline{2-7}
+      & * & + & a & \$& S'& E \\
+    \hhline{|=||=|=|=|=||=|=|}
+    0 &   &   & s1 &   &   & 2 \\
+    \hline
+    1 & r3 & r3 &   & r3 &   &   \\
+    \hline
+    2 & s3 & s4 &   & a &   &   \\
+    \hline
+    3 &   &   & s1 &   &   & 5 \\
+    \hline
+    4 &   &   & s1 &   &   & 6 \\
+    \hline
+    5 & r1 &  r1 & & r1 &   & \\
+    \hline
+    6 & s3 &  r2 & & r2 &   & \\
+    \hline
+  \end{tabular}
+\end{table}
+
+Ukažme si zpracování řetězce \symb{a * a + a}:
 \begin{figure}[H]
   \centering
   \subfloat[Zpracování řetězce]{
@@ -1319,8 +1348,7 @@ vysvětleme některé kroky:
     \item[4.] Jsme ve stavu 3 a na vstupu máme \symb{a} - \term{shift} 1.
     \item[5.] Jsme ve stavu 1 a na vstupu máme \symb{+} - \term{reduce} 3
      - poslední stav je 3 a levá strana je \symb{E} - přejdeme do stavu 5.
-    \item[6.] Jsme ve stavu 5 a na vstupu máme \symb{+} - narazili jsme na \term{shift-reduce} konflikt
-    v LR tabulce - poslední operátor na zásobníku je \symb{*}, protože má vyšší prioritu,
+    \item[6.] Jsme ve stavu 5 a na vstupu máme \symb{+} - (zde je konflikt vyřešený prioritou operátorů)
     provedeme operaci \term{reduce} 1 - poslední stav je 0 a levá strana je \symb{E} - přejdeme do stavu 2.
     \item[] ...
     \item[11.] Jsme ve stavu 2 a na vstupu máme \symb{\$} - V LR tabulce je \symb{a}
@@ -1328,7 +1356,7 @@ vysvětleme některé kroky:
   \end{itemize}
 \end{exmp}
 
-Je vidět, že pomocí LR syntatické analýzy jsme schopni zpracovávat deterministické
+Je vidět, že pomocí LR syntaktické analýzy jsme schopni zpracovávat deterministické
 gramatiky a pokud přidáme priority, i některé nedeterministické. Všimněme si jak je
 sestavován derivační strom - jdeme odspodu a vytváříme několik podstromů,
 teprve v posledním kroku je spojíme do jednoho.
@@ -1345,7 +1373,7 @@ zásobníkového automatu, aby byl schopen takové jazyky zpracovávat.\\
 
 \section{Omezení úrovní derivačního stromu}
 
-Ve své práci jsem se rozhodl pro techinku omezování derivačního stromu pomocí
+Ve své práci jsem se rozhodl pro techniku omezování derivačního stromu pomocí
 kontroly jeho úrovní regulárním jazykem.
 Gramatika jazyka řízeného stromem se tedy skládá ze 2 částí a značíme ji jako
 $(G, R)$, kde:
@@ -1374,7 +1402,7 @@ Vyjádřeno formálně:
   \begin{adjustwidth}{0.5cm}{0.5cm}
     $L(G, R) = \{x: x \in L(G, R)$ a existuje derivační strom $t$ pro
     každé $x$ v $G$ takový, že každé slovo získané konkatenací
-    všech symbolů na kterékoliv úrovni $t$ (kromě poslení) zleva doprava,
+    všech symbolů na kterékoliv úrovni $t$ (kromě poslední) zleva doprava,
     patří do $R \}$.
   \end{adjustwidth}
 \end{defn}
@@ -1469,7 +1497,7 @@ využít.
 \section{LL syntaktická analýza}
 
 Výhodou LL analýzy je intuitivní konstrukce derivačního stromu shora a zleva,
-při tomto postupu je výhodné, že vždy máme nejlevěší část stromu, pokud tedy
+při tomto postupu je výhodné, že vždy máme nejlevější část stromu, pokud tedy
 chceme kontrolovat úrovně již za běhu, můžeme to provádět bez problému, jelikož
 každou úroveň generujeme od nejlevějšího znaku a můžeme ji tedy rovnou
 kontrolovat automatem.\\
@@ -1518,7 +1546,7 @@ jednoduše přidat stavy přijímající jakoukoliv posloupnost terminálů a
 zkontrolovat úrovně všechny. Tato technika bude dále využívána (i u LR SA).\\
 
 Nyní zkusme prozkoumat, jak bychom mohli těchto vlastností využít, pro
-vyřešní konfliktů v \term{LL tabulce}. Ukažme si to na následující gramatice:
+vyřešení konfliktů v \term{LL tabulce}. Ukažme si to na následující gramatice:
 \begin{exmp}
   \label{exmp:aa}
   \begin{lstlisting}
@@ -1595,7 +1623,7 @@ Jakmile je ale \term{řídicí gramatika} nedeterministická kontrola úrovní
 nám mnoho nepomůže.
 Navíc LL syntaktická analýza má již v základu menší vyjadřovací sílu, než
 LR syntaktická analýza, proto se pro zpracování gramatik řízených stromy
-nejeví jako přílš vhodná.
+nejeví jako příliš vhodná.
 
 \section{LR syntaktická analýza}
 \label{subsection:LR}
@@ -1674,7 +1702,7 @@ Vidíme, že tímto způsobem odhalíme chybu v úrovních až v posledním krok
   nevyřešíme.\\
 
   Zkusme podobně jako u LL syntaktické analýzy řešit konflikty v LR tabulce
-  pomocí kotroly úrovní stromu. U LR SA to bude ověření, jestli lze
+  pomocí kontroly úrovní stromu. U LR SA to bude ověření, jestli lze
   dané stromy spojit (aplikovat pravidlo). Ukažme si to na předchozích
   konfliktech:
 
@@ -1711,8 +1739,9 @@ Vraťme se ještě ke kroku, kdy se rozhodujeme mezi operacemi \term{shift} a
 Bohužel nejsme schopni určit, jestli operace \term{shift} povede ke konfliktu,
 proto v případě, že pokus o \term{reduce} projde, nezbývá než předpokládat, že
 \term{shift} je tou špatnou cestou.
-To ovšem neplatí obecně a pokud později narazíme na konflikt, může to
-znamenat, že jsme sestrojili špatný strom.\\
+To ovšem neplatí obecně a pokud později narazíme na konflikt, znamená to
+pouze, že sestrojený strom je špatný, jiný strom by však mohl být správný.
+Nevíme tedy jistě, jestli řetězec do gramatiky opravdu nepatří.\\
 
 Nechceme se ale ochudit o možnost pokusit se sestrojit správný strom
 a např. u výše uvedené gramatiky problém není.
@@ -1833,7 +1862,7 @@ jako konzolová aplikace, ovládá se tedy výhradně přes příkazový řádek
 
 \subsubsection*{Vstupní parametry}
 
-Aplikace přijímá parametry ve standardním UNIXovém formátu, jejich přesný
+Aplikace přijímá parametry ve standardním unixovém formátu, jejich přesný
 formát je uveden v souboru \texttt{README}.\\
 
 Jediným povinným argumentem je vstupní gramatika, jež je načtena z
@@ -1862,26 +1891,20 @@ použitých pravidel atp.\\
 Pokud specifikujeme pouze řídicí gramatiku, aplikace se chová jako
 standardní LR syntaktický analyzátor a hlásí chyby při konfliktech LR tabulce.
 V případě že přidáme priority operátorů, jsou povoleny \term{shift-reduce}
-konflikty v LR tabulce. Pokud specifikujeme i kontrolní jazyk aktivuje se
+konflikty, které jsou řešitelné pomocí priority operátorů.
+Pokud specifikujeme i kontrolní jazyk aktivuje se
 průběžná kontrola úrovní a jsou povoleny \term{shift-reduce} i
 \term{reduce-reduce} konflikty. Tyto konflikty jsou poté
 řešeny za běhu tímto způsobem:
 
 \begin{itemize}
-  \item Nejprve zkusíme vyřešti problém pomocí priority operátorů.
-    Pokud není priorita specifikována pro aktuální operátory nebo se jedná o
-    reduce-reduce konflikt, přecházíme na další krok.
-
-  \item Pokusíme se konflikt vyřešit pomocí průběžné kontroly úrovní:
-  \begin{itemize}
-    \item V případě \term{shift-reduce} konfliktu se pokusíme vyloučit operaci
-      \term{reduce}. Pokud je to možné, provedeme \term{shift}, jinak
-      provedeme \term{reduce} a zapamatujeme si, že bylo jednáno
-      nedeterministicky (viz. sekce \ref{subsec:nondetSteps}), což se projeví při pozdější chybě.
-    \item Pokud jde o \term{reduce-reduce} konflikt vyzkoušíme všechny možnosti
-      pokračujeme pouze pokud lze použít právě jedno pravidlo. Jinak končíme
-      chybou.
-  \end{itemize}
+  \item V případě \term{shift-reduce} konfliktu se pokusíme vyloučit operaci
+    \term{reduce}. Pokud je to možné, provedeme \term{shift}, jinak
+    provedeme \term{reduce} a zapamatujeme si, že bylo jednáno
+    nedeterministicky (viz. sekce \ref{subsec:nondetSteps}), což se projeví při pozdější chybě.
+  \item Pokud jde o \term{reduce-reduce} konflikt vyzkoušíme všechny možnosti
+    pokračujeme pouze pokud lze použít právě jedno pravidlo. Jinak končíme
+    chybou.
 \end{itemize}
 
 \subsubsection*{Výstup aplikace}
@@ -1908,7 +1931,7 @@ projektu (např. jeden modul), přidány nové testy, zaměřující se na
 tuto část, a poté byla celá aplikace důkladně otestována.\\
 
 Pro účely testování byla postupně navržena automaticky spustitelná sada testů
-typu black box, kdy testujeme krajní a složité případy jednotlivých modulů
+typu black-box, kdy testujeme krajní a složité případy jednotlivých modulů
 i celkovou funkčnost.
 
 \subsubsection*{Výkon}

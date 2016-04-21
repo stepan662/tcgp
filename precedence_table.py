@@ -11,7 +11,6 @@ class Direction(Enum):
     """Asociativity direction."""
     left = 0
     right = 1
-    nonassoc = 2
 
 
 class PrecItem:
@@ -32,7 +31,7 @@ class PrecedenceTable:
 
     def addPrecedence(self, direction, terms):
         """Add precedence rule."""
-        directions = ('left', 'right', 'nonassoc')
+        directions = ('left', 'right')
         if direction not in directions:
             raise ValueError("Undefined Associative property '" +
                              direction + "'", 6)
@@ -64,11 +63,8 @@ class PrecedenceTable:
         if onSt.priority == actu.priority:
             if onSt.dir == Direction.right:
                 return Operation.shift
-            elif onSt.dir == Direction.left:
-                return Operation.reduce
             else:
-                raise ValueError("Nonassoc precedence token '" + onStack +
-                                 "' is on stack.", 1)
+                return Operation.reduce
         elif onSt.priority < actu.priority:
             return Operation.reduce
 
