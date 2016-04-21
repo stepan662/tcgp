@@ -63,7 +63,7 @@ grammar = (
 )
 ~~~
 
-Other parts optional parts:
+Other optional parts:
 
 * `levels` - define control language by enumeration
 
@@ -96,10 +96,10 @@ automaton = (
 
 ~~~
 precedence = (
-  <dir>: [<id>|<str>|$], [<id>|<str>|$], ..., [<id>|<str>|$] ;
-  <dir>: [<id>|<str>|$], [<id>|<str>|$], ..., [<id>|<str>|$] ;
+  <dir>: [<id>|<str>], [<id>|<str>], ..., [<id>|<str>] ;
+  <dir>: [<id>|<str>], [<id>|<str>], ..., [<id>|<str>] ;
   ...
-  <dir>: [<id>|<str>|$], [<id>|<str>|$], ..., [<id>|<str>|$] ;
+  <dir>: [<id>|<str>], [<id>|<str>], ..., [<id>|<str>] ;
 )
 ~~~
 
@@ -110,13 +110,12 @@ Meaning of shortcuts in syntax of grammar file:
 * `<dir>` - associativity direction in precedence table, values:
     * `left`      - left associativity
     * `right`     - right associativity
-* `$` - represents end of file
 
 
 ### Input string ###
 
 Input string is expected to contain grammar terminals.
-White chars are ignored (or used as separators).
+White chars are ignored (used as separators).
 Terminals don't have to be separated by white chars,
 but there can be bad interpretation, if there are multiple
 ways how to interpret string (e.g. two terminals `a` and `aa`).
