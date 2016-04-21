@@ -36,4 +36,4 @@ clean:
 	rm -f *~
 
 pack:
-	tar czvf bp-xjmeno.tar.gz *.tex *.bib *.bst ./fig/* ./cls/* Makefile Changelog
+	tar czvf bp-xgrana02.tar.gz czechiso.bst fitthesis.cls *.tex *.bib *.bst ./fig/* Makefile
