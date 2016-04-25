@@ -17,7 +17,7 @@ Tato práce pojednává o zpracování \term{Gramatik řízených stromy}.
 Takové gramatiky se skládají ze dvou jazyků - řízeného a kontrolního.
 Řízený jazyk budeme definovat pomocí \term{Bezkontextové gramatiky} a
 slouží k sestavení derivačního stromu pomocí již zavedených postupů
-(LR parser).
+(např. LR parser).
 Kontrolní jazyk definujeme \term{Konečným automatem} a poslouží k
 omezení derivačního stromu. Cílem je zvýšit vyjadřovací sílu
 syntaktického analyzátoru, tak abychom byli schopni zpracovávat co
@@ -26,21 +26,30 @@ gramatikami.\\
 
 Pro realizaci tohoto úkolu bylo nutné podrobně nastudovat problematiku
 \term{Regulárních} a \term{Bezkontextových jazyků}, čímž se zabýváme
-v kapitolách \ref{chap:Definitions} a \ref{chap:FormalLangs}. Uvedené
+v kapitolách \ref{chap:Definitions} a \ref{chap:FormalLangs},
+jelikož jsou zde velmi podstatné detaily těchto metod, které poté
+mají vliv na jejich rozšiřování o kontrolu úrovní. Uvedené
 poznatky vychází převážně z knihy prof. Alexandra Meduny \cite{MedunaIFJ}.\\
 
-Hlavní částí práce je kapitola \ref{chap:TreeLangs}, kde jsou podrobně rozebrány
-možnosti modifikace stávajících metod (LL a LR). Na těchto poznatcích je
-založena experimentální metoda
-průběžné kontroly stromu, jež dovoluje zpracovávat i některé nedeterministické
-řízené gramatiky. Tato část je založena na práci Ing. Jiřího Koutného
-\cite{Koutny}.\\
+Hlavní částí práce je kapitola \ref{chap:TreeLangs}, kde je uvedena metoda kontroly
+úrovní derivačního stromu, která je založena na práci
+Ing. Jiřího Koutného \cite{Koutny}, který ve své práci zpracovává teoretické
+aspekty této problematiky.
+
+Dále zde podrobně rozebíráme možnosti modifikace stávajících metod (LL a LR).
+Zkoumáme zde jak jsou vhodné
+pro rozšíření o kontrolu úrovní, tak aby se činnost syntaktického
+analyzátoru a kontroly úrovní co nejvíce doplňovala. Na těchto poznatcích je
+založena experimentální metoda průběžné kontroly stromu,
+která dokáže řešit některé konflikty u nedeterministických řídicích gramatik a tím
+zvýšit sílu výsledného syntaktického analyzátoru.\\
 
 V poslední kapitole je stručně popsána implementace syntaktického analyzátoru,
-který využívá poznatky získané v předchozích kapitolách.
+který využívá poznatky získané v předchozích kapitolách a na kterém byly
+prováděny pokusy s gramatikami uváděnými v této práci.
 
 
-\chapter{Definice a pojmy}
+\chapter{Teorie grafů}
 \label{chap:Definitions}
 
 Tato práce předpokládá, že je čtenář seznámen s \term{Teorií grafů} a
@@ -223,6 +232,7 @@ všechny Regulární jazyky.\\
 \end{figure}
 
 \section{Regulární jazyky}
+\label{sec:regularLangs}
 
 Regulární jazyky jsou nejjednodušší formální jazyky v Chomského hierarchii.
 I přesto si však našly široké využití v různých oblastech informačních technologií.
@@ -1362,7 +1372,7 @@ sestavován derivační strom - jdeme odspodu a vytváříme několik podstromů
 teprve v posledním kroku je spojíme do jednoho.
 
 
-\chapter{Zpracování jazyků řízených stromy}
+\chapter{Gramatiky řízené stromy}
 \label{chap:TreeLangs}
 
 Pro dosažení větší síly syntaktického analyzátoru bývají zásobníkové automaty
@@ -1472,8 +1482,7 @@ ověřovat příslušnost řetězce do dané gramatiky řízené stromem.
 \end{exmp}
 
 Ukázali jsme si, že samotná kontrola úrovní derivačního stromu není nijak
-velkým problémem. Potřebujeme však nejdříve derivační strom zkonstruovat,
-na což se zaměříme v další sekci.
+velkým problémem. Potřebujeme však nejdříve derivační strom zkonstruovat.
 
 \subsubsection*{Sestavení derivačního stromu}
 
@@ -1494,6 +1503,8 @@ z praktického pohledu a zamyslíme se nad tím, jak by se daly k tomuto účelu
 využít.
 
 \section{LL syntaktická analýza}
+\label{sec:LLTreeLevelCheck}
+
 
 Výhodou LL analýzy je intuitivní konstrukce derivačního stromu shora a zleva,
 při tomto postupu je výhodné, že vždy máme nejlevější část stromu, pokud tedy
@@ -1625,7 +1636,8 @@ LR syntaktická analýza, proto se pro zpracování gramatik řízených stromy
 nejeví jako příliš vhodná.
 
 \section{LR syntaktická analýza}
-\label{subsection:LR}
+\label{sec:LRTreeLevelCheck}
+
 LR syntaktická analýza dokáže deterministicky zpracovávat více jazyků
 než LL a nabízí také jednoduché rozšíření o prioritu operátorů,
 kontrola derivačního stromu za běhu je zde však mnohem složitější,
@@ -1748,7 +1760,7 @@ Musíme ale tyto situace rozlišovat, tedy v případech, kdy víme jistě,
 že řetězec patří nebo nepatří do gramatiky, a kdy to jistě nevíme.\\
 
 \subsection{Průběžná kontrola úrovní všech stromů}
-\label{subsec:contLevCheck}
+\label{subsec:contLevCheckRightTrees}
 
 U výše uvedeného příkladu jsme ověřovali úrovně jen u nejlevějšího
 podstromu. Protože byl řetězec krátký, nepůsobilo to problémy.
@@ -1786,10 +1798,10 @@ vede posloupnost přechodů odpovídající vstupu.\\
       \ForAll{znak $c \in a$}{
         \ForAll{stav $q \in$ stavy}{
           \uIf{přechod $qc \rightarrow q_{new} \in R$}{
-            nahraď v $q$ za $q_{new}$\;
+            V množině $Q$ nahraď $q$ za $q_{new}$\;
           }
           \Else{
-            odeber $q$ ze stavů\;
+            Odeber $q$ z $Q$\;
           }
         }
         \If{stavy $ = \emptyset$} {
@@ -1913,7 +1925,7 @@ gramatiky či nikoliv. Dále je však nutné ošetřit případy chybného vstup
 argumentů atp.\\
 
 V případě, že vše proběhlo v pořádku a řetězec patří do gramatiky je návratový
-kód \texttt{0}. Při chybě návratový kód odpovídá chybě a je také vytištěn krátký
+kód \texttt{0}. Návratový kód odpovídá číslu chyby a je také vytištěn krátký
 popis chyby. Pokud se jedná o chybu ve vstupu, je připojena také informace o
 řádku a pozici v souboru. Podrobný popis návratových kódů je v souboru \texttt{README}.\\
 
@@ -1957,21 +1969,84 @@ Výsledný výkon bude o něco horší.
 \chapter{Závěr}
 
 Tato práce se zaměřila na vývoj syntaktického analyzátoru zpracovávající
-\term{gramatiky řízené stromy}. Přestože tyto gramatiky mají teoreticky vyjadřovací
-sílu \term{neomezených gramatik}. Při praktickém nasazení jsme narazili na mnoho
+gramatiky řízené stromy. Přestože tyto gramatiky mají teoreticky vyjadřovací
+sílu \term{Neomezených gramatik}. Při praktickém nasazení jsme narazili na mnoho
 potíží, které vyjadřovací sílu snižují.\\
 
-Tyto problémy souvisí hlavně s nedeterminismem a jsou částečně řešitelné pomocí
-průběžné kontroly derivačního stromu (sekce \ref{subsection:LR}).
-Zjistili jsme, že nejvhodnější je při zpracování vycházet z LR syntaktického
-analyzátoru, který je modifikovaný o průběžnou kontrolu úrovní derivačního stromu.
-Ukázali jsme si, že tato technika umožňuje částečně řešit \term{shift-reduce} i
-\term{reduce-reduce} konflikty v LR tabulce.\\
+Při vývoji syntaktického analyzátoru jsme vycházeli ze stávajících metod a
+zkoumali jsme, jak bychom mohli tyto metody upravit pro kontrolu
+derivačního stromu. Tyto metody jsou podrobně rozebrány v sekci
+\ref{sec:CFLanguagesProcessing}, kde jsme si ukázali jaké rozdíly jsou v konstrukci
+derivačního stromu.
+Porovnáváme sílu těchto metod a je zde uvedeno jaké problémy nastávají, když
+zpracovávaná gramatika nelze zpracovávat daným syntaktickým analyzátorem.
+U LR syntaktické analýzy prezentujeme také metodu priorit operátorů, která
+umožňuje řešit některé konflikty u nedeterministických gramatik.\\
 
-Implementační část vychází z těchto poznatků a představuje syntaktický analyzátor
-umožňující zpracovávání velké části \term{jazyků řízených stromy}. Podařilo se
-dosáhnout vyjadřovací síly vyšší, než u \term{bezkontextových jazyků},
-a nižší oproti \term{rekurzivně spočetným jazykům}.
+V sekci \ref{sec:LLTreeLevelCheck} jsme upravili LL syntaktickou
+analýzu pro průběžnou kontrolu derivačního stromu a následně jsme se toho
+pokusili využít pro řešení některých konfliktů v LL tabulce. Lze konstatovat,
+že pomocí LL syntaktické analýzy lze pohodlně (a jednoduše) kontrolovat
+úrovně derivačního stromu již za běhu, jelikož je strom konstruován výhodným
+způsobem shora a zleva. Řešení konfliktů v LL tabulce není však příliš účinné,
+jelikož máme při aplikaci pravidla k dispozici velmi malou část stromu
+vytvořeného pravidlem a proto nejsme ve většině případů schopni odhalit
+konflikt ihned. Tento poznatek společně s faktem, že LL syntaktická analýza již
+v základu nabízí nižší sílu než LR syntaktická analýza, vedl nakonec k opuštění
+LL syntaktické analýzy, jelikož jsme nebyli schopni její sílu výrazně zvýšit
+a i při využití průběžné kontroly derivačního stromu pro řešení konfliktů výrazně
+zaostávala za LR syntaktickou analýzou.\\
+
+
+Sekce \ref{sec:LRTreeLevelCheck} se proto plně zaměřuje na LR syntaktickou
+analýzu. Ukázali jsme si, že zde je průběžná kontrola složitější, jelikož
+je strom konstruován zdola a máme v jednu chvíli více nepropojených stromů.
+Kontrolovat průběžně úrovně lze jednoduše pouze u nejlevějšího z nich.
+Jelikož však LR syntakická analýza sestavuje derivační strom zdola a
+postupně vlastně dochází ke spojování jednotlivých podstromů, jsme
+při tomto spojování schopni zkontrolovat kompletní podstrom vytvořený daným
+pravidlem a je zde mnohem pravděpodobnější, že odhalíme případný konflikt
+ihned. Tato metoda přinesla úspěch při řešení
+některých konfliktů v LR tabulce a to jak \term{shift-reduce}, tak i \term{reduce-reduce}.
+
+V podsekci \ref{subsec:contLevCheckRightTrees} je prezentována metoda,
+jak lze částečně kontrolovat i pravé podstromy. Problém tkví v tom, že u těchto
+podstromů nemáme začátek řetězců úrovní a proto nejsme schopni zahájit kontrolu
+úrovní z počátečního stavu konečného automatu. Chceme tedy alespoň ověřit
+jestli je řetězec podřetězcem nějakého řetězce, který do kontrolního jazyka
+patří. Na začátku tedy nevíme z jakého stavu vyjít, proto vyzkoušíme stavy všechny
+a vylučujeme ty, u kterých nejsme schopni pokračovat ve zpracovávání řetězce.
+Pokud máme na konci alespoň jeden stav, můžeme prohlásit, že řetězec je podřetězcem
+alespoň jednoho řetězce patřícího do kontrolního jazyka.
+
+I když je tato metoda dosti těžkopádná, zajišťuje alespoň základní kotrolu pravých
+podstromů což je pro průběžnou kontrolu zásadní.
+
+Pomocí metod uvedených v této části lze zpracovávat i jazyky s nedeterministickou
+řízenou gramatikou, kde není možné konflikty řešit pomocí priority operátorů.
+Jako příklad takové gramatiky je uveden jazyk $a^{2^n}$, jež jsme tímto přístupem
+schopni zpracovat.\\
+
+Implementační část vychází z teoretických poznatků a představuje syntaktický analyzátor
+umožňující zpracovávání velké části \term{jazyků řízených stromy}.
+Podporuje zadávání kontrolního jazyka jak v podobě konečného automatu, tak
+i uživatelsky přivětivým jednoduchým výčtem vyhovujících řetězců.
+Umožněna je také definice priorit operátorů. Cílem je umožnit
+zpracovávání co největšího počtu gramatik přesahující možnosti gramatik bezkontextových.
+Výslednou sílu lze ohraničit takto: je vyšší než u \term{bezkontextových deterministických gramatik},
+a nižší oproti \term{neomezeným gramatikám}.
+
+Daní za velkou sílu syntaktického analyzátoru je zvýšení asymptotické složitosti
+zpracování řetězce (viz. kapitola \ref{chap:Implementation}). Důvodem tohoto zpomalení
+je řešení konfliktů až za běhu, zde jsou procházeny podstromy spojovány aplikovaným pravidlem
+a jelikož nemusí jít o nejlevěší podstrom, záleží také na velkosti konečného automatu.
+Tato oblast podle mého mínění nabízí prostor pro vylepšení.
+
+Pro kontrolu úrovní derivačního stromu jsme využili poznatky uvedené v sekci
+\ref{sec:regularLangs}, tedy odstranění $\varepsilon$-pravidel a determinizaci
+konečného automatu. Konečný automat je také využíván pro parsování tokenů
+a dokáže rozlišovat příchozí terminály i bez oddělovacích mezer.\\
+
 Pomocí syntaktického analyzátoru se podařilo zpracovávat např. tyto
 výše demonstrované gramatiky, které nepatří do gramatik
 bezkontextových \cite[str. 29]{Koutny}:
@@ -1982,12 +2057,21 @@ bezkontextových \cite[str. 29]{Koutny}:
 
 Zde prezentovaný přístup pro zpracování \term{gramatik řízených stromy} by
 bylo možné na několika místech vylepšit. Například kontrola pravých stromů
-(sekce \ref{subsec:contLevCheck}) je řešena dosti jednoduše a jistě by ji bylo možné
-vylepšit a např. na základě aktuálního stavu zásobníkového automatu vyloučit některé
-řetězce, které se v této části stromu nemohou nacházet.
-Vylepšení tohoto typu by mělo za následek jak rychlejší zpracování, tak zvýšení síly
-syntaktického analyzátoru, jelikož bychom byli schopni odhalit více konfliktů
-hned při aplikování pravidla.\\
+(sekce \ref{subsec:contLevCheckRightTrees}) je řešena dosti jednoduše a jistě by ji bylo možné
+vylepšit.
+Vyloučení jakéhokoliv stavu již při začátku procházení by přineslo jak
+zrychlení programu, tak větší sílu, jelikož bychom odhalili více konfliktů.
+Pro tyto účely by bylo možné využít např. množinu follow, kde víme jaké znaky se
+mohou nacházet za daným symbolem a tím bychom se mohli vyloučit některé stavy
+pro určitý symbol ještě před zahájením zpracování řetězce. Možné by bylo také
+prozkoumat souvislost stavu zásobníkového automatu s úrovněmi, je možné, že bychom v této
+oblasti také mohli dosáhnout zlepšení. Celkově větší provázání LR syntaktické
+analýzy a průběžné kontroly úrovní by mohlo potenciálně přinést lepší výkon
+i zvýšení síly. Toto téma by však pravděpodobně vystačilo na samostatnou práci.\\
+
+Pro zlepšení uživatelské přívětivosti by se také mohlo provést odstranění
+nedostupných a neukončujících stavů automatu. To by přineslo zvýšení účinnosti,
+ale pouze v případech, kdy automat kontrolující úrovně tyto stavy obsahuje.\\
 
 Implementovaná aplikace slouží hlavně pro demonstrační účely, ale prezentované
 algoritmy by bylo možné využít např. pro specifické konstrukce v programovacím
