@@ -1,2 +1,4 @@
 *.pyc
 *.in
+/grammar
+/input
