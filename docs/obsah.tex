@@ -5,44 +5,61 @@
 
 \chapter{Úvod}
 
-Bezkontextové jazyky jsou široce využívány pro zpracování formálních jazyků.
-Jelikož někdy síla zavedeného syntaktického analyzátoru nestačí, přistupuje
-se k různým úpravám a vylepšením.
+Teorie formálních jazyků si dává za cíl formalizovat jazyky a pojmy s nimi
+spojené tak, abychom mohli přesně definovat jejich pravidla, a tedy
+jednoznačně stanovit, jaké gramatické konstrukce jazyk umožňuje.
+Dalším krokem je vyvinout nástroje, které
+dokáží definici jazyka zpracovat a poté nad zadaným řetězcem rozhodnout, jestli
+do jazyka patří, či nikoliv. Takové nástroje se nazývají
+\term{Syntaktické analyzátory} nebo \term{Parsery}.\\
+
+Syntaktický analyzátor má za úkol najít mezi jednotlivými symboly
+v řetězci vazby, které vychází z gramatických pravidel jazyka. Tyto vazby lze
+znároznit jako strom, jenž poté může být základem \term{sémantické analýzy},
+tedy jakéhosi \uv{pochopení} přijímaného řetězce.
+Teorie formálních jazyků je základním kamenem při návrhu překladačů
+jazyků programovacích. Ty většinou spadají do \term{Bezkontextových jazyků},
+pro které již existují zavedené syntaktické analyzátory.\\
+
+Někdy však síla těchto zavedených parserů nestačí, a proto se přistupuje
+k různým úpravám a vylepšením.
 Tyto úpravy mohou být buď jednoúčelové, nebo univerzálnějšího typu, kdy
-se snažíme celkové zvýšit vyjadřovací sílu syntaktického analyzátoru,
+se snažíme celkově zvýšit vyjadřovací sílu syntaktického analyzátoru,
 při zachování determinismu a také co nejnižší asymptotické složitosti
 zpracování řetězce.\\
 
 Tato práce pojednává o zpracování \term{Gramatik řízených stromy}.
 Takové gramatiky se skládají ze dvou jazyků - řízeného a kontrolního.
 Řízený jazyk budeme definovat pomocí \term{Bezkontextové gramatiky} a
-slouží k sestavení derivačního stromu pomocí již zavedených postupů
-(např. LR parser).
+slouží k sestavení derivačního stromu pomocí již zavedených postupů.
 Kontrolní jazyk definujeme \term{Konečným automatem} a poslouží k
 omezení derivačního stromu. Cílem je zvýšit vyjadřovací sílu
-syntaktického analyzátoru, tak abychom byli schopni zpracovávat co
+syntaktického analyzátoru tak, abychom byli schopni zpracovávat co
 nejvíce jazyků, které nelze definovat (deterministickými) bezkontextovými
 gramatikami.\\
 
-Pro realizaci tohoto úkolu bylo nutné podrobně nastudovat problematiku
+Pro realizaci parseru tohoto typu bylo nutné podrobně nastudovat problematiku
 \term{Regulárních} a \term{Bezkontextových jazyků}, čímž se zabýváme
-v kapitolách \ref{chap:Definitions} a \ref{chap:FormalLangs},
-jelikož jsou zde velmi podstatné detaily těchto metod, které poté
-mají vliv na jejich rozšiřování o kontrolu úrovní. Uvedené
+v kapitolách \ref{chap:Definitions} a \ref{chap:FormalLangs}.
+Tyto teoretické poznatky jsou nezbytné pro pochopení účelu a výhod
+syntaktického analyzátoru založeného na gramatikách řízených stromy. Uvedené
 poznatky vychází převážně z knihy prof. Alexandra Meduny \cite{MedunaIFJ}.\\
 
 Hlavní částí práce je kapitola \ref{chap:TreeLangs}, kde je uvedena metoda kontroly
-úrovní derivačního stromu, která je založena na práci
+úrovní derivačního stromu pomocí regulárního jazyka, jež je založena na práci
 Ing. Jiřího Koutného \cite{Koutny}, který ve své práci zpracovává teoretické
 aspekty této problematiky.
 
-Dále zde podrobně rozebíráme možnosti modifikace stávajících metod (LL a LR).
-Zkoumáme zde jak jsou vhodné
-pro rozšíření o kontrolu úrovní, tak aby se činnost syntaktického
+Velmi detailně zde rozebíráme možnosti modifikace stávajících metod (LL a LR).
+Zkoumáme zde jejich výhody a nevýhody s ohledem na
+rozšíření o kontrolu úrovní, tak aby se činnost syntaktického
 analyzátoru a kontroly úrovní co nejvíce doplňovala. Na těchto poznatcích je
-založena experimentální metoda průběžné kontroly stromu,
-která dokáže řešit některé konflikty u nedeterministických řídicích gramatik a tím
-zvýšit sílu výsledného syntaktického analyzátoru.\\
+založena experimentální metoda průběžné kontroly stromu, kdy propojujeme proces
+konstrukce stromu a jeho kontroly. Tento způsob umožňuje rychlejší odhalení
+chyb v derivačním stromě a hlavně si tyto metody jsou schopny navzájem pomáhat
+tak, že u nedeterministické řízené gramatiky kontrola úrovní pomůže
+při výběru pravidla. Tato technika je vysvětlena v sekci
+\ref{sec:LRTreeLevelCheck}.\\
 
 V poslední kapitole je stručně popsána implementace syntaktického analyzátoru,
 který využívá poznatky získané v předchozích kapitolách a na kterém byly
@@ -65,7 +82,7 @@ Uvedeny jsou jen definice, jež jsou zásadní pro pozdější výklad.
       tento uzel se nazývá kořen $G$ označovaný jako kořen($G$).
     \item Jestliže $a \in \Sigma$ a $a \neq$ kořen($G$), potom $a$ je
     potomkem kořenu($G$) a vstupuje do něj právě jedna hrana.
-    \item   Každý uzel $a \in \Sigma$ který není listem má svého přímého potomka,
+    \item   Každý uzel $a \in \Sigma$, který není listem, má své přímé potomky,
       $b_1$ až $b_n$, řazené zleva doprava tak, že $b_1$ je
       nejlevějším přímým potomkem $a$ a $b_n$ je nejpravějším přímým
       potomkem $a$.
@@ -77,18 +94,18 @@ Uvedeny jsou jen definice, jež jsou zásadní pro pozdější výklad.
   (Úroveň, cesta, hranice, hloubka, elementární strom a podstrom)\\
   Nechť $G = (\Sigma, R)$ je stromem.
   \begin{itemize}
-    \item \term{Úroveň} $l$, stromu $G$, je posloupnost $s$,
+    \item \term{Úroveň} $l$ stromu $G$ je posloupnost $s$
       všech uzlů se stejnou vzdáleností od kořene($G$).
-      Jinými slovy, úroveň $l$, je posloupnost, $s = n_1 n_2 ... n_k$,
+      Jinými slovy, úroveň $l$ je posloupnost $s = n_1 n_2 ... n_k$
       taková, že existuje cesta v grafu o délce $\ell$ v $G$
-      pro všechny posloupnost od kořene($G$)
-      $ ... n_i$, pro $1 \leq i \leq k$ a $l \geq 1$.
+      pro všechny posloupnosti od kořene($G$)
+      $ n_1n_2 ... n_i$, pro $1 \leq i \leq k$ a $l \geq 1$.
 
-    \item \term{Cesta} $p$, stromu $G$, je posloupnost $s$, uzlů,
+    \item \term{Cesta} $p$ stromu $G$ je posloupnost $s$ uzlů,
       kde první uzel je kořen($G$), poslední je listem a mezi každými
       dvěma následnými uzly v $s$ existuje hrana v $G$.
-      Jinými slovy, cesta $p$ stromu $G$, je posloupnost,
-      $s = n_1 n_2 ... n_k$, taková, že $s$ je cesta grafem
+      Jinými slovy, cesta $p$ stromu $G$ je posloupnost
+      $s = n_1 n_2 ... n_k$ taková, že $s$ je cesta grafem
       o délce $k$ v $G$, kde $n_1 =$ kořen($G$) a $n_k$ je listem
       v $G$, pro $k \geq 1$.
 
@@ -115,7 +132,7 @@ Uvedeny jsou jen definice, jež jsou zásadní pro pozdější výklad.
 Teorie formálních jazyků formalizuje pojmy spojené s jazyky
 (přirozenými, programovacími, matematickými, ...), abychom se mohli zabývat
 jejich automatizovaným zpracováním.
-Pojmy, které známe z lingvistiky jsou zde zobecněny a přesně definovány,
+Pojmy, které známe z lingvistiky, jsou zde zobecněny a přesně definovány,
 takže nemusí úplně odpovídat tomu, jak jsou chápány v jiných vědních oborech.
 
 \subsubsection*{Abeceda}
@@ -158,8 +175,8 @@ Pokud se zabýváme nekonečnými jazyky, nemůžeme je vyjádřit jednoduchým 
 \term{Přepisovací pravidlo} je složeno ze dvou řetězců $(\alpha, \beta)$,
 složených z terminálů a neterminálů, přičemž $\alpha$ obsahuje alespoň jeden \term{neterminál}.
 Zapisují se jako $\alpha \rightarrow \beta$.\\
-Pravidla se aplikují od počátečního symbolu, kdy postupně přepisujeme řetězec tak že nahradíme
-jakoukoliv část řetězce, která se nachází na levé straně některého pravidla za pravou stranu tohoto pravidla.
+Pravidla se aplikují od počátečního symbolu, kdy postupně přepisujeme řetězec tak, že nahradíme
+jakoukoliv část řetězce, která se nachází na levé straně některého pravidla, za pravou stranu tohoto pravidla.
 Tato operace se také nazývá \term{derivace}.
 Řetězec upravujeme podle pravidel tak dlouho, až se v něm nacházejí pouze \term{terminály}.
 
@@ -219,7 +236,7 @@ Jedno z nejznámějších rozdělení je podle tzv. \term{Chomského hierarchie}
 
 Čím větší má jazyk vyjadřovací sílu, tím detailnější omezení je jeho
 gramatika schopna klást na přijímané řetězce. Jsme tedy schopni jemněji rozlišovat,
-které řetězce patří do jazyka a které ne.
+které řetězce patří do jazyka, a které ne.
 
 V \term{Chomského hierarchii} jsou jazyky uspořádány tak, že slabší jazyk je
 vždy podmnožinou silnějšího. Tedy například mezi Bezkontextové jazyky patří i
@@ -283,7 +300,7 @@ jelikož obsahuje pouze informaci o aktuálním stavu.
     {s, q, f},        (* // množina stavů *)
     {a, b, c},        (* // abeceda *)
     {                 (* // množina pravidel *)
-      sa $\rightarrow$ q1,
+      sa $\rightarrow$ q,
       qb $\rightarrow$ q,
       qc $\rightarrow$ f
     },
@@ -365,7 +382,7 @@ Uveďme další příklad, který už nebude tak jednoduchý:
   \end{figure}
 
   Pokud se při zpracování ocitneme ve stavu $q1$ a vstupním symbolem bude \symb{b},
-  není jasné, jestli máme použít 2. nebo 4. pravidlo. Museli bychom vyzkoušet jít oběma cestami
+  není jasné, jestli máme použít 2. nebo 4. pravidlo. Museli bychom vyzkoušet obě cesty
   a až zpětně bychom zjistili, která možnost byla správná. Tomuto jevu se v teorii
   formálních jazyků říká \term{nedeterminismus} a setkáme
   se s ním ještě několikrát.\\
@@ -378,7 +395,7 @@ Uveďme další příklad, který už nebude tak jednoduchý:
   Slepé zkoušení pravidel však vede k velkému zpomalení vyhodnocování,
   může totiž dojít k tomu, že se program bude větvit opakovaně
   a délka zpracování bude neúnosná. Požadavek na striktní determinismus
-  je tedy hlavně snaha o co nejrychlejší zpracování.
+  je tedy veden snahou o co nejrychlejší zpracování.
 
 
 \subsection{Determinizace konečného automatu}
@@ -387,11 +404,11 @@ Z výše uvedených odstavců je zjevné, že je lepší se preventivně nedeter
 zbavit. Nejprve ukážeme demonstraci na tomto konkrétním příkladě a poté uvedeme
 obecný algoritmus.\\
 
-Abychom se zbavili $\varepsilon$ přechodů musíme vytvořit nový automat, který ale
-generuje stejný jazyk (přijímá stejné řetězce),
-jako ten původní. Takovéto dva automaty se označují jako \term{ekvivalentní}.
-Protože můžeme z přechodu $q1$ kdykoliv přejít do $q2$ intuitivním řešením
-je oba stavy spojit do jednoho. Pro zachování \term{ekvivalence}, musíme
+Abychom se zbavili $\varepsilon$ přechodů, musíme vytvořit nový automat, který ale
+generuje stejný jazyk (přijímá stejné řetězce)
+jako ten původní. Takové automaty se označují jako \term{ekvivalentní}.
+Protože můžeme z přechodu $q1$ kdykoliv přejít do $q2$, intuitivním řešením
+je oba stavy spojit do jednoho. Pro zachování \term{ekvivalence} musíme
 do nového stavu přidat všechna pravidla, která vycházela z původních dvou stavů.
 Nový automat bude vypadat takto:
 
@@ -402,7 +419,7 @@ Nový automat bude vypadat takto:
 
 Pokud si nové schéma dobře prohlédneme, odhalíme další zádrhel, který se nám
 objevil v novém pravidle $q1\_p1$. Pokud je v tomto stavu na vstupu symbol \symb{b},
-nevíme které pravidlo použít a máme tu opět \term{nedeterminismus}.
+nevíme, které pravidlo použít a máme tu opět \term{nedeterminismus}.
 I tento problém lze naštěstí vyřešit obdobným způsobem:
 
 \begin{figure}[H]
@@ -491,9 +508,9 @@ lze převést na Deterministický KA \cite[str. 39]{MedunaIFJ}.
 Z toho vyplývá, že jakýkoliv Regulární jazyk lze zpracovávat deterministicky,
 což u jazyků z ostatních tříd \term{Chomského hierarchie} neplatí.\\
 
-Existují také další transformace Konečného automatu, jako např.
+Existují také další transformace Konečného automatu jako např.
 odstranění nedostupných stavů nebo minimalizace. V této práci však
-nebudou využívány a proto zde nejsou více rozebírány.\\
+nebudou využívány, a proto zde nejsou více rozebírány.\\
 
 \subsection*{Na co konečné automaty nestačí}
 
@@ -514,9 +531,9 @@ nebudou využívány a proto zde nejsou více rozebírány.\\
   Příklad si zjednodušíme tak, že nebudeme uvažovat žádná čísla ani znaky uvnitř
   závorek.\\
 
-  Když tedy přečteme první \symb{(} musíme přejít do stavu, který značí
-  \uv{čekám jednu uzavírací závorku} (pro větší přehlednost budeme tento stav označovat \symb{[)]})
-  a když je dalším znakem \symb{)} přejít do konečného stavu.
+  Po přečtení prvního symbolu \symb{(} musíme přejít do stavu, který značí
+  \uv{čekám jednu uzavírací závorku} (pro větší přehlednost budeme tento stav označovat \symb{[)]}),
+  a když je dalším znakem \symb{)}, přejdeme do konečného stavu.
   Tento konečný automat lze znázornit takto:
 
   \begin{figure}[H]
@@ -558,7 +575,7 @@ $\gamma$ řetězec terminálů a neterminálů.
 Pokračujme nyní v příkladu \ref{exmp:brackets} a ukažme si, jak ho lze
 vyjádřit pomocí bezkontextové gramatiky.\\
 
-Chceme tedy vyjádřit výraz tvořený závorkami, pomocí gramatických pravidel.
+Chceme tedy vyjádřit výraz tvořený závorkami pomocí gramatických pravidel.
 Označme dvojici závorek jako výraz = neterminál $E$. Gramatické pravidlo tedy bude
 vypadat takto:
 \[E \rightarrow ()\]
@@ -586,7 +603,7 @@ Stačí přidat do výrazu další rekurzi:
 \[E \rightarrow (E)E\]
 Všimněme si ještě, že začínáme od symbolu $E$, který lze vymazat pomocí
 $\varepsilon$-pravidla, přijímáme tedy i prázdný řetězec. Pokud bychom chtěli
-vyjádřit, že celý výraz musí být alespoň v jedněch závorkách lze to udělat
+vyjádřit, že celý výraz musí být alespoň v jedněch závorkách, lze to udělat
 přidáním speciálního počátečního pravidla:
 \[S \rightarrow (E)\]
 Nyní tedy budeme začínat od symbolu S. Označme si tuto gramatiku jako
@@ -606,13 +623,13 @@ $G$ a vyjádřeme ji formálně:
 \end{lstlisting}
 
 Je zřejmé, že bezkontextovými jazyky jsme schopni popsat mnohem
-složitější jazyky, než regulárními jazyky. Daní za větší \term{vyjadřovací sílu}
+složitější jazyky než regulárními jazyky. Daní za větší \term{vyjadřovací sílu}
 je ale znatelně složitější zpracování těchto jazyků.
 
 \subsection{Derivační strom}
 \label{subsec:derivationTree}
 Při aplikaci gramatiky na řetězec jde vlastně o ověření,
-jestli lze z počátečního symbolu,
+jestli lze z počátečního symbolu
 postupnou derivací (aplikací pravidel gramatiky) získat daný řetězec.
 Mějme například gramatiku:
 
@@ -670,7 +687,7 @@ tak abychom získali řetězec $s$
 \noindent
 Touto posloupností derivací jsme byli schopni dosáhnout kontrolovaného řetězce $s$,
 daný řetězec tedy patří do gramatiky. Výše zobrazené derivace lze zobrazit
-i jinak a to pomocí tzv. \term{Derivačního stromu}:
+i jinak, a to pomocí tzv. \term{Derivačního stromu}:
 
 \begin{figure}[H]
   \centering
@@ -713,7 +730,7 @@ Pro větší názornost ukažme ještě stejný strom s přiřazenými symboly k
 
 U příkladu z minulé sekce (\ref{subsec:derivationTree}) si můžeme všimnout,
 že při konstrukci derivačního stromu máme pro jeden řetězec možnost sestrojit
-2 stromy:
+dva různé stromy:
 
 \begin{figure}[H]
   \centering
@@ -740,7 +757,7 @@ přechodu lze zároveň manipulovat se zásobníkem.\\
 Vraťme se opět k příkladu \ref{exmp:brackets} a všimněme si stavů
 vyjadřujících zanoření. Značili jsme je jako počet uzavíracích závorek,
 které jsou ještě potřeba, aby byl výraz platný. Pokud jsme narazili na
-otevírací závorku, přešli jsme do stavu \uv{o jedna více závorek}, v případě uzavírací
+otevírací závorku, přešli jsme do stavu \uv{o jedna více závorek}, v případě uzavírací závorky
 do \uv{o jedna méně závorek}. Přechody mezi stavy jsou znázorněny na
 následujícím jednoduchém řetězci:
 
@@ -750,7 +767,7 @@ následujícím jednoduchém řetězci:
 \end{figure}
 
 Přidávání a odebírání závorek nám může připomínat zásobník.
-Zásobníkový automat dokáže tyto stavy vyjádřit zásobníkem a potom
+Zásobníkový automat dokáže tyto stavy vyjádřit zásobníkem, a potom
 není nutné všechny tyto stavy definovat.\\
 
 \begin{defn}
@@ -768,7 +785,7 @@ není nutné všechny tyto stavy definovat.\\
   \end{itemize}
 
   \noindent
-  Pravidla $R$ zásobníkového automatu je ve tvaru $(q_1, a, z_1) \rightarrow (q_2, \gamma)$, kde:
+  Pravidla $R$ zásobníkového automatu jsou ve tvaru $(q_1, a, z_1) \rightarrow (q_2, \gamma)$, kde:
 
   \begin{itemize}
     \item $q_1$ je výchozí stav
@@ -792,7 +809,7 @@ sestavování konfigurace zásobníkového automatu pro danou gramatiku.
 Musíme totiž gramatická (přepisovací) pravidla zanést do konfigurace
 automatu tak, aby bylo vždy jasné, které použít.\\
 
-Poté je zde ještě otázka posutupu při samotném zpracování řetězce.
+Poté je zde ještě otázka postupu při samotném zpracování řetězce.
 Při konstrukci derivačního stromu lze totiž postupovat buď od kořene (shora dolů), nebo od
 zkoumaného řetězce (zdola nahoru). Rozhodnout jakým způsobem postupovat není úplně jednoznačné,
 což je vidět i na široce používaných analyzátorech programovacích jazyků,
@@ -808,7 +825,7 @@ vstup zleva doprava a konstruuje nejlevější derivaci. Tato syntaktická anal�
 umožňuje zpracovávat pouze \term{LL gramatiky},
 které jsou podmnožinou deterministických bezkontextových gramatik.\\
 
-Které pravidlo použít slouží \term{LL tabulka}, která nám na základě
+Hlavní součástí je \term{LL tabulka}, která nám na základě
 vstupního symbolu a symbolu na zásobníku určí pravidlo, které se má použít.
 Následující algoritmy slouží k její konstrukci.\\
 
@@ -960,7 +977,7 @@ na vstupu pro pravidlo $A \rightarrow x$:
 
 \noindent
 Zbývá už jen naplnit LL tabulku pro funkci $\alpha(A, a)$, která nám pro neterminál
-a terminál vrátí pravidlo, které použít:\\
+a terminál určí pravidlo, které použít:\\
 \begin{algorithm}[H]
   \caption{$\alpha(A, a)$}
   \KwIn{Gramatika $G = (N, \Sigma, P, S)$; $Predict(A \rightarrow x)$, pro každé pravidlo z $P$}
@@ -1044,7 +1061,7 @@ a počáteční symbol \symb{S}. Vysvětleme podrobně některé kroky (číslov
 
 \begin{itemize}
   \item[1.] Na zásobníku je neterminál \symb{S} - na základě vstupu \symb{(} vybereme
-  z LL tabulky pravidlo 1 a nahradíme S za pravou stranu pravidla
+  z LL tabulky pravidlo 1 a nahradíme \symb{S} za pravou stranu pravidla
   \item[2.] Na zásobníku je terminál \symb{(} a shoduje se se vstupním symbolem - můžeme jej odstranit
   \item[3.] Na zásobníku je neterminál \symb{E} a na vstupu opět \symb{(}, použijeme pravidlo 2
   \item[4.] Na zásobníku je terminál \symb{(} a shoduje se se vstupem - odstraníme
@@ -1060,7 +1077,7 @@ Při zpracování mohou nastat následující chyby:
 \begin{itemize}
   \item Znak na vstupu není v abecedě
   \item V LL tabulce není pravidlo pro danou kombinaci neterminálu a terminálu
-  \item Terminály na vstupu a vrcholu zásobníku se neschodují
+  \item Terminály na vstupu a vrcholu zásobníku se neshodují
 \end{itemize}
 
 \noindent
@@ -1092,15 +1109,15 @@ nám určuje \term{LR tabulka}, jejíž konstrukcí se budeme dále zabývat.\\
 
 \subsubsection*{LR tabulka}
 
-\term{LR tabulka} je poněkud složitější, než \term{LL tabulka}. Obsahuje 2 části:
+\term{LR tabulka} je poněkud složitější než \term{LL tabulka}. Obsahuje 2 části:
 
 \begin{itemize}
-  \item Akční část je definována jako $\alpha(q, a)$ kde $q$ je stav a $a$ je terminál.\\
+  \item Akční část je definována jako $\alpha(q, a)$, kde $q$ je stav a $a$ je terminál.\\
   Určuje jakou operaci provést a k tomu informaci
   do jakého stavu přejít (u op. shift) nebo jaké pravidlo použít (op. reduce), a také speciální
   ukončovací symbol
-  \item Přechodová část je definována jako $\beta(q, A)$ kde $q$ je stav a $A$ je neterminál.\\
-  Určuje do jakého stavu přejít po aplikaci pravidla.
+  \item Přechodová část je definována jako $\beta(q, A)$, kde $q$ je stav a $A$ je neterminál.\\
+  Určuje, do jakého stavu přejít po aplikaci pravidla.
 \end{itemize}
 
 Stav zde vyjadřuje možnosti, které vyplývají ze znaků naposledy přečtených.
@@ -1148,7 +1165,7 @@ pravidlo $S' \rightarrow S$, kde $S$ je počáteční symbol:\\
 \vspace{0.5cm}
 
 \noindent
-Nyní sestrojíme LR tabulku, pomocí SLR algoritmu. Budeme zde potřebovat také
+Nyní sestrojíme LR tabulku pomocí SLR algoritmu. Budeme zde potřebovat také
 algoritmus \ref{alg:follow} ($Follow$). Operaci shift znázorňujeme jako $s$,
 reduce jako $r$. Ukončovací symbol označme jako \symb{$a$} (Accept).\\
 \begin{algorithm}[H]
@@ -1289,7 +1306,7 @@ Zde je LR tabulka:
 
 Všimněme si, že v některých polích tabulky máme 2 položky. Tyto případy
 se nazývají \term{shift-reduce} konflikty a jsou projevem toho, že je tato
-gramatika nedeterministická (viz. sekce \ref{subec:nondeterminsm}).
+gramatika nedeterministická (viz sekce \ref{subec:nondeterminsm}).
 Výhodou LR gramatiky je to, že ji lze lehce rozšířit o priority operátorů
 a podle nich rozhodnout, jestli provést operace \term{shift} nebo \term{reduce}.
 Priority pro tuto gramatiku mohou vypadat následovně:
@@ -1301,8 +1318,8 @@ Priority pro tuto gramatiku mohou vypadat následovně:
 
 V tomto případě má tedy operátor  \symb{*} vyšší prioritu a oba operátory jsou vyhodnocovány zleva.
 Ještě před zpracováním řetězce můžeme tedy vyřešit konflikty v LR tabulce tak,
-že porovnáme prioritu operátoru v \term{reduce} pravidle a vstupního symbolu
-a podle priorit nastavíme buď \term{shift} (vyšší priorita vstupního symbolu nebo pravá asociativita)
+že porovnáme prioritu operátoru v \term{reduce} pravidle se vstupním symbolem
+a podle priorit nastavíme buď \term{shift} (vyšší priorita vstupního symbolu nebo pravá asociativita),
 nebo \term{reduce} (nižší priorita vstupního symbolu nebo levá asociativita).
 Tabulka po vyřešení konfliktů vypadá takto:
 
@@ -1367,7 +1384,7 @@ vysvětleme některé kroky:
 \end{exmp}
 
 Je vidět, že pomocí LR syntaktické analýzy jsme schopni zpracovávat deterministické
-gramatiky a pokud přidáme priority, i některé nedeterministické. Všimněme si jak je
+gramatiky a pokud přidáme priority, i některé nedeterministické. Všimněme si, jak je
 sestavován derivační strom - jdeme odspodu a vytváříme několik podstromů,
 teprve v posledním kroku je spojíme do jednoho.
 
@@ -1406,19 +1423,19 @@ Vyjádřeno formálně:
   \label{defn:treeControlledLanguages}
   (Jazyky řízené stromy)\\
   Nechť $(G, R)$ je gramatika řízená stromem.
-  Jazyk generovaný $(G, R)$ je značen jako $L(G, R)$ a definován jako:
+  Jazyk generovaný $(G, R)$ je značen jako $L(G, R)$ a je definován jako:
   \vspace{5pt}
   \begin{adjustwidth}{0.5cm}{0.5cm}
     $L(G, R) = \{x: x \in L(G, R)$ a existuje derivační strom $t$ pro
-    každé $x$ v $G$ takový, že každé slovo získané konkatenací
+    každé $x$ v $G$ takový, že každé slovo, získané konkatenací
     všech symbolů na kterékoliv úrovni $t$ (kromě poslední) zleva doprava,
-    patří do $R \}$.
+    patří do $R\}$.
   \end{adjustwidth}
 \end{defn}
 
 \noindent
 Takto specifikované jazyky mají vyjadřovací sílu \term{Rekurzivně vyčíslitelných jazyků}.\cite{Koutny}
-Ukážeme si ovšem, že pokud se pokusíme sestrojit analyzátor takového jazyka
+Ukážeme si ovšem, že pokud se pokusíme sestrojit analyzátor takového jazyka,
 narazíme na řadu potíží, které výslednou vyjadřovací sílu citelně sníží.
 
 Pro lepší porozumění následuje podrobný praktický příklad, jak lze
@@ -1453,7 +1470,7 @@ ověřovat příslušnost řetězce do dané gramatiky řízené stromem.
 
   \noindent
   Nejprve sestavíme derivační strom pro daný řetězec, poté projdeme všechny
-  jeho úrovně (kromě poslední, viz. Definice \ref{defn:treeControlledLanguages}) a
+  jeho úrovně (kromě poslední, viz Definice \ref{defn:treeControlledLanguages}) a
   ověříme, že patří do kontrolního jazyka $R$.
 
   \begin{figure}[H]
@@ -1489,15 +1506,15 @@ velkým problémem. Potřebujeme však nejdříve derivační strom zkonstruovat
 Zásadním problémem při konstrukci derivačního stromu je nedeterminismus,
 který vede k tomu, že máme pro jeden řetězec více derivačních stromů.
 Jelikož kontrola úrovní stromu rozhoduje o příslušnosti řetězce do jazyka,
-mohlo by se stát, že některé derivační stromy by kontrolou prošly a jiné ne.
+mohlo by se stát, že některé derivační stromy by kontrolou prošly, a jiné ne.
 V tomto případě bychom museli sestrojit všechny derivační stromy (pomocí
 nedeterministického syntaktického analyzátoru) a poté
 u všech zkontrolovat úrovně. Nedeterministické analyzátory jsou ovšem řádově
-pomalejší, než deterministické, proto se držme těch deterministických a
-zkusme prozkoumat jinou možnost a tou je kontrolovat úrovně již při konstrukci
+pomalejší než deterministické, proto se držme těch deterministických a
+zkusme prozkoumat jinou možnost - tou je kontrolovat úrovně již při konstrukci
 derivačního stromu.\\
 
-V dalších sekcích projdeme znovu 2 hlavní metody pro syntaktickou analýzu bezkontextových
+V dalších sekcích projdeme znovu dvě hlavní metody pro syntaktickou analýzu bezkontextových
 deterministických jazyků (rozebírané v sekci \ref{sec:CFLanguagesProcessing})
 z praktického pohledu a zamyslíme se nad tím, jak by se daly k tomuto účelu
 využít.
@@ -1506,10 +1523,10 @@ využít.
 \label{sec:LLTreeLevelCheck}
 
 
-Výhodou LL analýzy je intuitivní konstrukce derivačního stromu shora a zleva,
+Výhodou LL syntaktické analýzy je intuitivní konstrukce derivačního stromu shora a zleva,
 při tomto postupu je výhodné, že vždy máme nejlevější část stromu, pokud tedy
 chceme kontrolovat úrovně již za běhu, můžeme to provádět bez problému, jelikož
-každou úroveň generujeme od nejlevějšího znaku a můžeme ji tedy rovnou
+každou úroveň generujeme od nejlevějšího znaku, a můžeme ji tedy rovnou
 kontrolovat automatem.\\
 
 \noindent
@@ -1540,9 +1557,9 @@ Na následujícím příkladu si ukažme postup při kontrole derivačního stro
     \includegraphics{fig/LLTree.pdf}
   \end{figure}
 
-  Díky tomu, že je strom generován shora a zleva můžeme jednoduše
+  Díky tomu, že je strom generován shora a zleva, můžeme jednoduše
   kontrolovat úrovně ještě před dokončením stromu. Umožňuje nám to brzké
-  odhalení konfliktů v úrovni derivačního stromu, tedy zjištění, že řetězec
+  odhalení konfliktů v úrovních derivačního stromu, tedy zjištění, že řetězec
   nepatří do gramatiky.\\
 
 \end{exmp}
@@ -1550,12 +1567,12 @@ Na následujícím příkladu si ukažme postup při kontrole derivačního stro
 Menší komplikaci přináší to, že z definice nekontrolujeme
 nejspodnější úroveň stromu, protože u nekompletního stromu nejsme schopni určit,
 jestli je daná úroveň poslední.\\
-Spodní úroveň stromu však může obsahovat pouze terminály a naopak
+Spodní úroveň stromu však může obsahovat pouze terminály, a naopak
 ostatní úrovně vždy obsahují nějaký neterminál. Proto můžeme do automatu
 jednoduše přidat stavy přijímající jakoukoliv posloupnost terminálů a
 zkontrolovat úrovně všechny. Tato technika bude dále využívána (i u LR SA).\\
 
-Nyní zkusme prozkoumat, jak bychom mohli těchto vlastností využít, pro
+Nyní zkusme prozkoumat, jak bychom mohli těchto vlastností využít pro
 vyřešení konfliktů v \term{LL tabulce}. Ukažme si to na následující gramatice:
 \begin{exmp}
   \label{exmp:aa}
@@ -1585,7 +1602,7 @@ vyřešení konfliktů v \term{LL tabulce}. Ukažme si to na následující gram
   Kontrolou úrovní zjistíme, že nám vyhovuje pouze strom č. 3 - z tohoto
   poznatku plyne, že pokud sestrojíme špatný strom, dojdeme k mylnému závěru
   - že řetězec nepatří do gramatiky. Má to však i velmi pozitivní důsledek:
-  protože nám vyhovuje jen jeden strom celkově je gramatika $T$ vlastně
+  protože kontrole úrovní vyhovuje jen jeden strom, celkově je gramatika $T$ vlastně
   deterministická. Dostatečně dobrá průběžná kontrola úrovní by tedy teoreticky
   měla vést pouze k jednomu správnému derivačnímu stromu.
 
@@ -1613,8 +1630,8 @@ vyřešení konfliktů v \term{LL tabulce}. Ukažme si to na následující gram
 
   Mohli bychom také jednoduše zkusit jedno z pravidel a pokud bychom narazili na
   konflikt, tak se vrátit a zkusit druhé. To je již ovšem nedeterministické
-  zpracování a navíc se nám zde může neblaze projevit rekurze - např. pokud bychom
-  stále aplikovali pravidlo $S \rightarrow SS$ program by stále zvětšoval strom
+  zpracování, a navíc se nám zde může neblaze projevit rekurze - např. pokud bychom
+  stále aplikovali pravidlo $S \rightarrow SS$, program by stále zvětšoval strom
   a na konflikt v úrovních bychom nenarazili.\\
   V tomto případě je jasné, že LL syntaktická analýza na tento problém
   není vhodná.
@@ -1622,16 +1639,16 @@ vyřešení konfliktů v \term{LL tabulce}. Ukažme si to na následující gram
 \end{exmp}
 
 Problém LL syntaktické analýzy tkví v tom, že při aplikaci pravidla máme k
-dispozici pouze velmi malou část stromu vytvořeného pravidlem a je tedy velmi
+dispozici pouze velmi malou část stromu vytvořeného pravidlem, a je tedy velmi
 pravděpodobné, že nebudeme schopni určit, jestli je pravidlo správné.\\
 
 \subsection*{Závěr}
 
 Ukázali jsme si, že výhodou LL syntaktické analýzy je možnost kontrolovat
 bez problému úrovně stromu již při jeho konstrukci.
-Jakmile je ale \term{řízená gramatika} nedeterministická kontrola úrovní
+Jakmile je ale \term{řízená gramatika} nedeterministická, kontrola úrovní
 nám mnoho nepomůže.
-Navíc LL syntaktická analýza má již v základu menší vyjadřovací sílu, než
+Navíc LL syntaktická analýza má již v základu menší vyjadřovací sílu než
 LR syntaktická analýza, proto se pro zpracování gramatik řízených stromy
 nejeví jako příliš vhodná.
 
@@ -1642,7 +1659,7 @@ LR syntaktická analýza dokáže deterministicky zpracovávat více jazyků
 než LL a nabízí také jednoduché rozšíření o prioritu operátorů,
 kontrola derivačního stromu za běhu je zde však mnohem složitější,
 jelikož strom vytváříme zdola. Ukažme si, jak se strom vytváří pro
-gramatiku z příkladu \ref{exmp:WW} a opět řetězec \symb{01\#11}:
+gramatiku z příkladu \ref{exmp:WW} a řetězec \symb{01\#11}:
 
 \begin{figure}[H]
   \centering
@@ -1692,7 +1709,7 @@ Vidíme, že tímto způsobem odhalíme chybu v úrovních až v posledním krok
   Jde tedy o to, jestli stromy spojit pravidlem $1: S \rightarrow SS$, nebo přejít
   na další symbol. V tomto případě chceme stromy spojit, mohli bychom tedy
   nastavit priority tak, aby se v případě symbolů \symb{[S, a]} provedla operace
-  reduce, tedy že \symb{S} má větší prioritu, než \symb{a}. Při dalším konfliktu nastane
+  \term{reduce}, tedy že \symb{S} má větší prioritu než \symb{a}. Při dalším konfliktu nastane
   tato situace:
 
   \begin{figure}[H]
@@ -1701,7 +1718,7 @@ Vidíme, že tímto způsobem odhalíme chybu v úrovních až v posledním krok
   \end{figure}
 
   Zde ovšem s prioritami pohoříme, jelikož symboly jsou stejné \symb{[S, a]},
-  ovšem potřebujeme, aby se provedla operace \term{shift}. Pomocí priorit lze
+  my ovšem potřebujeme, aby se provedla operace \term{shift}. Pomocí priorit lze
   sestrojit tyto 2 stromy (podle nastavení):
 
   \begin{figure}[H]
@@ -1755,8 +1772,8 @@ pouze, že sestrojený strom je špatný, jiný strom by však mohl být správn
 Nevíme tedy jistě, jestli řetězec do gramatiky opravdu nepatří.\\
 
 Nechceme se ale ochudit o možnost pokusit se sestrojit správný strom
-a např. u výše uvedené gramatiky problém není.
-Musíme ale tyto situace rozlišovat, tedy v případech, kdy víme jistě,
+- např. u výše uvedené gramatiky problém není.
+Musíme ale tyto situace rozlišovat, tedy případy, kdy víme jistě,
 že řetězec patří nebo nepatří do gramatiky, a kdy to jistě nevíme.\\
 
 \subsection{Průběžná kontrola úrovní všech stromů}
@@ -1764,9 +1781,9 @@ Musíme ale tyto situace rozlišovat, tedy v případech, kdy víme jistě,
 
 U výše uvedeného příkladu jsme ověřovali úrovně jen u nejlevějšího
 podstromu. Protože byl řetězec krátký, nepůsobilo to problémy.
-Když ovšem budeme kontrolovat delší řetězec vzniknou nám stejné konflikty
+Když ovšem budeme kontrolovat delší řetězec, vzniknou nám stejné konflikty
 i v jiných podstromech. Je zde ale problém, že nevíme, jak budou později
-tyto podstromy připojeny k levému podstromu a nejsme tudíž schopni
+tyto podstromy připojeny k levému podstromu, a nejsme tudíž schopni
 kontrolovat od počátečního znaku.\\
 
 \begin{figure}[H]
@@ -1780,7 +1797,7 @@ lze ověřit, jestli řetězec vůbec může být v daném kontrolním
 jazyce, tedy jestli je podřetězcem alespoň jednoho řetězce, který do kontrolního
 jazyka patří.\\
 
-V případě modelu konečného automatu (který pro kontrolu úrovní budeme používat),
+V případě modelu konečného automatu (který pro kontrolu úrovní budeme používat)
 lze tuto operaci provést tak, že místo jednoho stavu automatu budeme udržovat
 množinu stavů (ve kterých bychom se mohli nacházet). Takže vlastně zkusíme
 vyjít ze všech stavů automatu a ověříme, že alespoň z jednoho
@@ -1841,13 +1858,13 @@ podstromů musíme procházet velkou část těchto stavů.
 \subsection*{Závěr}
 
 Průběžnou kontrolou úrovní samozřejmě nelze zpracovávat jakoukoliv gramatiku.
-Obecně problém nastáva tehdy, když se o konfliktu ve stromě rozhoduje
+Obecně problém nastává tehdy, když se o konfliktu ve stromě rozhoduje
 v době, kdy se ještě neprojeví. Takový konflikt je poté sice rozpoznán,
 ale nelze jej už vyřešit bez navracení.\\
 
 LR syntaktická analýza již v základu dokáže zpracovávat větší množství
 bezkontextových gramatik. Ukázali jsme si, že kontrola úrovní je zde
-sice složitější, při správném přístupu však mohou přinést poměrně výrazné
+sice složitější, při správném přístupu však může přinést poměrně výrazné
 rozšíření vyjadřovací síly. Výsledná vyjadřovací síla je vyšší než u
 \term{deterministických bezkontextových jazyků} a nižší oproti \term{rekurzivně
 vyčíslitelným jazykům}.
@@ -1863,12 +1880,12 @@ Z čistě praktických důvodů byl pro implementaci vybrán jazyk Python
 (verze 3.4). Jde o jazyk skriptovací a vysokoúrovňový, lze tedy
 očekávat nižší rychlost oproti kompilovaným a nízkoúrovňovějším jazykům.
 Jelikož však tato aplikace slouží převážně pro demonstrační účely,
-není rychlost tím zásadním parametrem a je tedy možné využít
+není rychlost tím zásadním parametrem, a je tedy možné využít
 výhod, jež vysokoúrovňový jazyk nabízí.
 
 \subsubsection*{Uživatelské rozhraní}
 
-Jelikož aplikace pracuje pouze s textovým vstupem je program koncipován
+Jelikož aplikace pracuje pouze s textovým vstupem, je program koncipován
 jako konzolová aplikace, ovládá se tedy výhradně přes příkazový řádek.
 
 \subsubsection*{Vstupní parametry}
@@ -1885,13 +1902,13 @@ Volitelně zde lze definovat také priority operátorů.
 Formát tohoto souboru je detailně specifikován v souboru \texttt{README}.\\
 
 Dále je nutné programu předat vstupní řetězec. Volitelným argumentem je
-možné aplikaci předat název externího souboru. Pokud není specifikován
+možné aplikaci předat název externího souboru. Pokud není specifikován,
 je čten ze standardního vstupu. Tento vstupní řetězec je parsován konečným
 automatem, který přijímá terminální symboly gramatiky.
 Pokud lze vstupní symboly interpretovat pouze jedním způsobem, není nutné
 je oddělovat mezerami (ty jsou ignorovány).\\
 
-Aplikace umožňuje detailně zvolit jaké informace má tisknout
+Aplikace umožňuje detailně zvolit, jaké informace má tisknout
 při zpracování jazyka a zpracování řetězce. Ve výchozím stavu
 aplikace tiskne pouze chybová hlášení na standardní chybový výstup.
 Pomocí příslušného argumentu lze ale specifikovat tisk např. LR tabulky,
@@ -1901,9 +1918,9 @@ použitých pravidel atp.\\
 
 Pokud specifikujeme pouze řízenou gramatiku, aplikace se chová jako
 standardní LR syntaktický analyzátor a hlásí chyby při konfliktech LR tabulce.
-V případě že přidáme priority operátorů, jsou povoleny \term{shift-reduce}
+V případě, že přidáme priority operátorů, jsou povoleny \term{shift-reduce}
 konflikty, které jsou řešitelné pomocí priority operátorů.
-Pokud specifikujeme i kontrolní jazyk aktivuje se
+Pokud specifikujeme i kontrolní jazyk, aktivuje se
 průběžná kontrola úrovní a jsou povoleny \term{shift-reduce} i
 \term{reduce-reduce} konflikty. Tyto konflikty jsou poté
 řešeny za běhu tímto způsobem:
@@ -1913,7 +1930,7 @@ průběžná kontrola úrovní a jsou povoleny \term{shift-reduce} i
     \term{reduce}. Pokud je to možné, provedeme \term{shift}, jinak
     provedeme \term{reduce} a zapamatujeme si, že bylo jednáno
     nedeterministicky (viz. sekce \ref{subsec:nondetSteps}), což se projeví při pozdější chybě.
-  \item Pokud jde o \term{reduce-reduce} konflikt vyzkoušíme všechny možnosti
+  \item Pokud jde o \term{reduce-reduce} konflikt, vyzkoušíme všechny možnosti a
     pokračujeme pouze pokud lze použít právě jedno pravidlo. Jinak končíme
     chybou.
 \end{itemize}
@@ -1921,10 +1938,10 @@ průběžná kontrola úrovní a jsou povoleny \term{shift-reduce} i
 \subsubsection*{Výstup aplikace}
 
 Primárním účelem aplikace je rozhodnutí, jestli řetězec patří do dané
-gramatiky či nikoliv. Dále je však nutné ošetřit případy chybného vstupu,
+gramatiky, či nikoliv. Dále je však nutné ošetřit případy chybného vstupu,
 argumentů atp.\\
 
-V případě, že vše proběhlo v pořádku a řetězec patří do gramatiky je návratový
+V případě, že vše proběhlo v pořádku a řetězec patří do gramatiky, je návratový
 kód \texttt{0}. Návratový kód odpovídá číslu chyby a je také vytištěn krátký
 popis chyby. Pokud se jedná o chybu ve vstupu, je připojena také informace o
 řádku a pozici v souboru. Podrobný popis návratových kódů je v souboru \texttt{README}.\\
@@ -1947,7 +1964,7 @@ i celkovou funkčnost.
 
 \subsubsection*{Výkon}
 
-LR parser je v základní podobě schopen zpracovávat vstup v lineárním čase $O(n)$
+LR parser je v základní podobě schopen zpracovávat vstup v lineárním čase $O(n)$.
 Samotná kontrola úrovní zvýší asymptotickou složitost na $O(n \cdot log(n))$, při
 předpokladu, že nenarazíme na žádný konflikt (nejlepší případ).
 Při řešení konfliktů jsme však nuceni zkoušet spojování podstromů,
@@ -1956,7 +1973,7 @@ Výsledná nejhorší složitost by se tedy blížila $O(n \cdot log(n) \cdot m)
 kde $n$ je délka vstupního řetězce a $m$ velikost konečného automatu.
 
 Při návrhu a implementaci byl však kladen důraz hlavně na čitelnost a
-rozšiřitelnost kódu a proto nebylo přistupováno k mnoha optimalizacím.
+rozšiřitelnost kódu, a proto nebylo přistupováno k mnoha optimalizacím.
 Výsledný výkon bude o něco horší.
 
 \begin{figure}[H]
@@ -1970,27 +1987,27 @@ Výsledný výkon bude o něco horší.
 
 Tato práce se zaměřila na vývoj syntaktického analyzátoru zpracovávající
 gramatiky řízené stromy. Přestože tyto gramatiky mají teoreticky vyjadřovací
-sílu \term{Neomezených gramatik}. Při praktickém nasazení jsme narazili na mnoho
+sílu \term{Neomezených gramatik}, při praktickém nasazení jsme narazili na mnoho
 potíží, které vyjadřovací sílu snižují.\\
 
 Při vývoji syntaktického analyzátoru jsme vycházeli ze stávajících metod a
 zkoumali jsme, jak bychom mohli tyto metody upravit pro kontrolu
 derivačního stromu. Tyto metody jsou podrobně rozebrány v sekci
-\ref{sec:CFLanguagesProcessing}, kde jsme si ukázali jaké rozdíly jsou v konstrukci
+\ref{sec:CFLanguagesProcessing}, kde jsme si ukázali, jaké rozdíly jsou v konstrukci
 derivačního stromu.
-Porovnáváme sílu těchto metod a je zde uvedeno jaké problémy nastávají, když
-zpracovávaná gramatika nelze zpracovávat daným syntaktickým analyzátorem.
+Porovnáváme sílu těchto metod a je zde uvedeno, jaké problémy nastávají, když
+gramatiku nelze zpracovávat daným syntaktickým analyzátorem.
 U LR syntaktické analýzy prezentujeme také metodu priorit operátorů, která
 umožňuje řešit některé konflikty u nedeterministických gramatik.\\
 
 V sekci \ref{sec:LLTreeLevelCheck} jsme upravili LL syntaktickou
 analýzu pro průběžnou kontrolu derivačního stromu a následně jsme se toho
 pokusili využít pro řešení některých konfliktů v LL tabulce. Lze konstatovat,
-že pomocí LL syntaktické analýzy lze pohodlně (a jednoduše) kontrolovat
+že pomocí LL syntaktické analýzy můžeme pohodlně (a jednoduše) kontrolovat
 úrovně derivačního stromu již za běhu, jelikož je strom konstruován výhodným
-způsobem shora a zleva. Řešení konfliktů v LL tabulce není však příliš účinné,
+způsobem shora a zleva. Řešení konfliktů v LL tabulce však není příliš účinné,
 jelikož máme při aplikaci pravidla k dispozici velmi malou část stromu
-vytvořeného pravidlem a proto nejsme ve většině případů schopni odhalit
+vytvořeného pravidlem, a proto nejsme ve většině případů schopni odhalit
 konflikt ihned. Tento poznatek společně s faktem, že LL syntaktická analýza již
 v základu nabízí nižší sílu než LR syntaktická analýza, vedl nakonec k opuštění
 LL syntaktické analýzy, jelikož jsme nebyli schopni její sílu výrazně zvýšit
@@ -2011,16 +2028,16 @@ některých konfliktů v LR tabulce a to jak \term{shift-reduce}, tak i \term{re
 
 V podsekci \ref{subsec:contLevCheckRightTrees} je prezentována metoda,
 jak lze částečně kontrolovat i pravé podstromy. Problém tkví v tom, že u těchto
-podstromů nemáme začátek řetězců úrovní a proto nejsme schopni zahájit kontrolu
-úrovní z počátečního stavu konečného automatu. Chceme tedy alespoň ověřit
+podstromů nemáme začátek řetězců úrovní, a proto nejsme schopni zahájit kontrolu
+úrovní z počátečního stavu konečného automatu. Chceme tedy alespoň ověřit,
 jestli je řetězec podřetězcem nějakého řetězce, který do kontrolního jazyka
-patří. Na začátku tedy nevíme z jakého stavu vyjít, proto vyzkoušíme stavy všechny
+patří. Na začátku tedy nevíme, z jakého stavu vyjít, proto vyzkoušíme stavy všechny
 a vylučujeme ty, u kterých nejsme schopni pokračovat ve zpracovávání řetězce.
 Pokud máme na konci alespoň jeden stav, můžeme prohlásit, že řetězec je podřetězcem
 alespoň jednoho řetězce patřícího do kontrolního jazyka.
 
 I když je tato metoda dosti těžkopádná, zajišťuje alespoň základní kotrolu pravých
-podstromů což je pro průběžnou kontrolu zásadní.
+podstromů, což je pro průběžnou kontrolu zásadní.
 
 Pomocí metod uvedených v této části lze zpracovávat i jazyky s nedeterministickou
 řízenou gramatikou, kde není možné konflikty řešit pomocí priority operátorů.
@@ -2032,14 +2049,14 @@ umožňující zpracovávání velké části \term{jazyků řízených stromy}.
 Podporuje zadávání kontrolního jazyka jak v podobě konečného automatu, tak
 i uživatelsky přivětivým jednoduchým výčtem vyhovujících řetězců.
 Umožněna je také definice priorit operátorů. Cílem je umožnit
-zpracovávání co největšího počtu gramatik přesahující možnosti gramatik bezkontextových.
-Výslednou sílu lze ohraničit takto: je vyšší než u \term{bezkontextových deterministických gramatik},
+zpracovávání co největšího počtu gramatik přesahujících možnosti gramatik bezkontextových.
+Výslednou sílu lze ohraničit takto: je vyšší než u \term{bezkontextových deterministických gramatik}
 a nižší oproti \term{neomezeným gramatikám}.
 
 Daní za velkou sílu syntaktického analyzátoru je zvýšení asymptotické složitosti
 zpracování řetězce (viz. kapitola \ref{chap:Implementation}). Důvodem tohoto zpomalení
-je řešení konfliktů až za běhu, zde jsou procházeny podstromy spojovány aplikovaným pravidlem
-a jelikož nemusí jít o nejlevěší podstrom, záleží také na velkosti konečného automatu.
+je řešení konfliktů až za běhu, zde procházíme  všechny podstromy, které jsou spojovány aplikovaným pravidlem,
+a jelikož nemusí jít o nejlevější podstrom, záleží také na velkosti konečného automatu.
 Tato oblast podle mého mínění nabízí prostor pro vylepšení.
 
 Pro kontrolu úrovní derivačního stromu jsme využili poznatky uvedené v sekci
@@ -2058,14 +2075,14 @@ bezkontextových \cite[str. 29]{Koutny}:
 Zde prezentovaný přístup pro zpracování \term{gramatik řízených stromy} by
 bylo možné na několika místech vylepšit. Například kontrola pravých stromů
 (sekce \ref{subsec:contLevCheckRightTrees}) je řešena dosti jednoduše a jistě by ji bylo možné
-vylepšit.
+zdokonalit.
 Vyloučení jakéhokoliv stavu již při začátku procházení by přineslo jak
 zrychlení programu, tak větší sílu, jelikož bychom odhalili více konfliktů.
-Pro tyto účely by bylo možné využít např. množinu follow, kde víme jaké znaky se
-mohou nacházet za daným symbolem a tím bychom se mohli vyloučit některé stavy
+Pro tyto účely by bylo možné využít např. množinu follow, kde víme, jaké znaky se
+mohou nacházet za daným symbolem, a mohli bychom tedy vyloučit některé stavy
 pro určitý symbol ještě před zahájením zpracování řetězce. Možné by bylo také
-prozkoumat souvislost stavu zásobníkového automatu s úrovněmi, je možné, že bychom v této
-oblasti také mohli dosáhnout zlepšení. Celkově větší provázání LR syntaktické
+prozkoumat souvislost stavu zásobníkového automatu s úrovněmi - také v této oblasti bychom
+mohli dosáhnout zlepšení. Celkově větší provázání LR syntaktické
 analýzy a průběžné kontroly úrovní by mohlo potenciálně přinést lepší výkon
 i zvýšení síly. Toto téma by však pravděpodobně vystačilo na samostatnou práci.\\
 
