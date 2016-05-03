@@ -1,4 +1,6 @@
 *.pyc
 *.in
+*.~
 /grammar
 /input
+/.cd/
