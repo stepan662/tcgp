@@ -111,6 +111,8 @@ Meaning of shortcuts in syntax of grammar file:
     * `left`      - left associativity
     * `right`     - right associativity
 
+You can also write single line comments starting with `#` symbol.
+
 
 ### Input string ###
 

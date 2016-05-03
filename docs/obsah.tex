@@ -11,14 +11,14 @@ jednoznačně stanovit, jaké gramatické konstrukce jazyk umožňuje.
 Dalším krokem je vyvinout nástroje, které
 dokáží definici jazyka zpracovat a poté nad zadaným řetězcem rozhodnout, jestli
 do jazyka patří, či nikoliv. Takové nástroje se nazývají
-\term{Syntaktické analyzátory} nebo \term{Parsery}.\\
+\term{syntaktické analyzátory} nebo \term{parsery}.\\
 
 Syntaktický analyzátor má za úkol najít mezi jednotlivými symboly
 v řetězci vazby, které vychází z gramatických pravidel jazyka. Tyto vazby lze
 znároznit jako strom, jenž poté může být základem \term{sémantické analýzy},
 tedy jakéhosi \uv{pochopení} přijímaného řetězce.
 Teorie formálních jazyků je základním kamenem při návrhu překladačů
-jazyků programovacích. Ty většinou spadají do \term{Bezkontextových jazyků},
+jazyků programovacích. Ty většinou spadají do \term{bezkontextových jazyků},
 pro které již existují zavedené syntaktické analyzátory.\\
 
 Někdy však síla těchto zavedených parserů nestačí, a proto se přistupuje
@@ -28,18 +28,18 @@ se snažíme celkově zvýšit vyjadřovací sílu syntaktického analyzátoru,
 při zachování determinismu a také co nejnižší asymptotické složitosti
 zpracování řetězce.\\
 
-Tato práce pojednává o zpracování \term{Gramatik řízených stromy}.
+Tato práce pojednává o zpracování \term{gramatik řízených stromy}.
 Takové gramatiky se skládají ze dvou jazyků - řízeného a kontrolního.
-Řízený jazyk budeme definovat pomocí \term{Bezkontextové gramatiky} a
+Řízený jazyk budeme definovat pomocí \term{bezkontextové gramatiky} a
 slouží k sestavení derivačního stromu pomocí již zavedených postupů.
-Kontrolní jazyk definujeme \term{Konečným automatem} a poslouží k
+Kontrolní jazyk definujeme \term{konečným automatem} a poslouží k
 omezení derivačního stromu. Cílem je zvýšit vyjadřovací sílu
 syntaktického analyzátoru tak, abychom byli schopni zpracovávat co
 nejvíce jazyků, které nelze definovat (deterministickými) bezkontextovými
 gramatikami.\\
 
 Pro realizaci parseru tohoto typu bylo nutné podrobně nastudovat problematiku
-\term{Regulárních} a \term{Bezkontextových jazyků}, čímž se zabýváme
+\term{regulárních} a \term{bezkontextových jazyků}, čímž se zabýváme
 v kapitolách \ref{chap:Definitions} a \ref{chap:FormalLangs}.
 Tyto teoretické poznatky jsou nezbytné pro pochopení účelu a výhod
 syntaktického analyzátoru založeného na gramatikách řízených stromy. Uvedené
@@ -70,7 +70,7 @@ prováděny pokusy s gramatikami uváděnými v této práci.
 \label{chap:Definitions}
 
 Tato práce předpokládá, že je čtenář seznámen s \term{Teorií grafů} a
-se základy \term{Teorie formálních jazyků} (viz. \cite{MedunaIFJ}).
+se základy \term{Teorie formálních jazyků} (viz \cite{MedunaIFJ}).
 Uvedeny jsou jen definice, jež jsou zásadní pro pozdější výklad.
 
 \begin{defn}
@@ -677,7 +677,7 @@ tak abychom získali řetězec $s$
 \begin{lstlisting}
    E
   E*E                   // E $\rightarrow$ E*E(*\footnote{Zde bychom mohli použít
-    i pravidlo $E \rightarrow E + E$ a dostali bychom odlišný strom (viz. Sekce \ref{subec:nondeterminsm})}*)
+    i pravidlo $E \rightarrow E + E$ a dostali bychom odlišný strom (viz Sekce \ref{subec:nondeterminsm})}*)
   a*E                   // E $\rightarrow$ a
   a*E+E                 // E $\rightarrow$ E+E
   a*a+E                 // E $\rightarrow$ a
@@ -687,7 +687,7 @@ tak abychom získali řetězec $s$
 \noindent
 Touto posloupností derivací jsme byli schopni dosáhnout kontrolovaného řetězce $s$,
 daný řetězec tedy patří do gramatiky. Výše zobrazené derivace lze zobrazit
-i jinak, a to pomocí tzv. \term{Derivačního stromu}:
+i jinak, a to pomocí tzv. \term{derivačního stromu}:
 
 \begin{figure}[H]
   \centering
@@ -747,7 +747,7 @@ na deterministické a nedeterministické (podobně i zásobníkové automaty).\\
 
 \subsection{Zásobníkové automaty}
 
-Zásobníkový automat rozšiřuje \term{Konečný automat} o zásobník, kam lze
+Zásobníkový automat rozšiřuje \term{konečný automat} o zásobník, kam lze
 ukládat symboly (terminály i neterminály).\\
 
 Pro rozhodnutí, jaké pravidlo použít,
@@ -1092,12 +1092,12 @@ gramatiky.
 
 \subsubsection*{LR syntaktická analýza}
 Pro účely této práce se budeme zabývat \term{LR syntaktickou analýzou}, jelikož
-parsery tohoto typu mohou mít až sílu ekvivalentní s \term{Deterministickým zásobníkovým
+parsery tohoto typu mohou mít až sílu ekvivalentní s \term{deterministickým zásobníkovým
 automatem}\cite[str. 155]{MedunaIFJ}, tedy představují nejsilnější nástroj
-v oblasti \term{Deterministických bezkontextových jazyků}.
+v oblasti \term{deterministických bezkontextových jazyků}.
 LR syntaktická analýza generuje obrácený pravý rozbor.\\
 
-Pro zpracování se opět používá \term{Zásobníkový automat}, který je
+Pro zpracování se opět používá \term{zásobníkový automat}, který je
 rozšířen o možnost pracovat na vrcholu zásobníku s řetězcem (ne jen s jedním symbolem).
 Toto rozšíření je nutné pro aplikování pravidel - tedy nahrazení řetězce na pravé straně za
 symbol na levé straně pravidla (postupujeme opačně než u LL).\\
@@ -1434,7 +1434,7 @@ Vyjádřeno formálně:
 \end{defn}
 
 \noindent
-Takto specifikované jazyky mají vyjadřovací sílu \term{Rekurzivně vyčíslitelných jazyků}.\cite{Koutny}
+Takto specifikované jazyky mají vyjadřovací sílu \term{rekurzivně vyčíslitelných jazyků}.\cite{Koutny}
 Ukážeme si ovšem, že pokud se pokusíme sestrojit analyzátor takového jazyka,
 narazíme na řadu potíží, které výslednou vyjadřovací sílu citelně sníží.
 
@@ -1929,7 +1929,7 @@ průběžná kontrola úrovní a jsou povoleny \term{shift-reduce} i
   \item V případě \term{shift-reduce} konfliktu se pokusíme vyloučit operaci
     \term{reduce}. Pokud je to možné, provedeme \term{shift}, jinak
     provedeme \term{reduce} a zapamatujeme si, že bylo jednáno
-    nedeterministicky (viz. sekce \ref{subsec:nondetSteps}), což se projeví při pozdější chybě.
+    nedeterministicky (viz sekce \ref{subsec:nondetSteps}), což se projeví při pozdější chybě.
   \item Pokud jde o \term{reduce-reduce} konflikt, vyzkoušíme všechny možnosti a
     pokračujeme pouze pokud lze použít právě jedno pravidlo. Jinak končíme
     chybou.
@@ -1987,7 +1987,7 @@ Výsledný výkon bude o něco horší.
 
 Tato práce se zaměřila na vývoj syntaktického analyzátoru zpracovávající
 gramatiky řízené stromy. Přestože tyto gramatiky mají teoreticky vyjadřovací
-sílu \term{Neomezených gramatik}, při praktickém nasazení jsme narazili na mnoho
+sílu \term{neomezených gramatik}, při praktickém nasazení jsme narazili na mnoho
 potíží, které vyjadřovací sílu snižují.\\
 
 Při vývoji syntaktického analyzátoru jsme vycházeli ze stávajících metod a
@@ -2054,7 +2054,7 @@ Výslednou sílu lze ohraničit takto: je vyšší než u \term{bezkontextových
 a nižší oproti \term{neomezeným gramatikám}.
 
 Daní za velkou sílu syntaktického analyzátoru je zvýšení asymptotické složitosti
-zpracování řetězce (viz. kapitola \ref{chap:Implementation}). Důvodem tohoto zpomalení
+zpracování řetězce (viz kapitola \ref{chap:Implementation}). Důvodem tohoto zpomalení
 je řešení konfliktů až za běhu, zde procházíme  všechny podstromy, které jsou spojovány aplikovaným pravidlem,
 a jelikož nemusí jít o nejlevější podstrom, záleží také na velkosti konečného automatu.
 Tato oblast podle mého mínění nabízí prostor pro vylepšení.
