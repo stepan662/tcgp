@@ -15,7 +15,7 @@ do jazyka patří, či nikoliv. Takové nástroje se nazývají
 
 Syntaktický analyzátor má za úkol najít mezi jednotlivými symboly
 v řetězci vazby, které vychází z gramatických pravidel jazyka. Tyto vazby lze
-znároznit jako strom, jenž poté může být základem \term{sémantické analýzy},
+znázornit jako strom, jenž poté může být základem \term{sémantické analýzy},
 tedy jakéhosi \uv{pochopení} přijímaného řetězce.
 Teorie formálních jazyků je základním kamenem při návrhu překladačů
 jazyků programovacích. Ty většinou spadají do \term{bezkontextových jazyků},
@@ -239,8 +239,8 @@ gramatika schopna klást na přijímané řetězce. Jsme tedy schopni jemněji r
 které řetězce patří do jazyka, a které ne.
 
 V \term{Chomského hierarchii} jsou jazyky uspořádány tak, že slabší jazyk je
-vždy podmnožinou silnějšího. Tedy například mezi Bezkontextové jazyky patří i
-všechny Regulární jazyky.\\
+vždy podmnožinou silnějšího. Tedy například mezi bezkontextové jazyky patří i
+všechny regulární jazyky.\\
 
 \begin{figure}[H]
   \centering
@@ -270,7 +270,7 @@ také proto se jimi budeme hlouběji zabývat.
 \end{defn}
 
 \subsection{Konečné automaty}
-Každý Regulární jazyk lze zpracovávat konečným automatem a každý konečný automat
+Každý regulární jazyk lze zpracovávat konečným automatem a každý konečný automat
 lze vyjádřit regulárním jazykem. \cite{MedunaIFJ}\\
 
 
@@ -436,7 +436,7 @@ V tomto konkrétním případě jsme si pomohli intuicí, uveďme ale obecné al
 
 \begin{algorithm}[H]
   \caption{Stavy dostupné bez čtení ze stavů $E$ (\term{$\varepsilon$-closure(E)})}
-  \KwIn{Končný automat $M = (Q, \Sigma, R, s, F)$ a $E \subseteq Q$}
+  \KwIn{Konečný automat $M = (Q, \Sigma, R, s, F)$ a $E \subseteq Q$}
   \KwOut{\term{$\varepsilon$-closure(E)}}
 
   \BlankLine
@@ -453,7 +453,7 @@ V tomto konkrétním případě jsme si pomohli intuicí, uveďme ale obecné al
 
 \begin{algorithm}[H]
   \caption{Odstranění $\varepsilon$ pravidel}
-  \KwIn{Končný automat $I = (Q_I, \Sigma_I, R_I, s_I, F_I)$ a $E \subseteq Q$}
+  \KwIn{Konečný automat $I = (Q_I, \Sigma_I, R_I, s_I, F_I)$ a $E \subseteq Q$}
   \KwOut{Konečný automat bez $\varepsilon$ pravidel $O$, ekvivalentní s $I$}
 
   \BlankLine
@@ -503,12 +503,12 @@ V tomto konkrétním případě jsme si pomohli intuicí, uveďme ale obecné al
 
 \vspace{0.5cm}
 
-Tyto algoritmy jsou definovány pro jakýkoliv Konečný automat, tedy jakýkoliv KA
-lze převést na Deterministický KA \cite[str. 39]{MedunaIFJ}.
-Z toho vyplývá, že jakýkoliv Regulární jazyk lze zpracovávat deterministicky,
+Tyto algoritmy jsou definovány pro jakýkoliv konečný automat, tedy jakýkoliv KA
+lze převést na deterministický KA \cite[str. 39]{MedunaIFJ}.
+Z toho vyplývá, že jakýkoliv regulární jazyk lze zpracovávat deterministicky,
 což u jazyků z ostatních tříd \term{Chomského hierarchie} neplatí.\\
 
-Existují také další transformace Konečného automatu jako např.
+Existují také další transformace konečného automatu jako např.
 odstranění nedostupných stavů nebo minimalizace. V této práci však
 nebudou využívány, a proto zde nejsou více rozebírány.\\
 
@@ -556,8 +556,8 @@ nebudou využívány, a proto zde nejsou více rozebírány.\\
   musel by automat obsahovat nekonečné množství stavů.
   Problémem \term{konečného automatu} je, že může obsahovat pouze konečný
   počet stavů, jelikož každý musíme nejprve definovat.
-  Zde tedy vidíme příklad jazyka, který nejde zpracovávat Konečným automatem
-  a z toho vyplývá, že není ani Regulárním jazykem.
+  Zde tedy vidíme příklad jazyka, který nejde zpracovávat konečným automatem
+  a z toho vyplývá, že není ani regulárním jazykem.
   Řekněme si rovnou, že \term{bezkontextové jazyky} tento problém řeší a k tomuto
   příkladu se ještě vrátíme.
 
@@ -565,7 +565,7 @@ nebudou využívány, a proto zde nejsou více rozebírány.\\
 
 \section{Bezkontextové jazyky}
 
-Bezkontextový jazyk je obvykle definován Bezkontextovou gramatikou.
+Bezkontextový jazyk je obvykle definován bezkontextovou gramatikou.
 Jak jsme již uvedli v \term{Chomského hierarchii} (str. \pageref{subsec:chomHierarchy}),
 tyto gramatiky obsahují pravidla ve tvaru $A \rightarrow \gamma$, kde $A$ je neterminál a
 $\gamma$ řetězec terminálů a neterminálů.
@@ -705,7 +705,7 @@ Pro větší názornost ukažme ještě stejný strom s přiřazenými symboly k
 
 \begin{defn}
   (Derivační strom). \cite[str. 92]{MedunaIFJ}\\
-  Nechť $G = (\Sigma, R)$ je Bezkontextová gramatika.\\
+  Nechť $G = (\Sigma, R)$ je bezkontextová gramatika.\\
   \begin{enumerate}
     \item Pro $l$: $A \rightarrow x \in R, A\langle x\rangle$ je strom pravidla, které reprezentuje $l$.
     \item Derivační strom reprezentující derivace v $G$ je definován rekurzivně:
@@ -741,7 +741,7 @@ Vidíme, že generovaný řetězec je stejný, ale stromy jsou odlišné.
 Takováto gramatika je označována jako \term{nedeterministická} a způsobuje problémy při
 zpracování, protože v rozhodné chvíli nevíme, které pravidlo použít.\\
 
-Protože determinismus je při implementaci zásadní, rozdělujeme Bezkontextové gramatiky
+Protože determinismus je při implementaci zásadní, rozdělujeme bezkontextové gramatiky
 na deterministické a nedeterministické (podobně i zásobníkové automaty).\\
 
 
@@ -797,7 +797,7 @@ není nutné všechny tyto stavy definovat.\\
   \vspace{-0.5cm}
 \end{defn}
 
-Zásobníkovým automatem lze zpracovávat Deterministické bezkontextové jazyky.
+Zásobníkovým automatem lze zpracovávat deterministické bezkontextové jazyky.
 V případě nedeterministických musíme nějak blíže specifikovat, který z možných
 stromů chceme.\\
 
@@ -963,7 +963,7 @@ Množina $Predict(A \rightarrow x)$ říká, které terminální symboly mohou b
 na vstupu pro pravidlo $A \rightarrow x$:
 \begin{defn}
   (Množina $Predict(A \rightarrow x)$)\\
-  Nechť $G = (N, \Sigma, P, S)$ je Bezkontextová gramatika.
+  Nechť $G = (N, \Sigma, P, S)$ je bezkontextová gramatika.
   Pro každé $A \rightarrow x \in P$ definujeme množinu
   $Predict(A \rightarrow x \in P)$ takto:
   \begin{description}
@@ -1104,7 +1104,7 @@ symbol na levé straně pravidla (postupujeme opačně než u LL).\\
 
 Při analýze řetězce dáváme postupně příchozí symboly na zásobník (operace \term{shift})
 a v určité chvíli použijeme pravidlo a nahradíme symboly na vrcholu zásobníku za
-jeho levou stranu (operace \term{reduce}). Kterou operaci v dané chvíli provést
+jeho levou stranu (operace \term{reduce}). Kterou operaci v dané chvíli provést,
 nám určuje \term{LR tabulka}, jejíž konstrukcí se budeme dále zabývat.\\
 
 \subsubsection*{LR tabulka}
@@ -1113,7 +1113,7 @@ nám určuje \term{LR tabulka}, jejíž konstrukcí se budeme dále zabývat.\\
 
 \begin{itemize}
   \item Akční část je definována jako $\alpha(q, a)$, kde $q$ je stav a $a$ je terminál.\\
-  Určuje jakou operaci provést a k tomu informaci
+  Určuje, jakou operaci provést a k tomu informaci,
   do jakého stavu přejít (u op. shift) nebo jaké pravidlo použít (op. reduce), a také speciální
   ukončovací symbol
   \item Přechodová část je definována jako $\beta(q, A)$, kde $q$ je stav a $A$ je neterminál.\\
@@ -1378,7 +1378,7 @@ vysvětleme některé kroky:
     \item[6.] Jsme ve stavu 5 a na vstupu máme \symb{+} - (zde je konflikt vyřešený prioritou operátorů)
     provedeme operaci \term{reduce} 1 - poslední stav je 0 a levá strana je \symb{E} - přejdeme do stavu 2.
     \item[] ...
-    \item[11.] Jsme ve stavu 2 a na vstupu máme \symb{\$} - V LR tabulce je \symb{$a$}
+    \item[11.] Jsme ve stavu 2 a na vstupu máme \symb{\$} - v LR tabulce je \symb{$a$}
     (Accept) - můžeme skončit a řetězec prohlásit za přijatý.
   \end{itemize}
 \end{exmp}
@@ -1773,7 +1773,7 @@ Nevíme tedy jistě, jestli řetězec do gramatiky opravdu nepatří.\\
 
 Nechceme se ale ochudit o možnost pokusit se sestrojit správný strom
 - např. u výše uvedené gramatiky problém není.
-Musíme ale tyto situace rozlišovat, tedy případy, kdy víme jistě,
+Musíme rozlišovat situace, kdy víme jistě,
 že řetězec patří nebo nepatří do gramatiky, a kdy to jistě nevíme.\\
 
 \subsection{Průběžná kontrola úrovní všech stromů}
@@ -1985,7 +1985,7 @@ Výsledný výkon bude o něco horší.
 
 \chapter{Závěr}
 
-Tato práce se zaměřila na vývoj syntaktického analyzátoru zpracovávající
+Tato práce se zaměřila na vývoj syntaktického analyzátoru, který zpracovává
 gramatiky řízené stromy. Přestože tyto gramatiky mají teoreticky vyjadřovací
 sílu \term{neomezených gramatik}, při praktickém nasazení jsme narazili na mnoho
 potíží, které vyjadřovací sílu snižují.\\
@@ -1998,7 +1998,9 @@ derivačního stromu.
 Porovnáváme sílu těchto metod a je zde uvedeno, jaké problémy nastávají, když
 gramatiku nelze zpracovávat daným syntaktickým analyzátorem.
 U LR syntaktické analýzy prezentujeme také metodu priorit operátorů, která
-umožňuje řešit některé konflikty u nedeterministických gramatik.\\
+umožňuje řešit některé konflikty u nedeterministických gramatik.
+
+\subsection*{Výsledky}
 
 V sekci \ref{sec:LLTreeLevelCheck} jsme upravili LL syntaktickou
 analýzu pro průběžnou kontrolu derivačního stromu a následně jsme se toho
@@ -2019,12 +2021,12 @@ Sekce \ref{sec:LRTreeLevelCheck} se proto plně zaměřuje na LR syntaktickou
 analýzu. Ukázali jsme si, že zde je průběžná kontrola složitější, jelikož
 je strom konstruován zdola a máme v jednu chvíli více nepropojených stromů.
 Kontrolovat průběžně úrovně lze jednoduše pouze u nejlevějšího z nich.
-Jelikož však LR syntakická analýza sestavuje derivační strom zdola a
+Jelikož však LR syntaktická analýza sestavuje derivační strom zdola a
 postupně vlastně dochází ke spojování jednotlivých podstromů, jsme
 při tomto spojování schopni zkontrolovat kompletní podstrom vytvořený daným
 pravidlem a je zde mnohem pravděpodobnější, že odhalíme případný konflikt
 ihned. Tato metoda přinesla úspěch při řešení
-některých konfliktů v LR tabulce a to jak \term{shift-reduce}, tak i \term{reduce-reduce}.
+některých konfliktů v LR tabulce, a to jak \term{shift-reduce}, tak i \term{reduce-reduce}.
 
 V podsekci \ref{subsec:contLevCheckRightTrees} je prezentována metoda,
 jak lze částečně kontrolovat i pravé podstromy. Problém tkví v tom, že u těchto
@@ -2041,7 +2043,7 @@ podstromů, což je pro průběžnou kontrolu zásadní.
 
 Pomocí metod uvedených v této části lze zpracovávat i jazyky s nedeterministickou
 řízenou gramatikou, kde není možné konflikty řešit pomocí priority operátorů.
-Jako příklad takové gramatiky je uveden jazyk $a^{2^n}$, jež jsme tímto přístupem
+Jako příklad takové gramatiky je uveden jazyk $a^{2^n}$, jenž jsme tímto přístupem
 schopni zpracovat.\\
 
 Implementační část vychází z teoretických poznatků a představuje syntaktický analyzátor
@@ -2070,6 +2072,7 @@ bezkontextových \cite[str. 29]{Koutny}:
 \[ a^nb^nc^n \]
 \[ W\#W \]
 \[ a^{2^n} \]
+
 \subsection*{Budoucí vývoj}
 
 Zde prezentovaný přístup pro zpracování \term{gramatik řízených stromy} by
@@ -2090,8 +2093,8 @@ Pro zlepšení uživatelské přívětivosti by se také mohlo provést odstran�
 nedostupných a neukončujících stavů automatu. To by přineslo zvýšení účinnosti,
 ale pouze v případech, kdy automat kontrolující úrovně tyto stavy obsahuje.\\
 
-Implementovaná aplikace slouží hlavně pro demonstrační účely, ale prezentované
-algoritmy by bylo možné využít např. pro specifické konstrukce v programovacím
-jazyce, jež nelze vyjádřit bezkontextovým jazykem.
+Výsledná aplikace slouží hlavně pro demonstrační účely, ale použitá
+řešení by bylo možné využít např. pro specifické konstrukce programovacího jazyka,
+které nomohou být vyjádřeny pomocí bezkontextové gramatiky.
 
 %=========================================================================
