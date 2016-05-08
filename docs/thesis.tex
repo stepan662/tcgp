@@ -1,30 +1,29 @@
-% !TEX program = pdflatex
 %============================================================================
 % tento soubor pouzijte jako zaklad
 % (c) 2008 Michal Bidlo
 % E-mail: bidlom AT fit vutbr cz
 %============================================================================
-% kodovaní: iso-8859-2 (zmena prikazem iconv, recode nebo cstocs)
+% kodovaní: UTF-8 (zmena prikazem iconv, recode nebo cstocs)
 %----------------------------------------------------------------------------
 % zpracování: make, make pdf, make desky, make clean
-% připomínky posílejte na e-mail: bidlom AT fit.vutbr.cz
-% vim: set syntax=tex encoding=latin2:
 %============================================================================
-%\documentclass[cover]{fitthesis} % odevzdani do wisu - odkazy, na ktere se da klikat
-\documentclass[cover, print]{fitthesis} % pro tisk - na odkazy se neda klikat
-%\documentclass[english,print]{fitthesis} % pro tisk - na odkazy se neda klikat
-%      \documentclass[english]{fitthesis}
+% Šablonu upravil: Ing. Jaroslav Dytrych, idytrych@fit.vutbr.cz
+%============================================================================
+\documentclass[]{fitthesis} % bez zadání - pro začátek práce, aby nebyl problém s překladem
+%\documentclass[zadani]{fitthesis} % odevzdani do wisu - odkazy jsou barevné
+%\documentclass[zadani,print]{fitthesis} % pro tisk - odkazy jsou černé
+%\documentclass[english,print]{fitthesis} % pro tisk - odkazy jsou černé
 % * Je-li prace psana v anglickem jazyce, je zapotrebi u tridy pouzit
 %   parametr english nasledovne:
 %      \documentclass[english]{fitthesis}
-% * Neprejete-li si vysazet na prvni strane dokumentu desky, zruste
-%   parametr cover
+% * Je-li prace psana ve slovenskem jazyce, je zapotrebi u tridy pouzit
+%   parametr slovak nasledovne:
+%      \documentclass[slovak]{fitthesis}
 
-% zde zvolime kodovani, ve kterem je napsan text prace
-% "latin2" pro iso8859-2 nebo "cp1250" pro windows-1250, "utf8" pro "utf-8"
-%\usepackage{ucs}
-\usepackage[utf8]{inputenc}
-\usepackage[T1, IL2]{fontenc}
+\usepackage[czech,slovak,english]{babel}
+\usepackage[utf8]{inputenc} %kodovani
+\usepackage[T1]{fontenc}
+\usepackage{cmap}
 \usepackage{url}
 \DeclareUrlCommand\url{\def\UrlLeft{<}\def\UrlRight{>} \urlstyle{tt}}
 
@@ -70,10 +69,23 @@
 \SetKw{And}{and}
 \SetKw{Or}{or}
 
-
 \theoremstyle{definition}
 \declaretheorem[name=Definice,numberwithin=section,qed={\lower0.3ex\hbox{$\blacktriangle$}}]{defn}
 \declaretheorem[name=Příklad,numberwithin=section,qed={\lower0.3ex\hbox{$\blacksquare$}}]{exmp}
+
+
+\usepackage{listings}
+\usepackage[toc,page,header]{appendix}
+\RequirePackage{titletoc}
+\ifczech
+  \usepackage{ae}
+\fi
+
+\input{pisma.tex}
+
+% vypne funkci nové šablony, která automaticky nahrazuje uvozovky,
+% aby nebyly prováděny nevhodné náhrady v popisech API apod.
+\csdoublequotesoff
 
 % =======================================================================
 % balíček "hyperref" vytváří klikací odkazy v pdf, pokud tedy použijeme pdflatex
@@ -91,6 +103,18 @@
   \def\pdfBorderAttrs{/Border [0 0 0] }  % bez okrajů kolem odkazů
   \pdfcompresslevel=9
 \fi
+\else % pro tisk budou odkazy, na které se dá klikat, černé
+\ifx\pdfoutput\undefined % nejedeme pod pdflatexem
+\else
+  \usepackage{color}
+  \usepackage[unicode,colorlinks,hyperindex,plainpages=false,pdftex,urlcolor=black,linkcolor=black,citecolor=black]{hyperref}
+  \definecolor{links}{rgb}{0,0,0}
+  \definecolor{anchors}{rgb}{0,0,0}
+  \def\AnchorColor{anchors}
+  \def\LinkColor{links}
+  \def\pdfBorderAttrs{/Border [0 0 0] } % bez okrajů kolem odkazů
+  \pdfcompresslevel=9
+\fi
 \fi
 
 %Informace o praci/projektu
@@ -105,24 +129,36 @@
   title.cs={Syntaktická analýza založená na gramatikách řízených stromy},  %nazev prace v cestine
   title.en={Parsing Based on Tree-Controled Grammars}, %nazev prace v anglictine
   %Autor
-  author={Štěpán Granát},   %jmeno prijmeni autora
+  author={Štěpán Granát},   %cele jmeno a prijmeni autora
+  author.name={Štěpán},   %jmeno autora (pro citaci)
+  author.surname={Granát},   %prijmeni autora (pro citaci)
   %author.title.p=Bc., %titul pred jmenem (nepovinne)
   %author.title.a=PhD, %titul za jmenem (nepovinne)
   %Ustav
-  department=UIFS, % doplnte prislusnou zkratku: UPSY/UIFS/UITS/UPGM
+  department=UIFS, % doplnte prislusnou zkratku dle ustavu na zadani: UPSY/UIFS/UITS/UPGM
   %Skolitel
-  supervisor= Alexandr Meduna, %jmeno prijmeni skolitele
-  supervisor.title.p=Prof. RNDr.,   %titul pred jmenem (nepovinne)
-  %supervisor.title.a={Ph.D.},    %titul za jmenem (nepovinne)
+  supervisor={Alexander Meduna}, %cele jmeno a prijmeni skolitele
+  supervisor.name={Alexander},   %jmeno skolitele (pro citaci)
+  supervisor.surname={Meduna},   %prijmeni skolitele (pro citaci)
+  supervisor.title.p={Prof. RNDr.},   %titul pred jmenem (nepovinne)
+  supervisor.title.a={CSc.},    %titul za jmenem (nepovinne)
   %Klicova slova, abstrakty, prohlaseni a podekovani je mozne definovat
   %bud pomoci nasledujicich parametru nebo pomoci vyhrazenych maker (viz dale)
   %===========================================================================
   %Klicova slova
-  keywords.cs={gramatiky řízené stromy, syntaktická analýza}, %klicova slova v ceskem jazyce
-  keywords.en={tree controlled grammars, syntactic analysis}, %klicova slova v anglickem jazyce
+  %keywords.cs={Klíčová slova v českém jazyce.}, %klicova slova v ceskem ci slovenskem jazyce
+  %keywords.en={Klíčová slova v anglickém jazyce.}, %klicova slova v anglickem jazyce
   %Abstract
-  abstract.cs={
-    Cílem této práce je navrhnout a implementovat syntaktický analyzátor
+  %abstract.cs={Výtah (abstrakt) práce v českém jazyce.}, % abstrakt v ceskem ci slovenskem jazyce
+  %abstract.en={Výtah (abstrakt) práce v anglickém jazyce.}, % abstrakt v anglickem jazyce
+  %Prohlaseni
+  %declaration={Prohlašuji, že jsem tuto bakalářskou práci vypracoval samostatně pod vedením pana ...},
+  %Podekovani (nepovinne)
+  %acknowledgment={Zde je možné uvést poděkování vedoucímu práce a těm, kteří poskytli odbornou pomoc.} % nepovinne
+}
+
+%Abstrakt (cesky, slovensky ci anglicky)
+\abstract[cs]{Cílem této práce je navrhnout a implementovat syntaktický analyzátor
     gramatik, jejichž derivační strom je omezen pomocí kontroly úrovní.
     Běžné postupy syntaktické analýzy jsou podrobně rozebrány a
     poté je diskutováno, jak by mohly být rozšířeny o kontrolu
@@ -131,30 +167,19 @@
     průběžné kontroly derivačního stromu již při jeho konstrukci,
     což umožňuje úzké propojení těchto dvou procesů.
     Uvedený přístup přináší výrazné zvýšení síly syntaktického analyzátoru.
-  }, % abstrakt v ceskem jazyce
-  abstract.en={Výtah (abstrakt) práce v anglickém jazyce.}, % abstrakt v anglickem jazyce
-  %Prohlaseni
-  declaration={Prohlašuji, že jsem tuto bakalářskou práci vypracoval samostatně pod vedením profesora RNDr. Alexandra Meduny, CSc. Uvedl jsem všechny literární prameny a publikace, ze kterých jsem čerpal.},
-  %Podekovani (nepovinne)
-  acknowledgment={Děkuji prof. Alexandru Medunovi za ochotu vést tuto práci, jeho odborné rady a morální podporu.} % nepovinne
-}
+    }
+\abstract[en]{Do tohoto odstavce bude zapsán výtah (abstrakt) práce v anglickém jazyce.}
 
-%Abstrakt (cesky, anglicky)
-%\abstract[cs]{Do tohoto odstavce bude zapsán výtah (abstrakt) práce v českém jazyce.}
-%\abstract[en]{Do tohoto odstavce bude zapsán výtah (abstrakt) práce v anglickém jazyce.}
+%Klicova slova (cesky, slovensky ci anglicky)
+\keywords[cs]{gramatiky řízené stromy, syntaktická analýza}
+\keywords[en]{tree controlled grammars, syntactic analysis}
 
-%Klicova slova (cesky, anglicky)
-%\keywords[cs]{Sem budou zapsána jednotlivá klíčová slova v českém jazyce, oddělená čárkami.}
-%\keywords[en]{Sem budou zapsána jednotlivá klíčová slova v anglickém jazyce, oddělená čárkami.}
+%Prohlaseni (u anglicky psane prace anglicky, u slovensky psane prace slovensky)
+\declaration{Prohlašuji, že jsem tuto bakalářskou práci vypracoval samostatně pod vedením profesora RNDr. Alexandera Meduny, CSc.
+Uvedl jsem všechny literární prameny a publikace, ze kterých jsem čerpal.}
 
-%Prohlaseni
-%\declaration{Prohlašuji, že jsem tuto bakalářskou práci vypracoval samostatně pod vedením pana X...
-%Další informace mi poskytli...
-%Uvedl jsem všechny literární prameny a publikace, ze kterých jsem čerpal.}
-
-%Podekovani (nepovinne)
-%\acknowledgment{V této sekci je možno uvést poděkování vedoucímu práce a těm, kteří poskytli odbornou pomoc
-%(externí zadavatel, konzultant, apod.).}
+%Podekovani (nepovinne, nejlepe v jazyce prace)
+\acknowledgment{Děkuji prof. Alexanderu Medunovi za ochotu vést tuto práci, jeho odborné rady a morální podporu.}
 
 \begin{document}
   % Vysazeni titulnich stran
@@ -165,7 +190,21 @@
   \tableofcontents
 
   % Seznam obrazku a tabulek (pokud prace obsahuje velke mnozstvi obrazku, tak se to hodi)
+\ifczech
+  \renewcommand\listfigurename{Seznam obrázků}
+\fi
+\ifslovak
+  \renewcommand\listfigurename{Zoznam obrázkov}
+\fi
+
   % \listoffigures
+\ifczech
+  \renewcommand\listtablename{Seznam tabulek}
+\fi
+\ifslovak
+  \renewcommand\listtablename{Zoznam tabuliek}
+\fi
+
   % \listoftables
 
   % Text prace
@@ -174,17 +213,58 @@
 
   % Pouzita literatura
   % ----------------------------------------------
-\ifczech
+\ifslovak
+  \makeatletter
+  \def\@openbib@code{\addcontentsline{toc}{chapter}{Literatúra}}
+  \makeatother
   \bibliographystyle{czechiso}
 \else
-  \bibliographystyle{plain}
-%  \bibliographystyle{alpha}
+  \ifczech
+    \makeatletter
+    \def\@openbib@code{\addcontentsline{toc}{chapter}{Literatura}}
+    \makeatother
+    \bibliographystyle{czechiso}
+  \else
+    \makeatletter
+    \def\@openbib@code{\addcontentsline{toc}{chapter}{Bibliography}}
+    \makeatother
+    \bibliographystyle{plain}
+  %  \bibliographystyle{alpha}
+  \fi
 \fi
   \begin{flushleft}
-  \nocite{*}
   \bibliography{literatura} % viz. literatura.bib
   \end{flushleft}
-  \appendix
 
+  % Prilohy
+  % ---------------------------------------------
+  \appendix
+\ifczech
+  \renewcommand{\appendixpagename}{Přílohy}
+  \renewcommand{\appendixtocname}{Přílohy}
+  \renewcommand{\appendixname}{Příloha}
+\fi
+\ifslovak
+  \renewcommand{\appendixpagename}{Prílohy}
+  \renewcommand{\appendixtocname}{Prílohy}
+  \renewcommand{\appendixname}{Príloha}
+\fi
+  \appendixpage
+
+\ifslovak
+  \section*{Zoznam príloh}
+  \addcontentsline{toc}{section}{Zoznam príloh}
+\else
+  \ifczech
+    %\section*{Seznam příloh}
+    %\addcontentsline{toc}{section}{Seznam příloh}
+  \else
+    \section*{List of Appendices}
+    \addcontentsline{toc}{section}{List of Appendices}
+  \fi
+\fi
+  %\startcontents[chapters]
+  %\printcontents[chapters]{l}{0}{\setcounter{tocdepth}{2}}
+  \nocite{*}
   \input{prilohy} % viz. prilohy.tex
 \end{document}

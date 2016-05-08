@@ -24,16 +24,10 @@ $(CO).dvi: $(CO).tex $(CO).bib
 	latex $(CO)
 	latex $(CO)
 
-desky:
-#	latex desky
-#	dvips desky
-#	dvipdf desky
-	pdflatex desky
-
 clean:
-	rm -f *.dvi *.log $(CO).blg $(CO).bbl $(CO).toc *.aux $(CO).out $(CO).lof
+	rm -f *.dvi *.log $(CO).blg $(CO).bbl $(CO).toc *.aux $(CO).out $(CO).lof $(CO).ptc
 	rm -f $(CO).pdf
 	rm -f *~
 
 pack:
-	tar czvf bp-xgrana02.tar.gz czechiso.bst fitthesis.cls *.tex *.bib *.bst ./fig/* Makefile
+	tar czvf bp-xjmeno.tar.gz *.tex *.bib *.bst ./fig/* ./cls/* zadani.pdf $(CO).pdf Makefile Changelog
