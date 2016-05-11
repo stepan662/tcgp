@@ -207,7 +207,7 @@ class Automat:
     def applyCharToState(self, char, state):
         """Make one step with given char and state."""
         rules = self._states[state].getRules(char)
-        if len(rules) == 1:
+        if len(rules) >= 1:
             return rules[0]
         else:
             return False

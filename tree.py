@@ -214,7 +214,7 @@ class Tree:
         # success
         # new autStates are ok
         newState = self.applyCharToState(rule.leftSide, firstState)
-        if newState is False:
+        if newState is False or newState == set():
             return False
         autStates = [newState] + autStates
         return autStates

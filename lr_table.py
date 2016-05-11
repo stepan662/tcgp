@@ -129,12 +129,12 @@ class TableItem:
         cls = type(self)
         self.isReduceReduce = False
         self.isShiftReduce = False
-        if self.shift is not False and len(self.reduce) == 1:
+        if (self.shift is not False) and (len(self.reduce) >= 1):
             self.isShiftReduce = True
             if not cls.shiftReduceAllow:
                 return False
 
-        if self.shift is False and len(self.reduce) >= 2:
+        if len(self.reduce) >= 2:
             self.isReduceReduce = True
             if not cls.reduceReduceAllow:
                 return False
@@ -462,65 +462,64 @@ class LRTable:
     def _getItem(self, stack, alpha, state, token, tree):
         grammar = self.grammar
         item = False
-        if alpha.isShiftReduce:
-            # shift-reduce conflict
+        # print(alpha.isShiftReduce, alpha.isReduceReduce)
+        if alpha.isShiftReduce or alpha.isReduceReduce:
             if self.automat is not False:
-                # no precedence help, try to solve it by tree conflict
-                item = alpha.getItem(Operation.reduce)
-                states = tree.tryApplyRule(grammar.rules[item.state])
-                if states is False:
-                    # if there is conflict, just shift
-                    debug_print('rules', "try",
-                                grammar.rules[item.state],
-                                "no - shift", token)
-                    item = alpha.getItem(Operation.shift)
-                    tree.pushSymbol(token)
-                else:
-                    debug_print('rules', "try",
-                                grammar.rules[item.state],
-                                "success")
-                    # we are just guessing - if there
-                    # gonna be fail in future that doesn't
-                    # mean, that string can't be in grammar
+                # try to solve it by tree conflict
+                # reduce-reduce conflict
+                possibleRules = []
+                debug_print('rules', "conflict:")
+                for it in alpha.getReduce():
+                    rule = grammar.rules[it.state]
+                    states = tree.tryApplyRule(rule)
+                    if states is not False:
+                        debug_print('rules', "   ", rule, "\t ok")
+                        possibleRules.append((it, rule, states))
+                    else:
+                        debug_print('rules', "   ", rule, "\t no")
+
+                if len(possibleRules) > 1:
+                    # multiple options
+                    # we don't know what rule use - it is possible
+                    # that some way leads to success
                     self.exit_code = 2
-                    tree.applyRule(grammar.rules[item.state], states)
+                    options = "\n".join([str(pos[1])
+                                         for pos in possibleRules])
+                    raise ValueError("Unhandled reduce-reduce " +
+                                     "conflict in lr table on position [" +
+                                     str(state) + "," + token + "], " +
+                                     "got theese options:\n" + options)
+
+                elif len(possibleRules) == 1:
+                    # got only one option
+                    pos = possibleRules[0]
+                    if alpha.isShiftReduce:
+                        debug_print('rules', "undeterministic reduce")
+                        # we are just guessing - if there
+                        # gonna be fail in future that doesn't
+                        # mean, that string can't be in grammar
+                        self.exit_code = 2
+                    else:
+                        debug_print('rules', "deterministic reduce")
+                    tree.applyRule(pos[1], pos[2])
+                    item = pos[0]
+                else:
+                    if alpha.isShiftReduce:
+                        # if there is conflict, just shift
+                        debug_print('rules', "shift", token)
+                        item = alpha.getItem(Operation.shift)
+                        tree.pushSymbol(token)
+                    else:
+                        raise ValueError("No rule fits to tree for " +
+                                         "reduce-reduce conflict in lr " +
+                                         "table, on position [" +
+                                         str(state) + "," + token + "]")
             elif item is False:
                 # we don't know what to do - shift-reduce conflict
                 self.exit_code = 2
-                raise ValueError("Unhandled shift-reduce " +
+                raise ValueError("Unhandled " +
                                  "conflict in lr table on position [" +
                                  str(state) + "," + token + "], ")
-
-        elif alpha.isReduceReduce:
-            # reduce-reduce conflict
-            possibleRules = []
-            for it in alpha.getReduce():
-                rule = grammar.rules[it.state]
-                states = tree.tryApplyRule(rule)
-                if states is not False:
-                    possibleRules.append((it, rule, states))
-
-            if len(possibleRules) > 1:
-                # multiple options
-                # we don't know what rule use - it is possible
-                # that some way leads to success
-                self.exit_code = 2
-                options = "\n".join([str(pos[1])
-                                     for pos in possibleRules])
-                raise ValueError("Unhandled reduce-reduce " +
-                                 "conflict in lr table on position [" +
-                                 str(state) + "," + token + "], " +
-                                 "got theese options:\n" + options)
-            elif len(possibleRules) == 1:
-                # got only one option
-                pos = possibleRules[0]
-                tree.applyRule(pos[1], pos[2])
-                item = pos[0]
-            else:
-                raise ValueError("No rule fits to tree for " +
-                                 "reduce-reduce conflict in lr " +
-                                 "table, on position [" +
-                                 str(state) + "," + token + "]")
         else:
             # no conflict, get operation
             item = alpha.getItem()
