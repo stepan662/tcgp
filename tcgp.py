@@ -18,6 +18,8 @@ from debug_print import err_print
 
 # -- coding: utf-8 --
 __author__ = 'stepan'
+__license__ = 'MIT'
+__version__ = '1.0'
 
 
 class ArgumentParser(argparse.ArgumentParser):

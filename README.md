@@ -1,12 +1,30 @@
-# README #
+# TREE CONTROLLED PARSER CD ATTACHMENT #
 
-## Tree controlled grammar parser (TCGP) ##
-
-Tree controlled grammar parser is a part of bachelor thesis: Parsing Based
+This is a part of bachelor thesis: Parsing Based
 on Tree-Controled Grammars, Brno University of Technology 2016.
+
+This CD contains:
+```
+CD
+ |- src            - application source files
+     |- tcgp.py
+     \- ....
+ |- tests          - tests
+     |- test.sh
+     \- ...
+ |- docs           - thesis source files
+     |- thesis.tex
+     \- ...
+ |- thesis.pdf     - thesis in pdf format
+ |- MIT_licence.txt
+```
+
+## Tree controlled grammar parser (TCGP) application ##
 
 Basic usage is for verification, that text string belongs to specified grammar.
 This parser expands common LR parser, so it allows parsing of some non-context free grammars.
+
+Source files are placed in `./src/` folder.
 
 For execution use python3.
 
@@ -19,25 +37,25 @@ Tree controlled grammar parser
 optional arguments:
   -h, --help            show this help message and exit
   -g GRAMMAR, --grammar GRAMMAR
-                        Input grammar file
+        Input grammar file
   -p CHOICE [CHOICE ...], --print CHOICE [CHOICE ...]
-                        Decide what to print from these CHOICES:
-                         - tree:       final derivation tree
-                         - trees:      derivation tree development
-                         - stack:      continuously print stack of symbols
-                         - rules:      continuously print applied rules
-                         - groups:     lr groups generated from rules
-                         - table:      lr table
-                         - eff:        empty, first and follow sets
-                         - automat:    print final state machine
-                         - precedence: print precedence table
-                         - grammar:    print input grammar
-                         - scanner:    print input scanner automat
-                         - all:        print all
+        Decide what to print from these CHOICES:
+         - tree:       final derivation tree
+         - trees:      derivation tree development
+         - stack:      continuously print stack of symbols
+         - rules:      continuously print applied rules
+         - groups:     lr groups generated from rules
+         - table:      lr table
+         - eff:        empty, first and follow sets
+         - automat:    print final state machine
+         - precedence: print precedence table
+         - grammar:    print input grammar
+         - scanner:    print input scanner automat
+         - all:        print all
   -i INPUT, --input INPUT
-                        Input string file, <stdin> if not present
+        Input string file, <stdin> if not present
   -o OUTPUT, --output OUTPUT
-                        Output file, <stdout> if not present
+        Output file, <stdout> if not present
 
 ~~~
 
@@ -136,3 +154,16 @@ It is not clear, if string belongs to grammar. This problem is described closely
 * 5:  `FINITE_AUTOMAT_ERROR` - Logical error in user defined Finite automat.
 * 10: `ARGUMENTS_ERROR` - Arguments error.
 * 99: `INTERNAL_ERROR` - Other internal error.
+
+## Test suite ##
+
+Test suite is placed in `./tests/` folder and contains many example grammars, including all grammars mentioned in the Bc. thesis.
+
+You can run all tests by bash script by typing `./test.sh` in tests folder.
+
+## LaTex source files of thesis ##
+
+Source files of thesis are placed in `./docs/` folder. For compiling
+to .pdf format just type `make` in documentation folder. Package `pdflatex` is required.
+
+Content of this CD (including all source files) is protected by MIT licence.

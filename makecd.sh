@@ -14,8 +14,10 @@ cp docs/*.bst .cd/docs/
 cp docs/fitthesis.cls .cd/docs/
 cp docs/fig/* .cd/docs/fig/
 cp docs/Makefile .cd/docs/
-cp README.* .cd/
+cp README.pdf .cd/
+cp README.md .cd/README.txt
 cp *.py .cd/src/
+cp MIT_licence.txt .cd/
 cp ../tcgp-tests/*.in .cd/tests
 cp ../tcgp-tests/test.sh .cd/tests
 # change relative position in test.sh file
